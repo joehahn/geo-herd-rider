@@ -5,7 +5,12 @@ ev435  exited  born 2025-11-28  6 scan(s)
   SUBJECT   KNTNF (the others are peers)
   VEHICLES
     KNTNF   gains -- plant expansion lifts production capacity
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-11-28  15.94   rank 3 of 4   mentions 337 · sources 118 · authors 85 · superl 15 · velocity +0.00
+  EVSCORE 2025-12-28  14.60   rank 9 of 12   mentions 286 · sources 111 · authors 76 · superl 10 · velocity -0.15
+  EVSCORE 2026-01-27  15.19   rank 16 of 21   mentions 261 · sources 100 · authors 73 · superl 15 · velocity -0.09
+  EVSCORE 2026-02-26  15.47   rank 22 of 31   mentions 301 · sources 105 · authors 86 · superl 8 · velocity +0.15
+  EVSCORE 2026-03-28  17.75   rank 11 of 42   mentions 398 · sources 125 · authors 97 · superl 19 · velocity +0.32
+  EVSCORE 2026-04-27  13.71   rank 49 of 59   mentions 277 · sources 102 · authors 81 · superl 9 · velocity -0.30
   ARC
     2025-11-28  live=True resolved=False  milestones 1  sources 1
       "Catalyst remains pending; expansion not yet complete."
@@ -28,7 +33,17 @@ ev436  live  born 2025-11-28  11 scan(s)
   SUBJECT   QURE (the others are peers)
   VEHICLES
     QURE    gains -- awaits FDA decision on AMT-130 approval
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-11-28  14.22   rank 4 of 4   mentions 262 · sources 92 · authors 58 · superl 7 · velocity +0.00
+  EVSCORE 2025-12-28  12.67   rank 12 of 12   mentions 221 · sources 85 · authors 51 · superl 4 · velocity -0.16
+  EVSCORE 2026-01-27  12.69   rank 19 of 21   mentions 186 · sources 62 · authors 45 · superl 7 · velocity -0.16
+  EVSCORE 2026-02-26  15.05   rank 25 of 31   mentions 247 · sources 82 · authors 52 · superl 6 · velocity +0.33
+  EVSCORE 2026-03-28  13.45   rank 37 of 42   mentions 243 · sources 66 · authors 52 · superl 7 · velocity -0.02
+  EVSCORE 2026-04-27  13.11   of 59   mentions 207 · sources 80 · authors 53 · superl 6 · velocity -0.15
+  EVSCORE 2026-04-27  13.64   rank 50 of 59   mentions 205 · sources 80 · authors 51 · superl 6 · velocity -0.01
+  EVSCORE 2026-05-27  14.37   rank 40 of 51   mentions 231 · sources 66 · authors 53 · superl 9 · velocity +0.13
+  EVSCORE 2026-06-26  13.03   rank 44 of 50   mentions 240 · sources 59 · authors 53 · superl 5 · velocity +0.04
+  EVSCORE 2026-07-26  14.01   rank 39 of 53   mentions 215 · sources 77 · authors 52 · superl 11 · velocity -0.10
+  EVSCORE 2026-08-25  7.31   rank 55 of 56   mentions 68 · sources 37 · authors 3 · superl 3 · velocity -0.68
   ARC
     2025-11-28  live=True resolved=False  milestones 1  sources 2
       "Catalyst pending; FDA data concerns noted pre-entry but no decision yet"
@@ -61,7 +76,16 @@ ev442  exited  born 2025-11-28  10 scan(s)
   SUBJECT   CRCL (the others are peers)
   VEHICLES
     CRCL    gains -- USDC growth tied to pending GENIUS Act passage
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-11-28  16.71   rank 2 of 4   mentions 302 · sources 120 · authors 109 · superl 23 · velocity +0.00
+  EVSCORE 2025-12-28  15.94   rank 6 of 12   mentions 269 · sources 112 · authors 111 · superl 20 · velocity -0.11
+  EVSCORE 2026-01-27  16.47   rank 12 of 21   mentions 265 · sources 111 · authors 103 · superl 23 · velocity -0.01
+  EVSCORE 2026-02-26  17.72   rank 10 of 31   mentions 311 · sources 133 · authors 138 · superl 23 · velocity +0.17
+  EVSCORE 2026-03-28  16.79   rank 18 of 42   mentions 316 · sources 113 · authors 113 · superl 25 · velocity +0.02
+  EVSCORE 2026-04-27  15.89   of 59   mentions 263 · sources 104 · authors 90 · superl 27 · velocity -0.17
+  EVSCORE 2026-04-27  16.50   rank 25 of 59   mentions 260 · sources 104 · authors 88 · superl 27 · velocity -0.01
+  EVSCORE 2026-05-27  17.50   rank 21 of 51   mentions 288 · sources 108 · authors 120 · superl 33 · velocity +0.11
+  EVSCORE 2026-06-26  16.82   rank 28 of 50   mentions 287 · sources 103 · authors 107 · superl 31 · velocity -0.00
+  EVSCORE 2026-07-26  16.20   rank 22 of 53   mentions 255 · sources 106 · authors 110 · superl 26 · velocity -0.11
   ARC
     2025-11-28  live=True resolved=False  milestones 0  sources 2
       "No new legislative progress on GENIUS Act this week; CRCL reports strong USDC growth but stock reacts to Q3 sustainability concerns."
@@ -94,7 +118,17 @@ ev443  live  born 2025-11-28  11 scan(s)
     AMD     gains -- 50% revenue growth on AI chip demand   [also in ev479,ev516]
     AVGO    gains -- AI narrative rewrite via custom chips   [also in ev496,ev588,ev612]
     MU      gains -- memory prices surge on AI boom   [also in ev479,ev516,ev532]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-11-28  21.26   rank 1 of 4   mentions 1392 · sources 330 · authors 359 · superl 87 · velocity +0.00
+  EVSCORE 2025-12-28  15.78   rank 7 of 12   mentions 486 · sources 164 · authors 135 · superl 44 · velocity -0.65
+  EVSCORE 2026-01-27  17.74   rank 7 of 21   mentions 453 · sources 136 · authors 146 · superl 43 · velocity -0.07
+  EVSCORE 2026-02-26  19.59   rank 3 of 31   mentions 613 · sources 163 · authors 183 · superl 35 · velocity +0.35
+  EVSCORE 2026-03-28  18.26   rank 9 of 42   mentions 623 · sources 155 · authors 180 · superl 38 · velocity +0.02
+  EVSCORE 2026-04-27  17.34   of 59   mentions 504 · sources 155 · authors 163 · superl 37 · velocity -0.19
+  EVSCORE 2026-04-27  18.44   rank 10 of 59   mentions 534 · sources 156 · authors 164 · superl 39 · velocity +0.06
+  EVSCORE 2026-05-27  20.33   rank 7 of 51   mentions 716 · sources 156 · authors 214 · superl 60 · velocity +0.34
+  EVSCORE 2026-06-26  18.37   rank 11 of 50   mentions 702 · sources 147 · authors 197 · superl 47 · velocity -0.02
+  EVSCORE 2026-07-26  18.40   rank 3 of 53   mentions 604 · sources 160 · authors 202 · superl 59 · velocity -0.14
+  EVSCORE 2026-08-25  16.62   rank 12 of 56   mentions 551 · sources 121 · authors 10 · superl 60 · velocity -0.09
   ARC
     2025-11-28  live=True resolved=False  milestones 0  sources 2
       "Ongoing AI chip demand thesis intact; this week's coverage shows competition pressure but no reversal of growth driver for AMD."
@@ -127,7 +161,11 @@ ev450  exited  born 2025-12-28  5 scan(s)
   SUBJECT   UFO (the others are peers)
   VEHICLES
     UFO     gains -- positioned for SpaceX IPO and space sector upside
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  17.41   rank 3 of 12   mentions 427 · sources 132 · authors 128 · superl 31 · velocity +0.00
+  EVSCORE 2026-01-27  17.00   rank 9 of 21   mentions 391 · sources 124 · authors 129 · superl 32 · velocity -0.08
+  EVSCORE 2026-02-26  18.86   rank 6 of 31   mentions 512 · sources 164 · authors 155 · superl 25 · velocity +0.31
+  EVSCORE 2026-03-28  16.67   rank 19 of 42   mentions 483 · sources 120 · authors 141 · superl 24 · velocity -0.06
+  EVSCORE 2026-04-27  17.43   rank 17 of 59   mentions 491 · sources 158 · authors 155 · superl 22 · velocity +0.02
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 3
       "IPO remains pending with no resolution; sector buzz continues but catalyst unchanged."
@@ -148,7 +186,11 @@ ev457  exited  born 2025-12-28  5 scan(s)
   SUBJECT   INTC (the others are peers)
   VEHICLES
     INTC    gains -- pending $1.6B SambaNova AI chip acquisition   [also in ev474,ev516]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  13.39   rank 11 of 12   mentions 131 · sources 70 · authors 48 · superl 6 · velocity +0.00
+  EVSCORE 2026-01-27  12.68   rank 20 of 21   mentions 111 · sources 44 · authors 38 · superl 12 · velocity -0.15
+  EVSCORE 2026-02-26  14.69   rank 26 of 31   mentions 137 · sources 66 · authors 59 · superl 8 · velocity +0.23
+  EVSCORE 2026-03-28  10.75   rank 41 of 42   mentions 96 · sources 54 · authors 40 · superl 3 · velocity -0.30
+  EVSCORE 2026-04-27  17.51   rank 16 of 59   mentions 164 · sources 78 · authors 65 · superl 12 · velocity +0.71
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 0
       "No news on SambaNova deal; catalyst remains pending."
@@ -169,7 +211,12 @@ ev460  exited  born 2025-12-28  6 scan(s)
   SUBJECT   DJT (the others are peers)
   VEHICLES
     DJT     gains -- merger with TAE Technologies pending regulatory approval
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  17.98   rank 2 of 12   mentions 525 · sources 165 · authors 164 · superl 31 · velocity +0.00
+  EVSCORE 2026-01-27  18.82   rank 2 of 21   mentions 563 · sources 199 · authors 180 · superl 34 · velocity +0.07
+  EVSCORE 2026-02-26  19.53   rank 4 of 31   mentions 672 · sources 232 · authors 223 · superl 30 · velocity +0.19
+  EVSCORE 2026-03-28  19.71   rank 3 of 42   mentions 763 · sources 236 · authors 236 · superl 38 · velocity +0.14
+  EVSCORE 2026-04-27  19.30   of 59   mentions 707 · sources 270 · authors 245 · superl 42 · velocity -0.07
+  EVSCORE 2026-04-27  19.54   rank 4 of 59   mentions 699 · sources 269 · authors 240 · superl 42 · velocity -0.01
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 2
       "Deal announced this week; approval remains the pending catalyst"
@@ -192,7 +239,16 @@ ev462  live  born 2025-12-28  10 scan(s)
   SUBJECT   ALB (the others are peers)
   VEHICLES
     ALB     gains -- positioned for US lithium reserve purchases
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  17.16   rank 5 of 12   mentions 425 · sources 147 · authors 106 · superl 24 · velocity +0.00
+  EVSCORE 2026-01-27  15.81   rank 14 of 21   mentions 363 · sources 126 · authors 97 · superl 18 · velocity -0.15
+  EVSCORE 2026-02-26  17.15   rank 13 of 31   mentions 457 · sources 159 · authors 113 · superl 10 · velocity +0.26
+  EVSCORE 2026-03-28  14.81   rank 31 of 42   mentions 388 · sources 114 · authors 104 · superl 10 · velocity -0.15
+  EVSCORE 2026-04-27  14.56   of 59   mentions 330 · sources 120 · authors 92 · superl 8 · velocity -0.15
+  EVSCORE 2026-04-27  15.10   rank 39 of 59   mentions 327 · sources 120 · authors 89 · superl 8 · velocity -0.01
+  EVSCORE 2026-05-27  17.95   rank 16 of 51   mentions 420 · sources 121 · authors 102 · superl 25 · velocity +0.28
+  EVSCORE 2026-06-26  15.87   rank 32 of 50   mentions 444 · sources 118 · authors 111 · superl 11 · velocity +0.06
+  EVSCORE 2026-07-26  16.10   rank 23 of 53   mentions 396 · sources 138 · authors 104 · superl 17 · velocity -0.11
+  EVSCORE 2026-08-25  26.55   rank 1 of 56   mentions 1123 · sources 200 · authors 18 · superl 115 · velocity +1.84
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 3
       "No news on the proposed US Strategic Lithium Reserve policy; lithium sector coverage remains general."
@@ -223,7 +279,11 @@ ev465  exited  born 2025-12-28  5 scan(s)
   SUBJECT   FMST (the others are peers)
   VEHICLES
     FMST    gains -- awaits gravity survey results at Turkey Lake project
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  15.18   rank 8 of 12   mentions 251 · sources 83 · authors 61 · superl 16 · velocity +0.00
+  EVSCORE 2026-01-27  15.38   rank 15 of 21   mentions 236 · sources 88 · authors 73 · superl 19 · velocity -0.06
+  EVSCORE 2026-02-26  16.64   rank 16 of 31   mentions 292 · sources 113 · authors 90 · superl 13 · velocity +0.24
+  EVSCORE 2026-03-28  18.85   rank 7 of 42   mentions 404 · sources 141 · authors 137 · superl 26 · velocity +0.38
+  EVSCORE 2026-04-27  16.11   rank 29 of 59   mentions 342 · sources 145 · authors 106 · superl 18 · velocity -0.15
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 0
       "Survey outcome still pending; no new developments this week."
@@ -244,7 +304,11 @@ ev466  exited  born 2025-12-28  5 scan(s)
   SUBJECT   CAPR (the others are peers)
   VEHICLES
     CAPR    gains -- cell therapy awaiting FDA approval for DMD
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  13.86   rank 10 of 12   mentions 157 · sources 53 · authors 46 · superl 13 · velocity +0.00
+  EVSCORE 2026-01-27  12.22   rank 21 of 21   mentions 148 · sources 57 · authors 45 · superl 4 · velocity -0.06
+  EVSCORE 2026-02-26  16.54   rank 17 of 31   mentions 227 · sources 78 · authors 82 · superl 9 · velocity +0.53
+  EVSCORE 2026-03-28  14.01   rank 35 of 42   mentions 221 · sources 58 · authors 68 · superl 12 · velocity -0.03
+  EVSCORE 2026-04-27  13.49   rank 52 of 59   mentions 177 · sources 67 · authors 69 · superl 11 · velocity -0.20
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 0
       "No new developments on CAPR's FDA path this week; stock momentum noted in prior coverage but catalyst remains pending."
@@ -265,7 +329,11 @@ ev467  exited  born 2025-12-28  5 scan(s)
   SUBJECT   SRXH (the others are peers)
   VEHICLES
     SRXH    gains -- acquires EMJX for digital asset treasury system
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  17.35   rank 4 of 12   mentions 538 · sources 132 · authors 152 · superl 28 · velocity +0.00
+  EVSCORE 2026-01-27  15.08   rank 17 of 21   mentions 365 · sources 120 · authors 110 · superl 18 · velocity -0.32
+  EVSCORE 2026-02-26  16.05   rank 19 of 31   mentions 376 · sources 125 · authors 124 · superl 12 · velocity +0.03
+  EVSCORE 2026-03-28  15.69   rank 24 of 42   mentions 346 · sources 106 · authors 105 · superl 17 · velocity -0.08
+  EVSCORE 2026-04-27  15.68   rank 35 of 59   mentions 319 · sources 122 · authors 100 · superl 14 · velocity -0.08
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 0
       "No news on the announced acquisition; catalyst remains pending."
@@ -286,7 +354,15 @@ ev469  exited  born 2025-12-28  9 scan(s)
   SUBJECT   NEE (the others are peers)
   VEHICLES
     NEE     gains -- positioned for AI data center power demand growth
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2025-12-28  19.44   rank 1 of 12   mentions 555 · sources 168 · authors 152 · superl 84 · velocity +0.00
+  EVSCORE 2026-01-27  18.99   rank 1 of 21   mentions 544 · sources 155 · authors 146 · superl 74 · velocity -0.02
+  EVSCORE 2026-02-26  20.11   rank 1 of 31   mentions 664 · sources 197 · authors 195 · superl 54 · velocity +0.22
+  EVSCORE 2026-03-28  20.65   rank 1 of 42   mentions 758 · sources 203 · authors 236 · superl 87 · velocity +0.14
+  EVSCORE 2026-04-27  19.16   of 59   mentions 635 · sources 199 · authors 194 · superl 79 · velocity -0.16
+  EVSCORE 2026-04-27  19.70   rank 3 of 59   mentions 624 · sources 198 · authors 192 · superl 78 · velocity -0.02
+  EVSCORE 2026-05-27  20.92   rank 4 of 51   mentions 740 · sources 183 · authors 206 · superl 111 · velocity +0.19
+  EVSCORE 2026-06-26  20.11   rank 3 of 50   mentions 812 · sources 180 · authors 219 · superl 82 · velocity +0.10
+  EVSCORE 2026-07-26  18.56   rank 2 of 53   mentions 635 · sources 164 · authors 190 · superl 80 · velocity -0.22
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 0
       "No developments on NEE or AI data center power demand this week; catalyst remains pending."
@@ -315,7 +391,11 @@ ev472  exited  born 2026-01-27  5 scan(s)
   SUBJECT   NVDA (the others are peers)
   VEHICLES
     NVDA    gains -- benefits if H200 exports to China approved   [also in ev479]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  16.77   rank 10 of 21   mentions 300 · sources 117 · authors 106 · superl 25 · velocity +0.00
+  EVSCORE 2026-02-26  16.76   rank 15 of 31   mentions 354 · sources 141 · authors 120 · superl 11 · velocity +0.18
+  EVSCORE 2026-03-28  14.51   rank 33 of 42   mentions 275 · sources 103 · authors 116 · superl 11 · velocity -0.22
+  EVSCORE 2026-04-27  12.62   of 59   mentions 170 · sources 74 · authors 83 · superl 8 · velocity -0.38
+  EVSCORE 2026-04-27  14.00   rank 46 of 59   mentions 165 · sources 74 · authors 78 · superl 8 · velocity -0.03
   ARC
     2026-01-27  live=True resolved=False  milestones 0  sources 0
       "No news on US export decision or China H200 approval; catalyst remains pending."
@@ -336,7 +416,11 @@ ev474  exited  born 2026-01-27  5 scan(s)
   SUBJECT   INTC (the others are peers)
   VEHICLES
     INTC    gains -- positioned for government equity stake or subsidy   [also in ev457,ev516]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  17.82   rank 6 of 21   mentions 502 · sources 152 · authors 151 · superl 32 · velocity +0.00
+  EVSCORE 2026-02-26  18.00   rank 8 of 31   mentions 585 · sources 175 · authors 173 · superl 18 · velocity +0.17
+  EVSCORE 2026-03-28  18.15   rank 10 of 42   mentions 617 · sources 190 · authors 181 · superl 24 · velocity +0.05
+  EVSCORE 2026-04-27  17.11   of 59   mentions 505 · sources 170 · authors 166 · superl 27 · velocity -0.18
+  EVSCORE 2026-04-27  17.79   rank 14 of 59   mentions 501 · sources 169 · authors 164 · superl 27 · velocity -0.01
   ARC
     2026-01-27  live=True resolved=False  milestones 0  sources 3
       "Catalyst pending; no announcement of Intel stake or further support this week. Intel earnings miss unrelated to trigger."
@@ -357,7 +441,12 @@ ev478  exited  born 2026-01-27  6 scan(s)
   SUBJECT   KBR (the others are peers)
   VEHICLES
     KBR     gains -- positioned for prioritized defense contracting spend
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  16.53   rank 11 of 21   mentions 312 · sources 137 · authors 91 · superl 18 · velocity +0.00
+  EVSCORE 2026-02-26  16.49   rank 18 of 31   mentions 359 · sources 121 · authors 103 · superl 13 · velocity +0.15
+  EVSCORE 2026-03-28  15.86   rank 22 of 42   mentions 374 · sources 123 · authors 103 · superl 11 · velocity +0.04
+  EVSCORE 2026-04-27  15.10   of 59   mentions 312 · sources 120 · authors 104 · superl 12 · velocity -0.17
+  EVSCORE 2026-04-27  15.72   rank 34 of 59   mentions 309 · sources 120 · authors 102 · superl 12 · velocity -0.01
+  EVSCORE 2026-05-27  14.70   rank 36 of 51   mentions 293 · sources 100 · authors 84 · superl 9 · velocity -0.05
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 1
       "EO issuance and spending impact remain pending; no direct news on this order this week."
@@ -388,7 +477,12 @@ ev479  exited  born 2026-01-27  6 scan(s)
     SMH        [NO-CLAUSE]
     SNDK       [NO-CLAUSE]
     SOXX    gains -- semiconductor ETF exposed to memory chip demand
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  16.44   rank 13 of 21   mentions 252 · sources 107 · authors 89 · superl 24 · velocity +0.00
+  EVSCORE 2026-02-26  17.25   rank 12 of 31   mentions 321 · sources 140 · authors 124 · superl 12 · velocity +0.27
+  EVSCORE 2026-03-28  15.91   rank 21 of 42   mentions 325 · sources 119 · authors 105 · superl 13 · velocity +0.01
+  EVSCORE 2026-04-27  15.41   of 59   mentions 258 · sources 110 · authors 104 · superl 19 · velocity -0.21
+  EVSCORE 2026-04-27  15.96   rank 31 of 59   mentions 244 · sources 108 · authors 98 · superl 19 · velocity -0.05
+  EVSCORE 2026-05-27  18.54   rank 10 of 51   mentions 335 · sources 112 · authors 118 · superl 31 · velocity +0.37
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 1
       "Tariff signal remains pending; South Korea 25% move is related but not the named 100% catalyst."
@@ -411,7 +505,11 @@ ev482  exited  born 2026-01-27  5 scan(s)
   SUBJECT   SONM (the others are peers)
   VEHICLES
     SONM    gains -- benefits from digital asset management strategy
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  18.05   rank 4 of 21   mentions 631 · sources 143 · authors 137 · superl 42 · velocity +0.00
+  EVSCORE 2026-02-26  19.10   rank 5 of 31   mentions 796 · sources 176 · authors 201 · superl 28 · velocity +0.26
+  EVSCORE 2026-03-28  17.03   rank 17 of 42   mentions 678 · sources 128 · authors 185 · superl 33 · velocity -0.15
+  EVSCORE 2026-04-27  16.33   of 59   mentions 542 · sources 134 · authors 165 · superl 23 · velocity -0.20
+  EVSCORE 2026-04-27  17.07   rank 19 of 59   mentions 534 · sources 134 · authors 164 · superl 23 · velocity -0.01
   ARC
     2026-01-27  live=True resolved=False  milestones 0  sources 0
       "Rebrand occurred on entry date; strategy unfolding remains pending with zero supporting news this week"
@@ -433,7 +531,12 @@ ev484  exited  born 2026-01-27  6 scan(s)
   VEHICLES
     MRVL    gains -- acquires XConn Technologies in pending $540M deal   [also in ev496,ev541]
     XSD     gains -- equal-weighted exposure to US semiconductor stocks
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  14.63   rank 18 of 21   mentions 217 · sources 79 · authors 71 · superl 11 · velocity +0.00
+  EVSCORE 2026-02-26  16.90   rank 14 of 31   mentions 295 · sources 92 · authors 106 · superl 14 · velocity +0.36
+  EVSCORE 2026-03-28  14.85   rank 30 of 42   mentions 295 · sources 85 · authors 107 · superl 10 · velocity +0.00
+  EVSCORE 2026-04-27  16.10   of 59   mentions 298 · sources 107 · authors 112 · superl 17 · velocity +0.01
+  EVSCORE 2026-04-27  15.22   rank 37 of 59   mentions 276 · sources 106 · authors 104 · superl 12 · velocity -0.07
+  EVSCORE 2026-05-27  16.88   rank 25 of 51   mentions 316 · sources 96 · authors 103 · superl 24 · velocity +0.14
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 1
       "Deal announced prior to entry; still pending with no closure or termination news this week."
@@ -458,7 +561,12 @@ ev485  exited  born 2026-01-27  6 scan(s)
     AGNC    gains -- MBS holdings benefit from plan support
     RKT     gains -- mortgage origination rises if plan implemented
     TWO     gains -- mortgage REIT portfolio aided by bond plan
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  17.25   rank 8 of 21   mentions 397 · sources 161 · authors 130 · superl 21 · velocity +0.00
+  EVSCORE 2026-02-26  17.46   rank 11 of 31   mentions 473 · sources 185 · authors 151 · superl 11 · velocity +0.19
+  EVSCORE 2026-03-28  17.72   rank 12 of 42   mentions 483 · sources 180 · authors 158 · superl 22 · velocity +0.02
+  EVSCORE 2026-04-27  18.33   of 59   mentions 479 · sources 211 · authors 162 · superl 29 · velocity -0.01
+  EVSCORE 2026-04-27  18.27   rank 12 of 59   mentions 475 · sources 211 · authors 160 · superl 28 · velocity -0.01
+  EVSCORE 2026-05-27  15.43   rank 33 of 51   mentions 408 · sources 144 · authors 132 · superl 10 · velocity -0.14
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 2
       "Plan just proposed with no implementation date; RKT reacted immediately but catalyst remains pending."
@@ -481,7 +589,12 @@ ev487  exited  born 2026-01-27  6 scan(s)
   SUBJECT   CRML (the others are peers)
   VEHICLES
     CRML    gains -- deploys autonomous drone system at Tanbreez project   [also in ev497]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  17.93   rank 5 of 21   mentions 470 · sources 174 · authors 134 · superl 30 · velocity +0.00
+  EVSCORE 2026-02-26  18.21   rank 7 of 31   mentions 563 · sources 179 · authors 160 · superl 19 · velocity +0.20
+  EVSCORE 2026-03-28  17.12   rank 15 of 42   mentions 566 · sources 148 · authors 134 · superl 21 · velocity +0.01
+  EVSCORE 2026-04-27  15.90   of 59   mentions 466 · sources 156 · authors 128 · superl 14 · velocity -0.18
+  EVSCORE 2026-04-27  16.41   rank 26 of 59   mentions 458 · sources 155 · authors 126 · superl 13 · velocity -0.02
+  EVSCORE 2026-05-27  17.25   rank 23 of 51   mentions 478 · sources 133 · authors 118 · superl 25 · velocity +0.04
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 1
       "Announcement of drone deployment at Tanbreez is the entry catalyst; operational status remains pending."
@@ -504,7 +617,11 @@ ev490  exited  born 2026-01-27  5 scan(s)
   SUBJECT   BE (the others are peers)
   VEHICLES
     BE      gains -- supplies fuel cells for the approved Wyoming data center
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-01-27  18.43   rank 3 of 21   mentions 536 · sources 168 · authors 155 · superl 42 · velocity +0.00
+  EVSCORE 2026-02-26  19.90   rank 2 of 31   mentions 702 · sources 204 · authors 213 · superl 34 · velocity +0.31
+  EVSCORE 2026-03-28  19.30   rank 5 of 42   mentions 768 · sources 204 · authors 226 · superl 40 · velocity +0.09
+  EVSCORE 2026-04-27  18.91   of 59   mentions 688 · sources 220 · authors 218 · superl 48 · velocity -0.10
+  EVSCORE 2026-04-27  19.26   rank 5 of 59   mentions 679 · sources 219 · authors 216 · superl 48 · velocity -0.01
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 0
       "No new developments on the Wyoming project or related milestones this week. Bloom Energy's separate billion-dollar deal is unrelated."
@@ -525,7 +642,11 @@ ev494  exited  born 2026-02-26  5 scan(s)
   SUBJECT   TSM (the others are peers)
   VEHICLES
     TSM     gains -- positioned for 3nm AI production ramp in Japan   [also in ev516]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  14.08   rank 28 of 31   mentions 194 · sources 76 · authors 65 · superl 8 · velocity +0.00
+  EVSCORE 2026-03-28  15.19   rank 28 of 42   mentions 209 · sources 91 · authors 67 · superl 11 · velocity +0.08
+  EVSCORE 2026-04-27  13.22   of 59   mentions 171 · sources 65 · authors 68 · superl 9 · velocity -0.18
+  EVSCORE 2026-04-27  14.06   rank 45 of 59   mentions 173 · sources 67 · authors 68 · superl 9 · velocity +0.01
+  EVSCORE 2026-05-27  12.55   rank 46 of 51   mentions 163 · sources 55 · authors 59 · superl 5 · velocity -0.06
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
       "No news on TSMC Japan 3nm production start; catalyst remains pending."
@@ -546,7 +667,13 @@ ev495  exited  born 2026-02-26  7 scan(s)
   SUBJECT   ARKX (the others are peers)
   VEHICLES
     ARKX    gains -- holds SpaceX exposure via thematic allocation
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  15.59   rank 21 of 31   mentions 227 · sources 95 · authors 99 · superl 15 · velocity +0.00
+  EVSCORE 2026-03-28  13.96   rank 36 of 42   mentions 180 · sources 76 · authors 71 · superl 13 · velocity -0.21
+  EVSCORE 2026-04-27  16.87   of 59   mentions 256 · sources 107 · authors 111 · superl 9 · velocity +0.42
+  EVSCORE 2026-04-27  15.16   rank 38 of 59   mentions 255 · sources 107 · authors 111 · superl 9 · velocity -0.00
+  EVSCORE 2026-05-27  17.98   rank 13 of 51   mentions 313 · sources 118 · authors 135 · superl 28 · velocity +0.23
+  EVSCORE 2026-06-26  20.97   rank 1 of 50   mentions 526 · sources 165 · authors 216 · superl 34 · velocity +0.68
+  EVSCORE 2026-07-26  14.29   rank 38 of 53   mentions 277 · sources 102 · authors 125 · superl 19 · velocity -0.47
   ARC
     2026-02-26  live=True resolved=False  milestones 1  sources 1
       "Entry week; ARKX position opened on merger/IPO thesis with no resolution."
@@ -572,7 +699,12 @@ ev496  exited  born 2026-02-26  6 scan(s)
   VEHICLES
     AVGO    gains -- AI chip supplier to cloud providers facing potential licensing shifts   [also in ev443]
     MRVL    gains -- networking silicon exposed to Microsoft cloud bundling outcomes   [also in ev484,ev541]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  9.57   rank 31 of 31   mentions 58 · sources 23 · authors 22 · superl 2 · velocity +0.00
+  EVSCORE 2026-03-28  11.14   rank 40 of 42   mentions 65 · sources 24 · authors 36 · superl 4 · velocity +0.12
+  EVSCORE 2026-04-27  10.49   of 59   mentions 61 · sources 32 · authors 27 · superl 3 · velocity -0.06
+  EVSCORE 2026-04-27  10.57   rank 59 of 59   mentions 59 · sources 32 · authors 25 · superl 3 · velocity -0.03
+  EVSCORE 2026-05-27  9.51   rank 51 of 51   mentions 50 · sources 25 · authors 20 · superl 3 · velocity -0.15
+  EVSCORE 2026-06-26  15.73   rank 33 of 50   mentions 96 · sources 33 · authors 42 · superl 7 · velocity +0.92
   ARC
     2026-02-26  live=True resolved=False  milestones 1  sources 1
       "Probe widening reported; no conclusion reached. Catalyst remains pending."
@@ -601,7 +733,12 @@ ev497  exited  born 2026-02-26  6 scan(s)
     TECK    gains -- benefits from Canadian government investment in critical minerals smelter
     USAR    gains -- commissions Colorado facility; secures federal backing
     UUUU    gains -- receives $725M DoD funding; acquires VAC
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  15.39   rank 23 of 31   mentions 304 · sources 132 · authors 101 · superl 8 · velocity +0.00
+  EVSCORE 2026-03-28  14.59   rank 32 of 42   mentions 285 · sources 101 · authors 97 · superl 8 · velocity -0.06
+  EVSCORE 2026-04-27  11.85   of 59   mentions 209 · sources 94 · authors 74 · superl 2 · velocity -0.27
+  EVSCORE 2026-04-27  12.84   rank 55 of 59   mentions 206 · sources 93 · authors 74 · superl 2 · velocity -0.01
+  EVSCORE 2026-05-27  16.23   rank 29 of 51   mentions 250 · sources 105 · authors 103 · superl 11 · velocity +0.21
+  EVSCORE 2026-06-26  13.63   rank 39 of 50   mentions 217 · sources 90 · authors 84 · superl 6 · velocity -0.13
   ARC
     2026-02-26  live=True resolved=False  milestones 1  sources 2
       "Plan announced and stocks reacting positively; finalization and implementation still pending."
@@ -626,7 +763,11 @@ ev499  exited  born 2026-02-26  5 scan(s)
     CEG     gains -- sells nuclear power to Walmart under a long-term PPA
     VST     gains -- nuclear fleet positioned for data center PPAs
     WMT        [NO-CLAUSE; also in ev501,ev525]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  14.65   rank 27 of 31   mentions 229 · sources 97 · authors 78 · superl 8 · velocity +0.00
+  EVSCORE 2026-03-28  15.08   rank 29 of 42   mentions 247 · sources 92 · authors 88 · superl 9 · velocity +0.08
+  EVSCORE 2026-04-27  15.30   of 59   mentions 233 · sources 111 · authors 88 · superl 12 · velocity -0.06
+  EVSCORE 2026-04-27  15.49   rank 36 of 59   mentions 231 · sources 111 · authors 87 · superl 12 · velocity -0.01
+  EVSCORE 2026-05-27  16.57   rank 27 of 51   mentions 275 · sources 101 · authors 100 · superl 16 · velocity +0.19
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
       "No coverage of Meta-Vistra deal or additional VST PPAs; catalyst remains pending."
@@ -647,7 +788,11 @@ ev500  exited  born 2026-02-26  5 scan(s)
   SUBJECT   RGNX (the others are peers)
   VEHICLES
     RGNX    gains -- positive trial data advances Duchenne program
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  17.76   rank 9 of 31   mentions 539 · sources 174 · authors 162 · superl 25 · velocity +0.00
+  EVSCORE 2026-03-28  17.56   rank 13 of 42   mentions 526 · sources 151 · authors 150 · superl 29 · velocity -0.02
+  EVSCORE 2026-04-27  17.75   of 59   mentions 472 · sources 186 · authors 148 · superl 31 · velocity -0.10
+  EVSCORE 2026-04-27  18.14   rank 13 of 59   mentions 470 · sources 186 · authors 146 · superl 31 · velocity -0.00
+  EVSCORE 2026-05-27  17.40   rank 22 of 51   mentions 481 · sources 124 · authors 133 · superl 31 · velocity +0.02
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
       "No relevant news; catalyst remains pending with no milestones."
@@ -668,7 +813,11 @@ ev501  exited  born 2026-02-26  5 scan(s)
   SUBJECT   WMT (the others are peers)
   VEHICLES
     WMT     gains -- awaits SEC clarity on fiscal Q4 earnings guidance   [also in ev499,ev525]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  15.60   rank 20 of 31   mentions 414 · sources 115 · authors 112 · superl 11 · velocity +0.00
+  EVSCORE 2026-03-28  14.14   rank 34 of 42   mentions 359 · sources 80 · authors 95 · superl 10 · velocity -0.13
+  EVSCORE 2026-04-27  15.43   of 59   mentions 315 · sources 104 · authors 93 · superl 17 · velocity -0.12
+  EVSCORE 2026-04-27  15.86   rank 33 of 59   mentions 311 · sources 104 · authors 92 · superl 17 · velocity -0.01
+  EVSCORE 2026-05-27  18.22   rank 11 of 51   mentions 425 · sources 109 · authors 122 · superl 26 · velocity +0.37
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
       "No SEC decision or review reported; catalyst remains pending."
@@ -689,7 +838,12 @@ ev503  exited  born 2026-02-26  6 scan(s)
   SUBJECT   NVO (the others are peers)
   VEHICLES
     NVO     gains -- positioned for Medicare coverage start in July 2026
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  12.34   rank 30 of 31   mentions 94 · sources 48 · authors 41 · superl 5 · velocity +0.00
+  EVSCORE 2026-03-28  9.74   rank 42 of 42   mentions 67 · sources 35 · authors 26 · superl 3 · velocity -0.29
+  EVSCORE 2026-04-27  12.43   of 59   mentions 69 · sources 41 · authors 30 · superl 7 · velocity +0.03
+  EVSCORE 2026-04-27  12.31   rank 57 of 59   mentions 69 · sources 41 · authors 30 · superl 7 · velocity +0.00
+  EVSCORE 2026-05-27  12.14   rank 48 of 51   mentions 63 · sources 34 · authors 26 · superl 11 · velocity -0.09
+  EVSCORE 2026-06-26  10.96   rank 49 of 50   mentions 55 · sources 34 · authors 27 · superl 5 · velocity -0.13
   ARC
     2026-02-26  live=True resolved=False  milestones 1  sources 1
       "Catalyst remains pending; NVO positioned for direct benefit from July 2026 Medicare start."
@@ -712,7 +866,11 @@ ev504  exited  born 2026-02-26  5 scan(s)
   SUBJECT   PGEN (the others are peers)
   VEHICLES
     PGEN    gains -- awaits FDA approval decision on PAPZIMEOS
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  13.49   rank 29 of 31   mentions 228 · sources 82 · authors 50 · superl 5 · velocity +0.00
+  EVSCORE 2026-03-28  12.81   rank 38 of 42   mentions 224 · sources 61 · authors 47 · superl 5 · velocity -0.02
+  EVSCORE 2026-04-27  13.06   of 59   mentions 195 · sources 76 · authors 51 · superl 6 · velocity -0.13
+  EVSCORE 2026-04-27  13.52   rank 51 of 59   mentions 193 · sources 76 · authors 49 · superl 6 · velocity -0.01
+  EVSCORE 2026-05-27  13.65   rank 42 of 51   mentions 207 · sources 63 · authors 46 · superl 7 · velocity +0.07
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 1
       "Catalyst remains pending; no FDA decision or PDUFA date in news. PGEN-specific coverage notes ongoing delivery but keeps event under-radar."
@@ -735,7 +893,11 @@ ev507  exited  born 2026-02-26  5 scan(s)
     LSCC    gains -- positioned to benefit from CHIPS Act US manufacturing boost
     ON         [NO-CLAUSE; also in ev479,ev544,ev550]
     STM     gains -- benefits from AI-driven semiconductor demand
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-02-26  15.11   rank 24 of 31   mentions 301 · sources 89 · authors 92 · superl 12 · velocity +0.00
+  EVSCORE 2026-03-28  15.51   rank 25 of 42   mentions 301 · sources 75 · authors 95 · superl 20 · velocity +0.00
+  EVSCORE 2026-04-27  16.54   of 59   mentions 309 · sources 88 · authors 110 · superl 29 · velocity +0.03
+  EVSCORE 2026-04-27  16.14   rank 28 of 59   mentions 292 · sources 86 · authors 105 · superl 29 · velocity -0.06
+  EVSCORE 2026-05-27  33.30   rank 1 of 51   mentions 1301 · sources 274 · authors 363 · superl 114 · velocity +3.46
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
       "Catalyst pending with no signing news; LSCC earnings strength unrelated to CHIPS Act."
@@ -756,7 +918,11 @@ ev512  exited  born 2026-03-28  5 scan(s)
   SUBJECT   RKLB (the others are peers)
   VEHICLES
     RKLB    gains -- executes the $190M DoD HASTE contract launches   [also in ev479,ev534,ev553]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  15.20   rank 27 of 42   mentions 211 · sources 75 · authors 68 · superl 18 · velocity +0.00
+  EVSCORE 2026-04-27  16.50   of 59   mentions 236 · sources 92 · authors 80 · superl 23 · velocity +0.12
+  EVSCORE 2026-04-27  15.98   rank 30 of 59   mentions 233 · sources 92 · authors 80 · superl 23 · velocity -0.01
+  EVSCORE 2026-05-27  18.05   rank 12 of 51   mentions 308 · sources 109 · authors 101 · superl 28 · velocity +0.32
+  EVSCORE 2026-06-26  17.97   rank 14 of 50   mentions 371 · sources 129 · authors 140 · superl 26 · velocity +0.20
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 0
       "Contract award is live catalyst; no launches yet and no reversal."
@@ -777,7 +943,11 @@ ev515  exited  born 2026-03-28  5 scan(s)
   SUBJECT   ET (the others are peers)
   VEHICLES
     ET      gains -- midstream fees rise with elevated oil volumes
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  19.93   rank 2 of 42   mentions 622 · sources 275 · authors 237 · superl 52 · velocity +0.00
+  EVSCORE 2026-04-27  20.09   of 59   mentions 673 · sources 306 · authors 219 · superl 41 · velocity +0.08
+  EVSCORE 2026-04-27  18.73   rank 7 of 59   mentions 584 · sources 287 · authors 196 · superl 33 · velocity -0.13
+  EVSCORE 2026-05-27  17.89   rank 17 of 51   mentions 489 · sources 164 · authors 164 · superl 46 · velocity -0.16
+  EVSCORE 2026-06-26  16.33   rank 29 of 50   mentions 386 · sources 153 · authors 137 · superl 21 · velocity -0.21
   ARC
     2026-03-28  live=True resolved=False  milestones 3  sources 3
       "Disruption persists with partial allowances but no full reopening or security; oil price lift thesis intact."
@@ -801,7 +971,11 @@ ev516  exited  born 2026-03-28  5 scan(s)
     INTC    gains -- benefits from rising AI data center demand   [also in ev457,ev474,ev566]
     MU         [NO-CLAUSE; also in ev443,ev479,ev532]
     TSM     gains -- positioned to benefit from US incentives for domestic AI chip production   [also in ev494]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  17.04   rank 16 of 42   mentions 468 · sources 137 · authors 143 · superl 22 · velocity +0.00
+  EVSCORE 2026-04-27  15.70   of 59   mentions 381 · sources 135 · authors 137 · superl 15 · velocity -0.19
+  EVSCORE 2026-04-27  16.36   rank 27 of 59   mentions 374 · sources 135 · authors 134 · superl 15 · velocity -0.02
+  EVSCORE 2026-05-27  19.10   rank 8 of 51   mentions 503 · sources 157 · authors 161 · superl 28 · velocity +0.34
+  EVSCORE 2026-06-26  16.96   rank 26 of 50   mentions 520 · sources 140 · authors 152 · superl 18 · velocity +0.03
   ARC
     2026-03-28  live=True resolved=False  milestones 0  sources 0
       "Catalyst remains pending; no DOE decision or announcement on new incentives this week. News focuses on unrelated trade/tariff topics and TSM operation"
@@ -822,7 +996,11 @@ ev517  exited  born 2026-03-28  5 scan(s)
   SUBJECT   DINO (the others are peers)
   VEHICLES
     DINO    gains -- benefits from higher oil prices during Hormuz disruption
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  18.55   rank 8 of 42   mentions 607 · sources 243 · authors 185 · superl 26 · velocity +0.00
+  EVSCORE 2026-04-27  18.70   of 59   mentions 603 · sources 279 · authors 193 · superl 24 · velocity -0.01
+  EVSCORE 2026-04-27  18.70   rank 8 of 59   mentions 600 · sources 279 · authors 190 · superl 24 · velocity -0.00
+  EVSCORE 2026-05-27  15.54   rank 32 of 51   mentions 410 · sources 150 · authors 110 · superl 18 · velocity -0.32
+  EVSCORE 2026-06-26  17.59   rank 19 of 50   mentions 461 · sources 176 · authors 144 · superl 16 · velocity +0.12
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 3
       "Partial easing visible but war and full reopening not resolved; thesis remains live on pending end condition."
@@ -843,7 +1021,11 @@ ev518  exited  born 2026-03-28  5 scan(s)
   SUBJECT   CF (the others are peers)
   VEHICLES
     CF      gains -- benefits from elevated fertilizer prices via closure
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  19.62   rank 4 of 42   mentions 559 · sources 258 · authors 209 · superl 48 · velocity +0.00
+  EVSCORE 2026-04-27  19.36   of 59   mentions 559 · sources 286 · authors 191 · superl 36 · velocity +0.00
+  EVSCORE 2026-04-27  19.26   rank 5 of 59   mentions 554 · sources 284 · authors 187 · superl 35 · velocity -0.01
+  EVSCORE 2026-05-27  16.12   rank 30 of 51   mentions 335 · sources 151 · authors 124 · superl 32 · velocity -0.40
+  EVSCORE 2026-06-26  17.46   rank 22 of 50   mentions 363 · sources 156 · authors 133 · superl 20 · velocity +0.08
   ARC
     2026-03-28  live=True resolved=False  milestones 3  sources 2
       "Closure ongoing; prices lifted as expected; no reopening yet."
@@ -864,7 +1046,12 @@ ev520  exited  born 2026-03-28  6 scan(s)
   SUBJECT   NDAQ (the others are peers)
   VEHICLES
     NDAQ    gains -- plans to offer tokenized stocks/ETFs via Kraken in 2027
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  18.99   rank 6 of 42   mentions 990 · sources 153 · authors 223 · superl 62 · velocity +0.00
+  EVSCORE 2026-04-27  17.91   of 59   mentions 818 · sources 155 · authors 218 · superl 47 · velocity -0.17
+  EVSCORE 2026-04-27  18.45   rank 9 of 59   mentions 796 · sources 155 · authors 215 · superl 46 · velocity -0.03
+  EVSCORE 2026-05-27  21.18   rank 3 of 51   mentions 1067 · sources 165 · authors 230 · superl 97 · velocity +0.34
+  EVSCORE 2026-06-26  20.01   rank 4 of 50   mentions 1170 · sources 181 · authors 272 · superl 71 · velocity +0.10
+  EVSCORE 2026-07-26  18.24   rank 5 of 53   mentions 879 · sources 175 · authors 244 · superl 59 · velocity -0.25
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 1
       "Announcement of 2027 plan is the entry catalyst; launch remains pending."
@@ -887,7 +1074,11 @@ ev522  exited  born 2026-03-28  5 scan(s)
   SUBJECT   NLST (the others are peers)
   VEHICLES
     NLST    gains -- benefits if USTR acts on IP abuse claims
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  17.20   rank 14 of 42   mentions 418 · sources 114 · authors 139 · superl 32 · velocity +0.00
+  EVSCORE 2026-04-27  16.71   of 59   mentions 373 · sources 115 · authors 130 · superl 31 · velocity -0.11
+  EVSCORE 2026-04-27  17.00   rank 20 of 59   mentions 363 · sources 114 · authors 126 · superl 31 · velocity -0.03
+  EVSCORE 2026-05-27  20.65   rank 5 of 51   mentions 563 · sources 137 · authors 172 · superl 54 · velocity +0.55
+  EVSCORE 2026-06-26  17.95   rank 16 of 50   mentions 515 · sources 128 · authors 175 · superl 53 · velocity -0.09
   ARC
     2026-03-28  live=True resolved=False  milestones 0  sources 0
       "No coverage of USTR probe, Netlist, or South Korea IP issue; catalyst unchanged and pending."
@@ -908,7 +1099,12 @@ ev525  exited  born 2026-03-28  6 scan(s)
   SUBJECT   WMT (the others are peers)
   VEHICLES
     WMT     gains -- owns Flipkart, benefits from potential IPO   [also in ev499,ev501]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  16.16   rank 20 of 42   mentions 421 · sources 127 · authors 148 · superl 13 · velocity +0.00
+  EVSCORE 2026-04-27  18.04   of 59   mentions 568 · sources 146 · authors 149 · superl 15 · velocity +0.35
+  EVSCORE 2026-04-27  16.59   rank 23 of 59   mentions 560 · sources 146 · authors 148 · superl 15 · velocity -0.01
+  EVSCORE 2026-05-27  17.70   rank 20 of 51   mentions 507 · sources 148 · authors 171 · superl 38 · velocity -0.09
+  EVSCORE 2026-06-26  16.14   rank 31 of 50   mentions 404 · sources 143 · authors 154 · superl 19 · velocity -0.20
+  EVSCORE 2026-07-26  15.27   rank 30 of 53   mentions 332 · sources 141 · authors 140 · superl 10 · velocity -0.18
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 1
       "Holding company relocation advances IPO path; no listing date yet."
@@ -931,7 +1127,12 @@ ev528  exited  born 2026-03-28  6 scan(s)
   SUBJECT   LLY (the others are peers)
   VEHICLES
     LLY     gains -- oral obesity drug launch drives revenue   [also in ev597]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  11.41   rank 39 of 42   mentions 95 · sources 43 · authors 33 · superl 3 · velocity +0.00
+  EVSCORE 2026-04-27  11.96   of 59   mentions 83 · sources 48 · authors 33 · superl 6 · velocity -0.13
+  EVSCORE 2026-04-27  12.33   rank 56 of 59   mentions 81 · sources 47 · authors 33 · superl 6 · velocity -0.02
+  EVSCORE 2026-05-27  13.32   rank 45 of 51   mentions 87 · sources 52 · authors 35 · superl 8 · velocity +0.07
+  EVSCORE 2026-06-26  13.18   rank 42 of 50   mentions 107 · sources 51 · authors 48 · superl 4 · velocity +0.23
+  EVSCORE 2026-07-26  11.07   rank 51 of 53   mentions 89 · sources 40 · authors 44 · superl 4 · velocity -0.17
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 1
       "Launch remains pending for Q2 2026; recent trial data and coverage confirm timeline but do not resolve it."
@@ -954,7 +1155,13 @@ ev529  live  born 2026-03-28  7 scan(s)
   SUBJECT   LMT (the others are peers)
   VEHICLES
     LMT     gains -- primary beneficiary of Canadian F-35 procurement   [also in ev622]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  15.33   rank 26 of 42   mentions 311 · sources 100 · authors 90 · superl 12 · velocity +0.00
+  EVSCORE 2026-04-27  14.01   of 59   mentions 261 · sources 106 · authors 78 · superl 7 · velocity -0.16
+  EVSCORE 2026-04-27  14.57   rank 43 of 59   mentions 257 · sources 106 · authors 75 · superl 7 · velocity -0.02
+  EVSCORE 2026-05-27  14.28   rank 41 of 51   mentions 276 · sources 93 · authors 82 · superl 5 · velocity +0.07
+  EVSCORE 2026-06-26  14.82   rank 35 of 50   mentions 285 · sources 91 · authors 80 · superl 9 · velocity +0.03
+  EVSCORE 2026-07-26  15.72   rank 27 of 53   mentions 287 · sources 114 · authors 88 · superl 13 · velocity +0.01
+  EVSCORE 2026-08-25  9.45   rank 51 of 56   mentions 119 · sources 48 · authors 2 · superl 9 · velocity -0.59
   ARC
     2026-03-28  live=True resolved=False  milestones 0  sources 0
       "No news on Canada F-35 review or decision this week; catalyst remains pending."
@@ -979,7 +1186,13 @@ ev532  live  born 2026-03-28  7 scan(s)
   SUBJECT   MU (the others are peers)
   VEHICLES
     MU      gains -- benefits from higher memory prices amid ongoing shortage   [also in ev443,ev479,ev516]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-03-28  15.79   rank 23 of 42   mentions 376 · sources 115 · authors 103 · superl 13 · velocity +0.00
+  EVSCORE 2026-04-27  16.06   of 59   mentions 316 · sources 124 · authors 106 · superl 22 · velocity -0.16
+  EVSCORE 2026-04-27  16.63   rank 22 of 59   mentions 312 · sources 124 · authors 102 · superl 22 · velocity -0.01
+  EVSCORE 2026-05-27  17.85   rank 18 of 51   mentions 395 · sources 110 · authors 113 · superl 27 · velocity +0.27
+  EVSCORE 2026-06-26  18.68   rank 9 of 50   mentions 531 · sources 116 · authors 144 · superl 33 · velocity +0.34
+  EVSCORE 2026-07-26  16.10   rank 23 of 53   mentions 367 · sources 127 · authors 117 · superl 32 · velocity -0.31
+  EVSCORE 2026-08-25  15.46   rank 22 of 56   mentions 369 · sources 92 · authors 7 · superl 34 · velocity +0.01
   ARC
     2026-03-28  live=True resolved=False  milestones 3  sources 3
       "RAM/DRAM demand remains elevated with AI tailwinds but shows mixed signals; no resolution or reversal of any crisis yet."
@@ -1005,7 +1218,10 @@ ev534  exited  born 2026-04-27  4 scan(s)
   BIRTH     scout proposed RKLB (peers RKLB) -> matcher: ev512
   VEHICLES
     RKLB    gains -- benefits from sector IPO hype and Neutron backlog   [also in ev479,ev512,ev553]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  17.89   of 59   mentions 600 · sources 138 · authors 183 · superl 36 · velocity +0.00
+  EVSCORE 2026-04-27  17.71   rank 15 of 59   mentions 580 · sources 138 · authors 180 · superl 35 · velocity -0.03
+  EVSCORE 2026-05-27  20.64   rank 6 of 51   mentions 770 · sources 151 · authors 199 · superl 82 · velocity +0.33
+  EVSCORE 2026-06-26  20.41   rank 2 of 50   mentions 916 · sources 191 · authors 297 · superl 65 · velocity +0.19
   ARC
     2026-04-27  live=True resolved=False  milestones 2  sources 3
       "SpaceX IPO filing has ignited sector optimism with RKLB positioned as primary beneficiary; no resolution yet."
@@ -1026,7 +1242,12 @@ ev535  live  born 2026-04-27  6 scan(s)
   VEHICLES
     AMZN    gains -- acquires Globalstar spectrum and assets in $11.57B deal   [RESTATES; also in ev612]
     GSAT    gains -- receives premium in pending $11.57B acquisition
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  13.90   of 59   mentions 178 · sources 91 · authors 75 · superl 5 · velocity +0.00
+  EVSCORE 2026-04-27  13.87   rank 48 of 59   mentions 177 · sources 91 · authors 75 · superl 5 · velocity -0.01
+  EVSCORE 2026-05-27  11.27   rank 49 of 51   mentions 108 · sources 48 · authors 46 · superl 7 · velocity -0.39
+  EVSCORE 2026-06-26  15.10   rank 34 of 50   mentions 143 · sources 59 · authors 55 · superl 10 · velocity +0.32
+  EVSCORE 2026-07-26  14.92   rank 33 of 53   mentions 158 · sources 63 · authors 69 · superl 14 · velocity +0.10
+  EVSCORE 2026-08-25  11.99   rank 44 of 56   mentions 137 · sources 43 · authors 5 · superl 14 · velocity -0.13
   ARC
     2026-04-27  live=True resolved=False  milestones 1  sources 2
       "Deal announced mid-April; regulatory approvals still pending with no new progress reported this week."
@@ -1051,7 +1272,11 @@ ev537  exited  born 2026-04-27  5 scan(s)
     COIN    gains -- benefits if staked ETH ETF approved   [also in ev589]
     ETHE       [NO-CLAUSE]
     GBTC    gains -- files for a Zcash ETF conversion, awaiting SEC approval
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  14.48   of 59   mentions 243 · sources 83 · authors 75 · superl 9 · velocity +0.00
+  EVSCORE 2026-04-27  13.88   rank 47 of 59   mentions 215 · sources 80 · authors 65 · superl 9 · velocity -0.12
+  EVSCORE 2026-05-27  14.42   rank 38 of 51   mentions 237 · sources 74 · authors 63 · superl 8 · velocity +0.10
+  EVSCORE 2026-06-26  13.33   rank 41 of 50   mentions 257 · sources 69 · authors 63 · superl 4 · velocity +0.08
+  EVSCORE 2026-07-26  13.63   rank 42 of 53   mentions 214 · sources 66 · authors 59 · superl 12 · velocity -0.17
   ARC
     2026-04-27  live=True resolved=False  milestones 0  sources 0
       "No SEC decision or update on the Coinbase staked ETH ETF filing this week; catalyst remains pending."
@@ -1073,7 +1298,11 @@ ev539  exited  born 2026-04-27  5 scan(s)
   BIRTH     scout proposed BMNR (peers MSTR) -> matcher: ?
   VEHICLES
     BMNR    gains -- holds large Ethereum treasury tied to ETF catalyst
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  18.52   of 59   mentions 515 · sources 177 · authors 176 · superl 40 · velocity +0.00
+  EVSCORE 2026-04-27  18.37   rank 11 of 59   mentions 505 · sources 175 · authors 172 · superl 39 · velocity -0.02
+  EVSCORE 2026-05-27  17.73   rank 19 of 51   mentions 491 · sources 140 · authors 169 · superl 35 · velocity -0.03
+  EVSCORE 2026-06-26  18.09   rank 13 of 50   mentions 560 · sources 137 · authors 190 · superl 28 · velocity +0.14
+  EVSCORE 2026-07-26  16.91   rank 17 of 53   mentions 479 · sources 134 · authors 170 · superl 29 · velocity -0.14
   ARC
     2026-04-27  live=True resolved=False  milestones 0  sources 1
       "No developments on Citi custody, Goldman Bitcoin ETF filing or SEC Ethereum decision; news focuses on unrelated Hormuz oil shock."
@@ -1094,7 +1323,11 @@ ev540  exited  born 2026-04-27  5 scan(s)
   SUBJECT   HP (the others are peers)
   VEHICLES
     HP      gains -- drilling contractor benefits from sustained high oilfield activity
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  11.17   rank 58 of 59   mentions 50 · sources 35 · authors 23 · superl 4 · velocity +0.00
+  EVSCORE 2026-04-27  11.17   rank 58 of 59   mentions 50 · sources 35 · authors 23 · superl 4 · velocity +0.00
+  EVSCORE 2026-05-27  10.77   rank 50 of 51   mentions 57 · sources 32 · authors 22 · superl 2 · velocity +0.14
+  EVSCORE 2026-06-26  10.13   rank 50 of 50   mentions 61 · sources 34 · authors 29 · superl 1 · velocity +0.07
+  EVSCORE 2026-07-26  9.73   rank 52 of 53   mentions 51 · sources 28 · authors 22 · superl 3 · velocity -0.16
   ARC
     2026-04-27  live=True resolved=False  milestones 1  sources 2
       "Geopolitical tension at Hormuz remains unresolved; oilfield activity catalyst intact."
@@ -1116,7 +1349,11 @@ ev541  live  born 2026-04-27  5 scan(s)
   BIRTH     scout proposed MRVL (peers MRVL, NVDA) -> matcher: new
   VEHICLES
     MRVL    gains -- benefits from Nvidia partnership deployment and AI ecosystem access   [also in ev484,ev496]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  15.87   rank 32 of 59   mentions 304 · sources 88 · authors 103 · superl 20 · velocity +0.00
+  EVSCORE 2026-05-27  17.96   rank 15 of 51   mentions 365 · sources 103 · authors 123 · superl 37 · velocity +0.20
+  EVSCORE 2026-06-26  17.56   rank 20 of 50   mentions 409 · sources 109 · authors 128 · superl 32 · velocity +0.12
+  EVSCORE 2026-07-26  15.06   rank 31 of 53   mentions 316 · sources 93 · authors 101 · superl 20 · velocity -0.23
+  EVSCORE 2026-08-25  16.45   rank 13 of 56   mentions 393 · sources 88 · authors 5 · superl 41 · velocity +0.24
   ARC
     2026-04-27  live=True resolved=False  milestones 0  sources 0
       "Catalyst pending; no deployment news this week."
@@ -1139,7 +1376,7 @@ ev542  exited  born 2026-04-27  1 scan(s)
   VEHICLES
     MSBT    gains -- launched spot Bitcoin ETF on NYSE Arca   [RESTATES]
     (none)  catalyst names MS -- NOT a vehicle   [NOT-A-PARTY]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  14.60   rank 42 of 59   mentions 272 · sources 72 · authors 97 · superl 11 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 1
       "Launch complete; edge spent as product is live and discussed."
@@ -1153,7 +1390,9 @@ ev543  exited  born 2026-04-27  3 scan(s)
   BIRTH     scout proposed BLK (peers RGTC) -> matcher: new
   VEHICLES
     BLK     gains -- holds pre-IPO stake in IQM
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  12.90   rank 54 of 59   mentions 146 · sources 56 · authors 69 · superl 5 · velocity +0.00
+  EVSCORE 2026-05-27  14.39   rank 39 of 51   mentions 149 · sources 49 · authors 62 · superl 18 · velocity +0.02
+  EVSCORE 2026-06-26  16.18   rank 30 of 50   mentions 203 · sources 67 · authors 85 · superl 14 · velocity +0.36
   ARC
     2026-04-27  live=True resolved=False  milestones 0  sources 0
       "No news on BlackRock's IQM investment or the June 2026 IPO; catalyst remains pending."
@@ -1172,7 +1411,7 @@ ev544  exited  born 2026-04-27  1 scan(s)
   VEHICLES
     NIO     gains -- expands 900V EV platform partnership with ON
     ON      gains -- deepens partnership with NIO on 900V tech   [also in ev479,ev507,ev550]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  21.08   rank 2 of 59   mentions 1192 · sources 324 · authors 318 · superl 82 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved on announcement; launch now the pending milestone"
@@ -1186,7 +1425,7 @@ ev545  exited  born 2026-04-27  1 scan(s)
   BIRTH     scout proposed CLYM (peers VALE, BMRN, ALNY) -> matcher: new
   VEHICLES
     CLYM    gains -- budoprutug receives accelerated FDA review path
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  14.40   rank 44 of 59   mentions 131 · sources 59 · authors 42 · superl 17 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved prior to entry; no pending milestone remains."
@@ -1200,7 +1439,8 @@ ev546  exited  born 2026-04-27  2 scan(s)
   BIRTH     scout proposed CMPS (peers CYCN, RARE, SANA) -> matcher: new
   VEHICLES
     CMPS    gains -- benefits from accelerated FDA review of psychedelics
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  17.08   rank 18 of 59   mentions 349 · sources 176 · authors 118 · superl 17 · velocity +0.00
+  EVSCORE 2026-05-27  13.35   rank 44 of 51   mentions 218 · sources 106 · authors 82 · superl 8 · velocity -0.38
   ARC
     2026-04-27  live=True resolved=False  milestones 1  sources 1
       "Trump order issued; CMPS shares rose sharply on the news. FDA decision remains pending with no date set."
@@ -1217,7 +1457,11 @@ ev547  live  born 2026-04-27  5 scan(s)
   VEHICLES
     LHX     gains -- prime on SDA Tranche 3 with Mercury hardware selection
     MRCY    gains -- hardware provider under pending SDA Tranche 3 contract
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  14.80   rank 41 of 59   mentions 185 · sources 89 · authors 62 · superl 11 · velocity +0.00
+  EVSCORE 2026-05-27  14.76   rank 35 of 51   mentions 193 · sources 68 · authors 74 · superl 13 · velocity +0.04
+  EVSCORE 2026-06-26  17.13   rank 24 of 50   mentions 272 · sources 97 · authors 113 · superl 13 · velocity +0.41
+  EVSCORE 2026-07-26  14.58   rank 36 of 53   mentions 235 · sources 95 · authors 92 · superl 11 · velocity -0.14
+  EVSCORE 2026-08-25  14.55   rank 30 of 56   mentions 262 · sources 91 · authors 2 · superl 19 · velocity +0.11
   ARC
     2026-04-27  live=True resolved=False  milestones 1  sources 1
       "Selection announced; contract execution remains the pending milestone."
@@ -1239,7 +1483,7 @@ ev548  exited  born 2026-04-27  1 scan(s)
   BIRTH     scout proposed KTOS (peers DUTY) -> matcher: new
   VEHICLES
     KTOS    gains -- leads ground integration for missile warning program
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  16.56   rank 24 of 59   mentions 441 · sources 165 · authors 144 · superl 12 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst (the win) occurred prior to entry and is now public; edge spent."
@@ -1253,7 +1497,11 @@ ev549  live  born 2026-04-27  5 scan(s)
   BIRTH     scout proposed COCP (peers CLYM, KYMR) -> matcher: new
   VEHICLES
     COCP    gains -- awaits FDA decision on CDI-988
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  13.29   rank 53 of 59   mentions 172 · sources 68 · authors 44 · superl 6 · velocity +0.00
+  EVSCORE 2026-05-27  12.48   rank 47 of 51   mentions 177 · sources 51 · authors 34 · superl 5 · velocity +0.03
+  EVSCORE 2026-06-26  12.56   rank 46 of 50   mentions 203 · sources 54 · authors 42 · superl 3 · velocity +0.15
+  EVSCORE 2026-07-26  12.99   rank 44 of 53   mentions 178 · sources 59 · authors 39 · superl 9 · velocity -0.12
+  EVSCORE 2026-08-25  4.03   rank 56 of 56   mentions 29 · sources 19 · authors 1 · superl 1 · velocity -0.84
   ARC
     2026-04-27  live=True resolved=False  milestones 0  sources 1
       "Catalyst remains pending; only prior Fast Track news, no decision yet."
@@ -1275,7 +1523,7 @@ ev550  exited  born 2026-04-27  1 scan(s)
   BIRTH     scout proposed ON (peers NIO) -> matcher: new
   VEHICLES
     ON      gains -- supplies 900V tech for NIO next-gen EVs   [PEER-ARRIVAL off NIO; also in ev479,ev507,ev544]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  21.12   rank 1 of 59   mentions 1197 · sources 328 · authors 320 · superl 83 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved on announcement; edge spent"
@@ -1289,7 +1537,7 @@ ev551  exited  born 2026-04-27  1 scan(s)
   BIRTH     scout proposed NNE (peers OKLO) -> matcher: new
   VEHICLES
     NNE     gains -- wins DOE voucher for Kronos nuclear project
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  16.92   rank 21 of 59   mentions 312 · sources 147 · authors 110 · superl 20 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 1
       "Voucher already awarded pre-entry; decision resolved."
@@ -1303,7 +1551,7 @@ ev552  exited  born 2026-04-27  1 scan(s)
   BIRTH     scout proposed AOSL (peers SMTC, PLAB, MU) -> matcher: new
   VEHICLES
     AOSL    gains -- IPM5 production ramp at Kaynes OSAT facility
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-04-27  14.89   rank 40 of 59   mentions 208 · sources 53 · authors 72 · superl 23 · velocity +0.00
   ARC
     2026-04-27  live=False resolved=True  milestones 1  sources 1
       "Inauguration and initial production already public; edge spent."
@@ -1317,7 +1565,7 @@ ev553  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed RKLB (peers ASTS, LUNR, PL) -> matcher: new
   VEHICLES
     RKLB    gains -- wins $816M SDA contract for missile defense   [PEER-ARRIVAL off ASTS; also in ev479,ev512,ev534]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  18.91   rank 9 of 51   mentions 622 · sources 170 · authors 196 · superl 53 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on announcement; edge spent."
@@ -1331,7 +1579,9 @@ ev554  exited  born 2026-05-27  3 scan(s)
   BIRTH     scout proposed MNKD (peers CUE, BCRX, STRO, ARWR) -> matcher: new
   VEHICLES
     MNKD    gains -- receives FDA approval for new autoinjector
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  13.37   rank 43 of 51   mentions 213 · sources 63 · authors 47 · superl 7 · velocity +0.00
+  EVSCORE 2026-06-26  12.42   rank 47 of 50   mentions 223 · sources 59 · authors 50 · superl 3 · velocity +0.05
+  EVSCORE 2026-07-26  13.78   rank 41 of 53   mentions 202 · sources 73 · authors 49 · superl 10 · velocity -0.09
   ARC
     2026-05-27  live=True resolved=False  milestones 1  sources 1
       "Catalyst remains live; no FDA decision occurred. Forbes note flags May/July windows but nothing resolved."
@@ -1349,7 +1599,7 @@ ev555  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed DARE (peers SNDX, IMUX) -> matcher: new
   VEHICLES
     DARE    gains -- positive Ovaprene Phase 3 data already public
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  16.46   rank 28 of 51   mentions 248 · sources 98 · authors 94 · superl 27 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst (interim data release) occurred pre-entry; FDA decision remains pending but is not the entered catalyst."
@@ -1363,7 +1613,7 @@ ev556  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed WULF (peers MSTR, CAN, BKKT, ASST) -> matcher: new
   VEHICLES
     WULF    gains -- unveiled plans for 1 GW Kentucky AI data center
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  16.73   rank 26 of 51   mentions 404 · sources 120 · authors 147 · superl 21 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst (unveiling) resolved on announcement; edge spent."
@@ -1377,7 +1627,10 @@ ev557  live  born 2026-05-27  4 scan(s)
   BIRTH     scout proposed TSEM (peers SMTC, ON) -> matcher: new
   VEHICLES
     TSEM    gains -- $1.3B contracts to drive 2027 revenue
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  21.40   rank 2 of 51   mentions 1332 · sources 275 · authors 367 · superl 121 · velocity +0.00
+  EVSCORE 2026-06-26  14.63   rank 36 of 50   mentions 404 · sources 101 · authors 145 · superl 43 · velocity -0.70
+  EVSCORE 2026-07-26  17.08   rank 13 of 53   mentions 381 · sources 99 · authors 135 · superl 42 · velocity -0.06
+  EVSCORE 2026-08-25  14.49   rank 31 of 56   mentions 317 · sources 75 · authors 7 · superl 37 · velocity -0.17
   ARC
     2026-05-27  live=True resolved=False  milestones 0  sources 0
       "No news on contract translation to 2027 revenue; TSEM AI note is unrelated."
@@ -1397,7 +1650,7 @@ ev558  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed COP (peers NYSE:EC) -> matcher: new
   VEHICLES
     COP     gains -- supplies natural gas under 30-year agreement
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  14.54   rank 37 of 51   mentions 184 · sources 78 · authors 82 · superl 10 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 1
       "Catalyst event (the signing) has occurred and is public."
@@ -1411,7 +1664,7 @@ ev559  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed FFAI (peers TSLA, LCID) -> matcher: new
   VEHICLES
     FFAI    gains -- partners to launch AI Robotics Institute
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  17.97   rank 14 of 51   mentions 631 · sources 188 · authors 180 · superl 25 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 3
       "Catalyst resolved on announcement; entry after resolution leaves no pending edge."
@@ -1425,7 +1678,10 @@ ev560  live  born 2026-05-27  4 scan(s)
   BIRTH     scout proposed EQX (peers ORLA, GG, KGC) -> matcher: new
   VEHICLES
     EQX     gains -- merger creates larger senior North American gold producer
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  15.29   rank 34 of 51   mentions 222 · sources 94 · authors 69 · superl 14 · velocity +0.00
+  EVSCORE 2026-06-26  13.49   rank 40 of 50   mentions 190 · sources 90 · authors 69 · superl 6 · velocity -0.14
+  EVSCORE 2026-07-26  13.08   rank 43 of 53   mentions 163 · sources 73 · authors 69 · superl 6 · velocity -0.14
+  EVSCORE 2026-08-25  13.57   rank 37 of 56   mentions 187 · sources 72 · authors 2 · superl 12 · velocity +0.15
   ARC
     2026-05-27  live=True resolved=False  milestones 1  sources 1
       "No merger progress reported; pending close unchanged."
@@ -1445,7 +1701,7 @@ ev561  exited  born 2026-05-27  1 scan(s)
   BIRTH     scout proposed NNE (peers SMCI) -> matcher: new
   VEHICLES
     NNE     gains -- partners with Supermicro for nuclear-powered AI data center infrastructure
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  16.97   rank 24 of 51   mentions 401 · sources 120 · authors 105 · superl 28 · velocity +0.00
   ARC
     2026-05-27  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved pre-entry; no new binding progress reported"
@@ -1459,7 +1715,8 @@ ev562  exited  born 2026-05-27  2 scan(s)
   BIRTH     scout proposed ASTC -> matcher: new
   VEHICLES
     ASTC    gains -- launches lunar resource and quantum initiative
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-05-27  15.90   rank 31 of 51   mentions 354 · sources 94 · authors 84 · superl 20 · velocity +0.00
+  EVSCORE 2026-06-26  17.15   rank 23 of 50   mentions 477 · sources 105 · authors 113 · superl 14 · velocity +0.35
   ARC
     2026-05-27  live=True resolved=False  milestones 0  sources 0
       "No news on ASTC or the lunar/quantum initiative; catalyst remains pending."
@@ -1475,7 +1732,7 @@ ev563  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed ASTS (peers SPCE, RKLB, SPIR) -> matcher: new
   VEHICLES
     ASTS    gains -- stock pops on successful satellite launch
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  18.37   rank 10 of 50   mentions 558 · sources 167 · authors 223 · superl 36 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved; launch occurred this week"
@@ -1489,7 +1746,7 @@ ev564  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed RKLB (peers SPCE, ASTS, LUNR, ASTC) -> matcher: new
   VEHICLES
     RKLB    gains -- selected by NASA for Electron launches   [PEER-ARRIVAL off ASTS; also in ev512,ev534]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  17.72   rank 18 of 50   mentions 421 · sources 144 · authors 155 · superl 32 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on announcement; edge spent."
@@ -1503,7 +1760,7 @@ ev565  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed MSTR (peers COIN, BTBT) -> matcher: new
   VEHICLES
     MSTR    gains -- buys BTC on dips to expand treasury holdings
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  18.87   rank 6 of 50   mentions 803 · sources 176 · authors 256 · superl 45 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 4  sources 3
       "The pending major purchase/sale decision has occurred multiple times; catalyst resolved."
@@ -1517,7 +1774,9 @@ ev566  live  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed INTC (peers TSM) -> matcher: new
   VEHICLES
     INTC    gains -- foundry validation from pending Apple deal   [also in ev516]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  17.55   rank 21 of 50   mentions 524 · sources 155 · authors 166 · superl 25 · velocity +0.00
+  EVSCORE 2026-07-26  18.20   rank 6 of 53   mentions 495 · sources 173 · authors 184 · superl 38 · velocity -0.06
+  EVSCORE 2026-08-25  16.20   rank 16 of 56   mentions 491 · sources 112 · authors 7 · superl 45 · velocity -0.01
   ARC
     2026-06-26  live=True resolved=False  milestones 1  sources 1
       "Catalyst (Trump-Apple-Intel announcement) remains pending; Google/NVIDIA backup-foundry reports advance the stated exit condition but do not close it."
@@ -1537,7 +1796,7 @@ ev567  exited  born 2026-06-26  1 scan(s)
     CVX     gains -- supplies natural gas under 20-year PPA   [also in ev579]
     GEV     gains -- supplies turbines for the new plant   [also in ev579]
     MSFT    gains -- secures dedicated gas power for AI data center
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  17.74   rank 17 of 50   mentions 603 · sources 198 · authors 204 · superl 19 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 2
       "Signing announced and reported; catalyst resolved on entry week."
@@ -1553,7 +1812,9 @@ ev568  live  born 2026-06-26  3 scan(s)
     CCJ     gains -- primary producer directly tied to uranium price spike
     LEU     gains -- enrichment capacity benefits from higher uranium prices
     URA     gains -- ETF holding basket of uranium names lifted by prices
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  18.74   rank 7 of 50   mentions 728 · sources 147 · authors 211 · superl 56 · velocity +0.00
+  EVSCORE 2026-07-26  18.05   rank 7 of 53   mentions 663 · sources 131 · authors 212 · superl 52 · velocity -0.09
+  EVSCORE 2026-08-25  20.70   rank 3 of 56   mentions 1039 · sources 177 · authors 15 · superl 85 · velocity +0.57
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 2
       "Catalyst pending; no compliance news. Uranium theme active but unrelated to IAEA demand."
@@ -1597,7 +1858,9 @@ ev571  live  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed BWXT (peers CCJ, URA, LEU) -> matcher: new
   VEHICLES
     BWXT    gains -- positioned for Urenco USA enrichment growth
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  13.15   rank 43 of 50   mentions 150 · sources 59 · authors 58 · superl 6 · velocity +0.00
+  EVSCORE 2026-07-26  9.65   rank 53 of 53   mentions 108 · sources 52 · authors 35 · superl 1 · velocity -0.28
+  EVSCORE 2026-08-25  10.12   rank 50 of 56   mentions 84 · sources 35 · authors 2 · superl 8 · velocity -0.22
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 0
       "No news on Urenco USA expansion; general uranium coverage does not advance this catalyst."
@@ -1615,7 +1878,9 @@ ev572  live  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed OKLO (peers SMR) -> matcher: new
   VEHICLES
     OKLO    gains -- advances positioning for AI data center reactor supply
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  17.95   rank 15 of 50   mentions 534 · sources 204 · authors 158 · superl 23 · velocity +0.00
+  EVSCORE 2026-07-26  15.54   rank 29 of 53   mentions 371 · sources 117 · authors 134 · superl 23 · velocity -0.31
+  EVSCORE 2026-08-25  15.82   rank 18 of 56   mentions 378 · sources 118 · authors 7 · superl 30 · velocity +0.02
   ARC
     2026-06-26  live=True resolved=False  milestones 1  sources 2
       "Fuel supply LOI advances positioning but no data center contracts yet; SMR coverage is separate theme."
@@ -1645,7 +1910,7 @@ ev574  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed URG (peers CCJ, URA, LEU) -> matcher: new
   VEHICLES
     URG     gains -- milestone in ongoing US uranium output
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  11.69   rank 48 of 50   mentions 87 · sources 42 · authors 32 · superl 4 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst event occurred; edge spent."
@@ -1659,7 +1924,9 @@ ev575  live  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed ASST (peers MSTR, CLSK) -> matcher: new
   VEHICLES
     ASST    gains -- positioned to benefit from Strive's $4.2B capital raise expansion
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  18.14   rank 12 of 50   mentions 743 · sources 168 · authors 234 · superl 30 · velocity +0.00
+  EVSCORE 2026-07-26  17.24   rank 11 of 53   mentions 595 · sources 159 · authors 197 · superl 32 · velocity -0.20
+  EVSCORE 2026-08-25  14.90   rank 25 of 56   mentions 432 · sources 106 · authors 13 · superl 34 · velocity -0.27
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 0
       "No news on Strive capital raise; catalyst remains pending."
@@ -1677,7 +1944,9 @@ ev576  live  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed SSMR (peers HL, AGI, SA) -> matcher: new
   VEHICLES
     SSMR    gains -- expansion plans still pending post-IPO raise
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  14.26   rank 37 of 50   mentions 252 · sources 84 · authors 90 · superl 7 · velocity +0.00
+  EVSCORE 2026-07-26  12.57   rank 45 of 53   mentions 196 · sources 65 · authors 75 · superl 6 · velocity -0.22
+  EVSCORE 2026-08-25  14.55   rank 29 of 56   mentions 233 · sources 61 · authors 6 · superl 20 · velocity +0.19
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 1
       "No developments on SSMR expansion or IPO follow-through in this week's coverage."
@@ -1695,7 +1964,9 @@ ev577  exited  born 2026-06-26  3 scan(s)
   BIRTH     scout proposed SPCE (peers LIT, ARKK) -> matcher: new
   VEHICLES
     SPCE    gains -- benefits from Starship V3 deployment milestones   [PEER-ARRIVAL off ASTS]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  16.92   rank 27 of 50   mentions 345 · sources 125 · authors 161 · superl 22 · velocity +0.00
+  EVSCORE 2026-07-26  12.41   rank 47 of 53   mentions 169 · sources 63 · authors 77 · superl 13 · velocity -0.51
+  EVSCORE 2026-08-25  10.98   rank 48 of 56   mentions 131 · sources 39 · authors 1 · superl 15 · velocity -0.22
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 2
       "No news on Starlink V3 deployment or 1024 Gbps; SPCE moves on unrelated SpaceX IPO chatter."
@@ -1714,7 +1985,9 @@ ev578  live  born 2026-06-26  3 scan(s)
   VEHICLES
     GDX     gains -- gold miners ETF captures sector-wide impact   [also in ev613]
     SSRM    gains -- primary vehicle tied to gold-market regulatory catalyst
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  18.73   rank 8 of 50   mentions 769 · sources 181 · authors 225 · superl 41 · velocity +0.00
+  EVSCORE 2026-07-26  17.72   rank 10 of 53   mentions 624 · sources 172 · authors 193 · superl 39 · velocity -0.19
+  EVSCORE 2026-08-25  20.03   rank 5 of 56   mentions 861 · sources 180 · authors 12 · superl 94 · velocity +0.38
   ARC
     2026-06-26  live=True resolved=False  milestones 0  sources 1
       "No coverage of SILVER Act filing or progress; SSRM momentum note unrelated."
@@ -1734,7 +2007,7 @@ ev579  exited  born 2026-06-26  1 scan(s)
     CAT     gains -- provides equipment and services for plant construction
     CVX     gains -- supplies gas and develops the dedicated plant under PPA   [PEER-ARRIVAL off MSFT; also in ev567]
     GEV     gains -- supplies gas turbines amid supply crunch for new plants   [PEER-ARRIVAL off MSFT; also in ev567]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  17.03   rank 25 of 50   mentions 433 · sources 154 · authors 156 · superl 18 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved on signing; construction remains pending but entry trigger met."
@@ -1748,7 +2021,7 @@ ev580  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed LEGN (peers BMY) -> matcher: new
   VEHICLES
     LEGN    gains -- LB2102 Phase 1 data advances new pipeline candidate
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  14.05   rank 38 of 50   mentions 156 · sources 64 · authors 66 · superl 10 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 2  sources 2
       "Catalyst (positive LB2102 Phase 1 data) occurred prior to entry; no FDA action on CARVYKTI yet but edge spent."
@@ -1762,7 +2035,7 @@ ev581  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed IBM (peers QBTS, RGTI) -> matcher: new
   VEHICLES
     IBM     gains -- direct recipient of gov quantum push plus own $10B plan
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  19.26   rank 5 of 50   mentions 826 · sources 180 · authors 241 · superl 58 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved pre-entry; IBM $10B plan is long-term outcome pending but not the entry trigger."
@@ -1776,7 +2049,7 @@ ev582  exited  born 2026-06-26  1 scan(s)
   BIRTH     scout proposed CLOV -> matcher: new
   VEHICLES
     CLOV    gains -- benefits from resolved government dispute
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-06-26  12.74   rank 45 of 50   mentions 102 · sources 51 · authors 45 · superl 6 · velocity +0.00
   ARC
     2026-06-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst occurred pre-entry; stock already rallied on the win"
@@ -1790,7 +2063,8 @@ ev583  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed NVDA (peers SMH, SOXX, SMHX, QCOM) -> matcher: new
   VEHICLES
     NVDA    gains -- benefits from nuclear power enabling AI data center growth
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  17.17   rank 12 of 53   mentions 457 · sources 138 · authors 140 · superl 24 · velocity +0.00
+  EVSCORE 2026-08-25  18.61   rank 7 of 56   mentions 650 · sources 145 · authors 6 · superl 53 · velocity +0.42
   ARC
     2026-07-26  live=True resolved=False  milestones 0  sources 0
       "No developments on US government nuclear backing for AI data centers this week; catalyst remains pending."
@@ -1806,7 +2080,8 @@ ev584  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed RKLB (peers IRDM, LIT, SPCE) -> matcher: new
   VEHICLES
     RKLB    gains -- acquires Iridium upon $8B deal close   [also in ev611]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  18.26   rank 4 of 53   mentions 488 · sources 158 · authors 191 · superl 38 · velocity +0.00
+  EVSCORE 2026-08-25  14.63   rank 26 of 56   mentions 364 · sources 85 · authors 12 · superl 37 · velocity -0.25
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 1
       "Deal announced this week; regulatory process just beginning."
@@ -1822,7 +2097,7 @@ ev585  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed TSM (peers AMKR, NVTS, ASML) -> matcher: new
   VEHICLES
     AMKR    gains -- partners with TSMC for advanced packaging in Arizona
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  20.08   rank 1 of 53   mentions 891 · sources 214 · authors 291 · superl 75 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on announcement; edge spent."
@@ -1836,7 +2111,8 @@ ev586  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed MSTR (peers BTC, BTBT, MARA) -> matcher: new
   VEHICLES
     MSTR    gains -- relies on BTC appreciation to fund dividends indefinitely
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  16.25   rank 21 of 53   mentions 367 · sources 86 · authors 129 · superl 25 · velocity +0.00
+  EVSCORE 2026-08-25  15.41   rank 23 of 56   mentions 366 · sources 87 · authors 6 · superl 38 · velocity -0.00
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 2
       "Catalyst pending annual BTC growth threshold; MSTR raising cash and sold BTC for dividends but model still tied to future appreciation."
@@ -1852,7 +2128,7 @@ ev587  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed HUT (peers BITA, RZLV) -> matcher: new
   VEHICLES
     HUT     gains -- commercializes 1 GW AI data center with major lease
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  18.02   rank 8 of 53   mentions 549 · sources 134 · authors 193 · superl 40 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved this week; transition to data centers has occurred and is public."
@@ -1866,7 +2142,7 @@ ev588  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed AVGO (peers SOXX) -> matcher: new
   VEHICLES
     AVGO    gains -- first custom AI chip with OpenAI   [also in ev443]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  17.01   rank 15 of 53   mentions 363 · sources 135 · authors 141 · superl 22 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on launch; edge spent"
@@ -1882,7 +2158,8 @@ ev589  live  born 2026-07-26  2 scan(s)
     CIFR    gains -- benefits from regulatory clarity for crypto mining
     COIN    gains -- benefits from regulatory clarity for crypto trading   [also in ev537]
     HOOD    gains -- benefits from regulatory clarity for crypto trading platform
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  13.80   rank 40 of 53   mentions 218 · sources 63 · authors 78 · superl 8 · velocity +0.00
+  EVSCORE 2026-08-25  20.66   rank 4 of 56   mentions 480 · sources 77 · authors 5 · superl 63 · velocity +1.20
   ARC
     2026-07-26  live=True resolved=False  milestones 2  sources 3
       "Signals of imminent passage and political momentum continue; Senate vote still pending."
@@ -1898,7 +2175,7 @@ ev590  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed LASR (peers LHX, AJRD) -> matcher: new
   VEHICLES
     LASR    gains -- selected for JLWS laser weapon development
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  12.37   rank 48 of 53   mentions 114 · sources 45 · authors 35 · superl 6 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved at announcement; edge spent before entry."
@@ -1912,7 +2189,8 @@ ev591  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed TVRD (peers SNDX, JANX, TYRA) -> matcher: new
   VEHICLES
     TVRD    gains -- TTI-109 positive Phase 1 awaiting FDA decision
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  14.36   rank 37 of 53   mentions 167 · sources 64 · authors 59 · superl 13 · velocity +0.00
+  EVSCORE 2026-08-25  14.55   rank 28 of 56   mentions 219 · sources 56 · authors 6 · superl 16 · velocity +0.31
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 1
       "Positive Phase 1 data released for TVRD's TTI-109; FDA decision remains pending with no date set."
@@ -1928,7 +2206,7 @@ ev592  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed VG (peers UNG, BOIL) -> matcher: new
   VEHICLES
     VG      gains -- LNG exporter benefits from higher natural gas prices
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  17.77   rank 9 of 53   mentions 474 · sources 148 · authors 139 · superl 33 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 2  sources 3
       "Escalation occurred this week; catalyst resolved and edge spent."
@@ -1944,7 +2222,8 @@ ev593  live  born 2026-07-26  2 scan(s)
     MPC     gains -- refiner benefits from tighter diesel supply and higher margins
     PSX     gains -- refining operations capture diesel shortage pricing
     SOIL    gains -- holds diesel-heavy energy infrastructure exposed to export curbs
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  16.33   rank 20 of 53   mentions 288 · sources 117 · authors 97 · superl 19 · velocity +0.00
+  EVSCORE 2026-08-25  13.63   rank 36 of 56   mentions 235 · sources 92 · authors 4 · superl 19 · velocity -0.18
   ARC
     2026-07-26  live=True resolved=False  milestones 2  sources 2
       "Ban remains active; supply tightening confirmed this week."
@@ -1960,7 +2239,7 @@ ev594  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed SMR -> matcher: new
   VEHICLES
     SMR     gains -- wins Paragon contract for HIPS design work
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  16.38   rank 18 of 53   mentions 391 · sources 113 · authors 123 · superl 19 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 2
       "Catalyst (contract win) already occurred pre-entry; pending design completion is next milestone but edge spent."
@@ -1974,7 +2253,8 @@ ev595  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed AXSM (peers EXEL) -> matcher: new
   VEHICLES
     AXSM    gains -- awaits FDA decision on AXS-12
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  11.94   rank 49 of 53   mentions 62 · sources 37 · authors 21 · superl 7 · velocity +0.00
+  EVSCORE 2026-08-25  21.17   rank 2 of 56   mentions 194 · sources 72 · authors 1 · superl 11 · velocity +2.13
   ARC
     2026-07-26  live=True resolved=False  milestones 0  sources 1
       "No developments on AXS-12; PDUFA remains August 2026."
@@ -1991,7 +2271,8 @@ ev596  live  born 2026-07-26  2 scan(s)
   VEHICLES
     META    gains -- begins in-house AI chip production in September
     TSM     gains -- manufactures Meta's Iris AI chip   [also in ev612]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  16.03   rank 25 of 53   mentions 318 · sources 97 · authors 97 · superl 20 · velocity +0.00
+  EVSCORE 2026-08-25  10.30   rank 49 of 56   mentions 134 · sources 50 · authors 3 · superl 14 · velocity -0.58
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 2
       "Announcement of September production start is the entry catalyst; no delay or start yet."
@@ -2007,7 +2288,7 @@ ev597  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed LLY (peers ABT, ABBV) -> matcher: new
   VEHICLES
     LLY     gains -- Retatrutide Phase 3 success advances pipeline   [also in ev528]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  11.69   rank 50 of 53   mentions 71 · sources 33 · authors 30 · superl 6 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst occurred on announcement; edge spent."
@@ -2021,7 +2302,7 @@ ev598  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed ELECTROVAYA (peers ENS, PLUG) -> matcher: ?
   VEHICLES
     ELVA    gains -- surges on Amazon stake deal announcement   [RESTATES]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  16.37   rank 19 of 53   mentions 335 · sources 115 · authors 132 · superl 18 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on announcement; no pending milestone remains."
@@ -2035,7 +2316,8 @@ ev599  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed BTDR (peers NVDA, MU) -> matcher: new
   VEHICLES
     BTDR    gains -- positioned for Meta's in-house AI chip ramp
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  17.03   rank 14 of 53   mentions 376 · sources 123 · authors 132 · superl 26 · velocity +0.00
+  EVSCORE 2026-08-25  13.45   rank 39 of 56   mentions 274 · sources 68 · authors 3 · superl 35 · velocity -0.27
   ARC
     2026-07-26  live=True resolved=False  milestones 0  sources 0
       "No developments on Meta in-house chip or BTDR link; unrelated memory oversupply noise dominates coverage."
@@ -2051,7 +2333,7 @@ ev600  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed CDNA (peers CDNA) -> matcher: new
   VEHICLES
     CDNA    gains -- benefits from finalized Medicare coverage for molecular testing
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  15.90   rank 26 of 53   mentions 228 · sources 97 · authors 101 · superl 18 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved immediately on entry; CDNA rallied on finalization news."
@@ -2065,7 +2347,8 @@ ev601  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed VIVK (peers VIVK) -> matcher: new
   VEHICLES
     VIVK    gains -- executes recurring crude oil purchase and sale transactions
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  15.62   rank 28 of 53   mentions 234 · sources 88 · authors 100 · superl 17 · velocity +0.00
+  EVSCORE 2026-08-25  11.52   rank 45 of 56   mentions 174 · sources 55 · authors 7 · superl 9 · velocity -0.26
   ARC
     2026-07-26  live=True resolved=False  milestones 0  sources 0
       "No VIVK news; catalyst remains pending."
@@ -2081,7 +2364,8 @@ ev602  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed SLBT (peers SLBT) -> matcher: new
   VEHICLES
     SLBT    gains -- benefits if FDA grants ODD for GDT glioblastoma therapy
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  12.44   rank 46 of 53   mentions 107 · sources 49 · authors 46 · superl 5 · velocity +0.00
+  EVSCORE 2026-08-25  12.88   rank 43 of 56   mentions 130 · sources 41 · authors 3 · superl 12 · velocity +0.21
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 1
       "Submission filed; FDA decision still pending with no update this week."
@@ -2097,7 +2381,8 @@ ev603  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed TRVI (peers NUTX, CORT, GKOS) -> matcher: new
   VEHICLES
     TRVI    gains -- awaits FDA decision on Haduvio for chronic cough
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  14.75   rank 35 of 53   mentions 221 · sources 76 · authors 54 · superl 14 · velocity +0.00
+  EVSCORE 2026-08-25  7.88   rank 54 of 56   mentions 77 · sources 39 · authors 3 · superl 4 · velocity -0.65
   ARC
     2026-07-26  live=True resolved=False  milestones 2  sources 1
       "Catalyst remains pending; no FDA decision announced. TRVI rose on conference data but the binary approval event is still ahead."
@@ -2113,7 +2398,8 @@ ev604  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed ASTS -> matcher: new
   VEHICLES
     ASTS    gains -- awaits commercial launch of Rakuten partnership   [PEER-ARRIVAL off SPCX]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  17.00   rank 16 of 53   mentions 461 · sources 149 · authors 143 · superl 19 · velocity +0.00
+  EVSCORE 2026-08-25  14.34   rank 32 of 56   mentions 407 · sources 77 · authors 5 · superl 31 · velocity -0.12
   ARC
     2026-07-26  live=True resolved=False  milestones 1  sources 2
       "Catalyst remains pending; no commercial launch reported."
@@ -2129,7 +2415,8 @@ ev605  live  born 2026-07-26  2 scan(s)
   BIRTH     scout proposed VERA -> matcher: new
   VEHICLES
     VERA    gains -- value hinges on pending FDA approval decision
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  14.92   rank 34 of 53   mentions 228 · sources 78 · authors 56 · superl 15 · velocity +0.00
+  EVSCORE 2026-08-25  8.29   rank 52 of 56   mentions 82 · sources 41 · authors 3 · superl 5 · velocity -0.64
   ARC
     2026-07-26  live=True resolved=False  milestones 0  sources 0
       "Catalyst remains pending; no updates in news."
@@ -2145,7 +2432,7 @@ ev606  exited  born 2026-07-26  1 scan(s)
   BIRTH     scout proposed FATN -> matcher: new
   VEHICLES
     FATN    gains -- product launch targets LEO satellite performance
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-07-26  15.01   rank 32 of 53   mentions 192 · sources 80 · authors 74 · superl 14 · velocity +0.00
   ARC
     2026-07-26  live=False resolved=True  milestones 1  sources 1
       "Launch news predates entry; no adoption updates this week."
@@ -2159,7 +2446,7 @@ ev607  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed SPCX (peers RKLB, LUNR) -> matcher: new
   VEHICLES
     SPCX    gains -- Cursor deal drives Grok enterprise adoption
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  18.70   rank 6 of 56   mentions 927 · sources 181 · authors 15 · superl 99 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 0
       "No news on Cursor deal or Grok enterprise push; earnings and reusability coverage unrelated to catalyst."
@@ -2174,7 +2461,7 @@ ev608  exited  born 2026-08-25  1 scan(s)
   VEHICLES
     ORCL    gains -- adds quantum computing to cloud platform
     QNT     gains -- integrates with Oracle cloud for quantum access
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  13.20   rank 40 of 56   mentions 182 · sources 58 · authors 2 · superl 19 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved on announcement; edge spent"
@@ -2190,7 +2477,7 @@ ev609  live  born 2026-08-25  1 scan(s)
     GOLD    gains -- primary gold producer benefits directly from price rise
     KGC     gains -- gold miner rides higher prices on dovish Fed bets
     NEM     gains -- gold miner rides higher prices on dovish Fed bets
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  15.97   rank 17 of 56   mentions 376 · sources 104 · authors 11 · superl 36 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 2  sources 3
       "Fed repricing remains pending amid ongoing CPI and data focus; gold rising on dovish bets keeps catalyst live."
@@ -2204,7 +2491,7 @@ ev610  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed RIOT (peers ANTH) -> matcher: new
   VEHICLES
     RIOT    gains -- signs $9.1B data center deal with Anthropic
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  12.94   rank 42 of 56   mentions 207 · sources 61 · authors 1 · superl 17 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Catalyst resolved on signing; edge spent."
@@ -2218,7 +2505,7 @@ ev611  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed RKLB (peers SPCX, SPCE, ASTS) -> matcher: new
   VEHICLES
     RKLB    gains -- awarded $266M Space Force multi-launch contract   [PEER-ARRIVAL off SPCX; also in ev584]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  16.45   rank 14 of 56   mentions 500 · sources 103 · authors 9 · superl 54 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 1  sources 1
       "Contract remains pending execution; no resolution this week."
@@ -2234,7 +2521,7 @@ ev612  live  born 2026-08-25  1 scan(s)
     AMZN    gains -- AWS AI growth attracts next major contracts   [PEER-ARRIVAL off MSFT; also in ev535]
     AVGO    gains -- custom AI chips for Amazon-scale deployments   [also in ev443]
     TSM     gains -- manufactures AI semiconductors for the buildout   [also in ev596]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  17.17   rank 11 of 56   mentions 664 · sources 119 · authors 11 · superl 68 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 3
       "No resolution of pending AI contract milestone; earnings optimism intact."
@@ -2248,7 +2535,7 @@ ev613  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed GDX (peers AEM, NEM, FNV, GDXJ) -> matcher: ?
   VEHICLES
     GDX     gains -- benefits from higher gold prices due to buybacks   [also in ev578]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  15.51   rank 21 of 56   mentions 305 · sources 92 · authors 11 · superl 31 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 1
       "Catalyst resolved on announcement; surge already occurred and priced."
@@ -2262,7 +2549,7 @@ ev614  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed MRNA (peers MRK, BNTX, NVAX) -> matcher: new
   VEHICLES
     MRNA    gains -- melanoma vaccine trial success lifts stock   [also in ev621]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  18.04   rank 9 of 56   mentions 1021 · sources 171 · authors 9 · superl 80 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Trial success reported and stock already repriced; catalyst resolved on entry week."
@@ -2277,7 +2564,7 @@ ev615  live  born 2026-08-25  1 scan(s)
   VEHICLES
     COPX    gains -- holds global copper miners lifted by US price premium
     FCX     gains -- major US copper producer benefits from import tariffs
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  16.33   rank 15 of 56   mentions 400 · sources 98 · authors 11 · superl 50 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 1
       "No tariff decision announced; copper strength from supply issues unrelated to catalyst."
@@ -2293,7 +2580,7 @@ ev616  live  born 2026-08-25  1 scan(s)
     PAAS    gains -- silver production benefits from higher prices
     SLV     gains -- tracks silver price rise on investment demand
     VZLA    gains -- silver explorer benefits from higher prices
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  18.07   rank 8 of 56   mentions 673 · sources 163 · authors 16 · superl 73 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 2  sources 3
       "Catalyst entered this week on Citi forecast; silver price action and miner coverage support pending demand thesis with no resolution."
@@ -2307,7 +2594,7 @@ ev617  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed REPL (peers other biotech stocks) -> matcher: ?
   VEHICLES
     REPL    gains -- awaits FDA decision on skin cancer treatment
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  11.35   rank 46 of 56   mentions 85 · sources 40 · authors 4 · superl 7 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 0
       "No REPL news; catalyst remains pending with no date announced."
@@ -2321,7 +2608,7 @@ ev618  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed PLTR (peers RKLB, LDOS) -> matcher: new
   VEHICLES
     PLTR    gains -- strong Q2 results on defense and commercial demand
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  17.63   rank 10 of 56   mentions 735 · sources 137 · authors 10 · superl 79 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Catalyst occurred this week; earnings posted with strong growth noted in coverage. No new contract announced."
@@ -2335,7 +2622,7 @@ ev619  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed CRWV (peers SMCI, NBIS) -> matcher: new
   VEHICLES
     CRWV    gains -- wins major AI contract boosting revenue
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  14.15   rank 35 of 56   mentions 211 · sources 72 · authors 4 · superl 23 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 2
       "No new CoreWeave contract win announced; catalyst remains pending. Debt warning and peer AI demand news do not resolve the specific trigger."
@@ -2352,7 +2639,7 @@ ev620  live  born 2026-08-25  1 scan(s)
     IONQ    gains -- positioned for increased government quantum contracts
     QBTS    gains -- direct beneficiary if Congress boosts quantum funding   [PEER-ARRIVAL off IONQ]
     RGTI    gains -- eligible for expanded quantum R&D grants   [PEER-ARRIVAL off IONQ]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  14.31   rank 33 of 56   mentions 264 · sources 64 · authors 2 · superl 36 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 2
       "No congressional action or bill progress reported; all coverage is earnings and stock moves only."
@@ -2367,7 +2654,7 @@ ev621  exited  born 2026-08-25  1 scan(s)
   VEHICLES
     MRK     gains -- owns the Keytruda combo in the successful melanoma vaccine trial   [PEER-ARRIVAL off MRNA]
     MRNA    gains -- developed the mRNA vaccine component now validated in melanoma   [also in ev614]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  13.47   rank 38 of 56   mentions 241 · sources 67 · authors 3 · superl 17 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Catalyst (trial success) resolved this week with public announcement and immediate stock reaction; FDA step remains ahead but entry trigger has passed"
@@ -2384,7 +2671,7 @@ ev622  live  born 2026-08-25  1 scan(s)
     LMT     gains -- direct beneficiary of munitions production ramp   [also in ev529]
     NOC     gains -- missile motor and munitions capacity
     RTX     gains -- Tomahawk and defense backlog growth
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  14.57   rank 27 of 56   mentions 233 · sources 77 · authors 9 · superl 22 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 1  sources 1
       "Catalyst pending; first-week coverage aligns with Pentagon production push."
@@ -2399,7 +2686,7 @@ ev623  live  born 2026-08-25  1 scan(s)
   VEHICLES
     ACHR    gains -- acquires subsidiaries, receives Boeing investment   [also in ev628]
     BA      gains -- sells subsidiaries, takes stake, keeps collaboration rights
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  8.08   rank 53 of 56   mentions 32 · sources 16 · authors 0 · superl 4 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 1  sources 2
       "Deal announced pre-entry; closing remains pending catalyst."
@@ -2413,7 +2700,7 @@ ev624  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed JOBY (peers ACHR) -> matcher: new
   VEHICLES
     JOBY    gains -- acquires Resonant to scale defense business
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  15.30   rank 24 of 56   mentions 343 · sources 85 · authors 8 · superl 33 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 1  sources 1
       "Acquisition announced this week; close still pending."
@@ -2427,7 +2714,7 @@ ev625  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed UUUU (peers UEC, DNN, NLR) -> matcher: new
   VEHICLES
     UUUU    gains -- rides rare earth deal momentum   [PEER-ARRIVAL off UEC]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  15.61   rank 20 of 56   mentions 477 · sources 108 · authors 2 · superl 43 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 2
       "No deal news; thesis remains pending on UUUU-specific rare earth momentum."
@@ -2442,7 +2729,7 @@ ev626  exited  born 2026-08-25  1 scan(s)
   VEHICLES
     ONDS    gains -- benefits from reduced foreign drone competition
     UMAC    gains -- leads rally as domestic drone maker   [also in ev629]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  15.62   rank 19 of 56   mentions 334 · sources 96 · authors 8 · superl 35 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 3
       "Catalyst resolved this week; edge spent."
@@ -2456,7 +2743,7 @@ ev627  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed ZYME (peers JAZZ) -> matcher: new
   VEHICLES
     ZYME    gains -- receives $250M milestone plus future royalties
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  11.07   rank 47 of 56   mentions 75 · sources 36 · authors 2 · superl 8 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 3
       "Approval occurred this week; specific catalyst resolved and priced in."
@@ -2470,7 +2757,7 @@ ev628  live  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed ACHR (peers JOBY, AVAV) -> matcher: new
   VEHICLES
     ACHR    gains -- prospects lifted by Boeing Insitu acquisition for defense drones   [PEER-ARRIVAL off BA; also in ev623]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  13.03   rank 41 of 56   mentions 169 · sources 53 · authors 4 · superl 16 · velocity +0.00
   ARC
     2026-08-25  live=True resolved=False  milestones 0  sources 1
       "Catalyst pending with no resolution; news centers on Joby defense move, unrelated to Boeing-Insitu or Archer prospects."
@@ -2484,7 +2771,7 @@ ev629  exited  born 2026-08-25  1 scan(s)
   BIRTH     scout proposed UMAC (peers AVAV, KTOS) -> matcher: new
   VEHICLES
     UMAC    gains -- benefits from reduced foreign drone competition   [PEER-ARRIVAL off ONDS; also in ev626]
-  SCORES    none   [NO-SCORE]
+  EVSCORE 2026-08-25  14.18   rank 34 of 56   mentions 266 · sources 62 · authors 3 · superl 31 · velocity +0.00
   ARC
     2026-08-25  live=False resolved=True  milestones 1  sources 2
       "Catalyst occurred on announcement; edge spent."
@@ -2492,12 +2779,12 @@ ev629  exited  born 2026-08-25  1 scan(s)
 
 ======================================================================
 136 event(s) shown of 136   flags:
-    136  NO-SCORE
      13  PEER-ARRIVAL
      12  PENDING-DRIFT
      10  EXIT-DRIFT
       7  NO-CLAUSE
       3  RESTATES
       3  NEVER-JUDGED
+      3  NO-SCORE
       2  SUBJECT-DROPPED
       1  NOT-A-PARTY

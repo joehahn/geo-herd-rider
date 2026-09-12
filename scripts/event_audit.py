@@ -149,7 +149,16 @@ def build(run: Path):
             arrived[d].setdefault(c.get("ticker"), (c.get("ticker"), c.get("thesis")))
             for p in c.get("peers") or []:
                 arrived[d].setdefault(p, (c.get("ticker"), c.get("thesis")))
-    return events, scout, match, rank, culled, name2tk, arrived, log
+    # EVERY LIVE EVENT'S evscore PER SCAN, so a rank can be stated against the population it was
+    # scored in. Built once here rather than per event: the audit renders hundreds of blocks and
+    # each would otherwise re-walk the whole journal.
+    scan_scores = collections.defaultdict(dict)
+    for _eid, _e in events.items():
+        for _x in (_e.get("entries") or []):
+            _c = _x.get("coverage") or {}
+            if _c.get("score") is not None:
+                scan_scores[_x["date"]][_eid] = _c["score"]
+    return events, scout, match, rank, culled, name2tk, arrived, log, scan_scores
 
 
 def fate_of(e, culled) -> str:
@@ -171,7 +180,7 @@ def fate_of(e, culled) -> str:
 
 
 def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
-    events, scout, match, rank, culled, name2tk, arrived, log = ctx
+    events, scout, match, rank, culled, name2tk, arrived, log, _scan_scores = ctx
     L, flags = [], []
     ents = e.get("entries") or []
     born = ents[0]["date"] if ents else "?"
@@ -313,12 +322,36 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
     if missing:
         L.append(f"    (none)  catalyst names {', '.join(missing)} -- NOT a vehicle   [NOT-A-PARTY]")
 
-    # SCORES
+    # SCORES -- TWO DIFFERENT THINGS, and conflating them is why this block read "none" on every
+    # event of every current curation.
+    #   evscore  the ARITHMETIC coverage-rank (mentions, source/author breadth, superlatives,
+    #            velocity). Stamped on EVERY live event on EVERY scan, unconditionally -- it does
+    #            not depend on max_events and has nothing to do with the cull. No LLM, no forecast,
+    #            so it sits inside non-negotiable #1.
+    #   evrank   the LLM ranker's sub-scores. Constructed ONLY when `max_events AND picker_model`,
+    #            which is off in every current curation (max_events: 0), so it is legitimately
+    #            absent -- and NO-SCORE fired on 100% of events saying so, which is noise, not a
+    #            finding.
+    # The RANK is computed here rather than stored, over the other live events IN THE SAME SCAN,
+    # because that is the only population the number means anything against: "8th of 53 this scan".
+    # Recomputable from the journal, so it cannot drift from what the report shows.
+    _cov = [(en["date"], (en.get("coverage") or {})) for en in ents]
+    _cov = [(d, c) for d, c in _cov if c.get("score") is not None]
+    if _cov:
+        for d, c in (_cov if show_all_scans else _cov[-1:]):
+            _pop = sorted((_scan_scores.get(d) or {}).values(), reverse=True)
+            _r = (_pop.index(c["score"]) + 1) if c["score"] in _pop else None
+            _pos = f"rank {_r} of {len(_pop)}" if _r else f"of {len(_pop)}"
+            L.append(f"  EVSCORE {d}  {c['score']:.2f}   {_pos}"
+                     f"   mentions {c.get('mentions','?')} · sources {c.get('source_breadth','?')}"
+                     f" · authors {c.get('author_breadth','?')} · superl {c.get('superlatives','?')}"
+                     f" · velocity {c.get('velocity',0.0):+.2f}")
     scored = [(en["date"], (en.get("coverage") or {}).get("evrank")) for en in ents]
     scored = [(d, v) for d, v in scored if v]
     if not scored:
-        flags.append("NO-SCORE")
-        L.append("  SCORES    none   [NO-SCORE]")
+        if not _cov:                       # only a real gap when NEITHER scorer left a trace
+            flags.append("NO-SCORE")
+            L.append("  SCORES    none   [NO-SCORE]")
     else:
         for d, v in (scored if show_all_scans else scored[-1:]):
             L.append(f"  SCORE {d}  key {v.get('key')} = cat{v.get('catalyst_strength')} "

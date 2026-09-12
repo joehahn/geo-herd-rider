@@ -381,12 +381,35 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                 f"*lasts a month* {'yes +1' if _er.get('spans_a_month') else 'no +0'}  ·  "
                 f"**not counted:** *exit* {_er.get('exit_quality', '?')}/5. "
                 + (f"*{_trim(str(_er.get('why') or ''), 120)}*" if _er.get("why") else ""))
-    # COVERAGE RANK (evscore) IS NOT PRINTED. It was retired as the cull's ranker on 2026-09-08,
-    # and rendering it from a journal that no longer stamps it INVENTED numbers -- ev585 showed
+    # COVERAGE RANK (evscore), RESTORED 2026-09-12 at the user's request -- WITH THE BUG THAT GOT
+    # IT PULLED FIXED. It was removed on 2026-09-08 not because the number is useless but because
+    # rendering it from a journal that no longer stamped it INVENTED one: ev585 showed
     # "score 0.0 · 0 independent desks · 0 matching articles" purely from .get(..., 0) defaults on a
-    # missing block. It is still computed and stamped (it is the mechanical control the LLM ranker
-    # is measured against) and still the live ranker when `picker_model` is blank; it just has no
-    # place in a report about how one event was handled.
+    # MISSING block. So this guards on PRESENCE (`score is not None`) and prints nothing at all when
+    # the block is absent -- never a zero, which reads as a measurement.
+    # WHAT IT IS AND IS NOT. Four counts over the articles that matched this event THIS scan, plus
+    # how the match count moved since last scan. Arithmetic over a pool already in memory: no LLM,
+    # no forecast, so it stays inside non-negotiable #1. It is NOT a quality judgement and NOTHING
+    # culls on it -- max_events is 0, so events are never ranked away, and tickers are culled by
+    # trailing mean/sd in _ranked_cull, which never reads this. It is here to be LOOKED AT.
+    # THE RANK IS OVER THIS SCAN'S LIVE EVENTS, which is the only population it means anything
+    # against -- "8th of 53" is comparable across scans where a raw score is not, because a scan
+    # holding 12 events and one holding 53 do not produce comparable score distributions.
+    # velocity is the term to read with most suspicion: it carries weight 4.0 of ~8, it is the
+    # scan-over-scan change in MATCH COUNT, and a generic catalyst word inflates it. It is
+    # legitimately 0.00 on an event's first scan (33% of entries on cbs_v13), where there is no
+    # prior count to difference against.
+    if isinstance(_cv, dict) and _cv.get("score") is not None:
+        _rk = f"**{rank[0]} of {rank[1]}** live this scan" if rank else "unranked"
+        L.append(
+            f"**Coverage score.** **{float(_cv['score']):.2f}** — {_rk}  ·  "
+            f"*mentions* {_cv.get('mentions', '?')} · "
+            f"*source breadth* {_cv.get('source_breadth', '?')} · "
+            f"*author breadth* {_cv.get('author_breadth', '?')} · "
+            f"*superlatives* {_cv.get('superlatives', '?')} · "
+            f"*velocity* {float(_cv.get('velocity', 0.0)):+.2f}. "
+            f"Arithmetic over this scan's matched articles — not a forecast, and nothing culls "
+            f"on it.")
     # THE PROCESS AUDIT of how this event was WRITTEN -- judged after the fact, with no prices in
     # front of the judge, and NOT used by any cull. Measured on 303 v31 events: the TOTAL does not
     # separate events that end on the agent's judgement from ones a counter retires (11.0 vs 11.0),
