@@ -74,6 +74,27 @@ def event_metrics(event: dict, arts: list[dict], prev: dict | None = None) -> di
 # is a name the press has started naming while it is still under-owned. So breadth enters as log1p
 # (a handful of independent desks is validation that it is not one crank; forty is the herd arriving,
 # and the 40th adds almost nothing), while VELOCITY -- the story being picked up right now -- leads.
+# THE INTENT ABOVE IS NOT WHAT HAPPENS, measured 2026-09-12 and REPRODUCING across three
+# curations -- cbs_v13 (420 scored entries), cbt_3yr_v37_nocull (1,700) and cbt_3yr_v36_holistic
+# (845), 2,965 in total. SOURCE BREADTH IS THE LARGEST TERM ON ~100% OF ENTRIES IN ALL THREE;
+# velocity leads on 1 of 2,965. The design says "breadth SATURATES, and velocity carries the
+# weight". It does not: log1p compresses breadth's GROWTH but not its LEVEL, so 2.0*log1p(200) is
+# 10.6 while velocity's contribution is between -0.5 and +0.5 for 64% of entries and has a median
+# of exactly 0.00. The score is in practice `2.0 * log1p(source_breadth)` with small adjustments,
+# which is the level-based, crowd-preferring ranking the weighting was chosen to avoid.
+# VELOCITY IS ALSO THE WIDEST AND THE WEAKEST: its contribution spans -3.35..+12.00, a range 2.5x
+# any other term's and wider than the entire author_breadth term, while correlating worst with the
+# final score (+0.345 against source_breadth's +0.895). Inert for the typical event, dominant for a
+# handful -- ev507 scored +12.00 from velocity alone against a breadth term of ~9.
+# DELIBERATELY NOT FIXED HERE. The obvious move -- cut the 4.0 -- makes it worse, since breadth
+# already owns the ranking. The defensible change is the DENOMINATOR: velocity is
+# (n - prev_n) / max(prev_n, 1), so an event going 3 -> 12 articles scores the same +3.0 clamp as
+# one going 300 -> 900, and a floor (max(prev_n, 5)) would kill small-denominator spikes without
+# touching the term's intent. That is a curation-affecting change and #6 forbids picking it off one
+# curation, so it wants measuring across several first. Recorded here so the next person starts
+# from the measurement rather than from the comment above it.
+# NOTHING CULLS ON THIS TODAY (max_events 0), so the cost of the discrepancy is currently zero --
+# it is reported, not acted on. That changes the moment anyone raises max_events.
 WEIGHTS = {"source_breadth": 2.0, "superlatives": 1.5, "velocity": 4.0, "author_breadth": 0.5}
 
 

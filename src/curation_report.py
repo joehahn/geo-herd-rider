@@ -401,15 +401,42 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # prior count to difference against.
     if isinstance(_cv, dict) and _cv.get("score") is not None:
         _rk = f"**{rank[0]} of {rank[1]}** live this scan" if rank else "unranked"
+        # THE DECOMPOSITION, NOT JUST THE INPUTS. Printing the four raw counts does not let a reader
+        # see WHICH term produced the number, and on this score that is the whole question: measured
+        # over cbs_v13's 420 scored entries, velocity contributes between -0.5 and +0.5 for 64% of
+        # events -- nothing -- and ±4 to +12 for 1%, a range 2.5x wider than any other term and
+        # wider than the ENTIRE author-breadth term. It also correlates worst with the final score
+        # (+0.345 against source breadth's +0.895), which is the signature of a term that is inert
+        # for the typical event and then swamps everything for a few. ev507 scored +12.00 from
+        # velocity alone against a breadth term of ~9.
+        # WHY THE FORMULA IS LEFT ALONE. velocity carries weight 4.0 deliberately: breadth enters as
+        # log1p so it SATURATES, and raw breadth would prefer the most crowded story, which inverts
+        # non-negotiable #2 -- the bet is a name the press has started naming while it is still
+        # under-owned. Cutting the weight hands the ranking back to three breadth terms that measure
+        # crowdedness. And #6 forbids tuning it here: this is one curation, and today's sweep showed
+        # knobs flipping sign between curations. So the number stays and the reader gets to SEE it.
+        # The zeros are not a bug either: 33% are an event's FIRST scan, where there is no prior
+        # count to difference against. Imputing anything there would invent a measurement, which is
+        # the bug that got this whole line pulled on 2026-09-08.
+        import math as _m
+        _vc = 4.0 * max(-1.0, min(3.0, float(_cv.get("velocity", 0.0) or 0.0)))
+        _terms = [("source breadth", 2.0 * _m.log1p(_cv.get("source_breadth", 0) or 0),
+                   _cv.get("source_breadth", "?")),
+                  ("superlatives", 1.5 * _m.log1p(_cv.get("superlatives", 0) or 0),
+                   _cv.get("superlatives", "?")),
+                  ("velocity", _vc, f"{float(_cv.get('velocity', 0.0) or 0.0):+.2f}"),
+                  ("author breadth", 0.5 * _m.log1p(_cv.get("author_breadth", 0) or 0),
+                   _cv.get("author_breadth", "?"))]
+        _lead = max(_terms, key=lambda t: abs(t[1]))
         L.append(
             f"**Coverage score.** **{float(_cv['score']):.2f}** — {_rk}  ·  "
-            f"*mentions* {_cv.get('mentions', '?')} · "
-            f"*source breadth* {_cv.get('source_breadth', '?')} · "
-            f"*author breadth* {_cv.get('author_breadth', '?')} · "
-            f"*superlatives* {_cv.get('superlatives', '?')} · "
-            f"*velocity* {float(_cv.get('velocity', 0.0)):+.2f}. "
-            f"Arithmetic over this scan's matched articles — not a forecast, and nothing culls "
-            f"on it.")
+            + " · ".join(f"*{nm}* {raw} → **{val:+.2f}**" for nm, val, raw in _terms)
+            + f"  ·  *mentions* {_cv.get('mentions', '?')}. "
+            + f"Largest term: **{_lead[0]}** ({_lead[1]:+.2f}). "
+            + "Arithmetic over this scan's matched articles — not a forecast, and nothing culls "
+              "on it. Breadth is log-compressed so it saturates; velocity is the scan-over-scan "
+              "change in MATCH COUNT and is the term most easily inflated by a generic catalyst "
+              "word, so read a large one against the mention count beside it.")
     # THE PROCESS AUDIT of how this event was WRITTEN -- judged after the fact, with no prices in
     # front of the judge, and NOT used by any cull. Measured on 303 v31 events: the TOTAL does not
     # separate events that end on the agent's judgement from ones a counter retires (11.0 vs 11.0),
