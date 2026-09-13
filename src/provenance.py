@@ -385,7 +385,20 @@ CANON_RUN = "data/cbt_3yr_v37_nocull"       # v34 -> v37 on 2026-09-10. NO EVENT
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_BOOTSTRAP_RUN = "data/cbs_v13"   # the curation behind docs/cbs.html.
+CANON_BOOTSTRAP_RUN = "data/cbs_v14"   # the curation behind docs/cbs.html.
+                                      # v13 -> v14 on 2026-09-13. SAME SEED, SAME CONFIG -- the only change is that
+                                      # EVENTS ARE NOW SCORED. Ranking was decoupled from culling, so evrank runs on
+                                      # picker_model alone while max_events (0) decides only whether anything is
+                                      # DISCARDED. All five scans scored every live event and culled none:
+                                      # 49, 49, 47, 47, 59 of 49, 49, 47, 47, 59.
+                                      # THE SOLUTION IS OTHERWISE UNCHANGED, which was the point: no event cull,
+                                      # tickers still culled by trailing mean/sd in _ranked_cull, which never reads
+                                      # the event score. v13 remains on disk as the unscored control over the same
+                                      # seed and corpus -- the two differ ONLY in whether the ranker ran.
+                                      # exit_quality is now IN the rank key, and the metric was redefined in the same
+                                      # change because the old one measured backwards. See evrank.score_of.
+                                      # 5 scans 2026-04-27 .. 2026-08-25, $9.75.
+                                      # PREVIOUS: data/cbs_v13, 2026-09-12, first bootstrap re-seeded from v37.
                                       # v12 -> v13 on 2026-09-12, RE-SEEDED from the promoted CANON_RUN
                                       # (cbt_3yr_v37_nocull). v12 inherited its live theses from
                                       # cbt_3yr_v27_catalyst, four promotions back, so the live book was again
