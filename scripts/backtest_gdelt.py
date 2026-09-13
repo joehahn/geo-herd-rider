@@ -385,7 +385,19 @@ def main(argv=None):
     # cannot silently turn max_events into "keep the first N", which would be a mechanical cull wearing
     # the picker's name.
     _picker = None
-    if int(fm.get("max_events") or 0) and fm.get("picker_model") and not os.environ.get("GHR_NO_PICKER"):
+    # RANKING AND CULLING ARE NOW SEPARATE, 2026-09-12. The gate used to require `max_events AND
+    # picker_model`, which welded the two together: the ranker existed only to serve the cull, so
+    # max_events 0 meant no event was ever SCORED either, and the reports had nothing to show.
+    # The user wants the scores VISIBLE while the solution is otherwise unchanged -- no event cull,
+    # tickers still culled by trailing mean/sd in _ranked_cull. So the ranker is built whenever
+    # `picker_model` is set, and `max_events` alone decides whether anything is DISCARDED (the cull
+    # in agent.process_week is already guarded by `if max_events:`, so 0 discards nothing).
+    # THIS IS WHAT I WRONGLY BELIEVED WAS ALREADY TRUE when v37 was promoted -- the provenance note
+    # said "the AI ranker still ORDERS every event but nothing is discarded on rank", and it was
+    # false because of this gate. Now it is true.
+    # COST: one LLM call per scan, cached per (event, scan) by _cache_key. It does not scale with
+    # events.
+    if fm.get("picker_model") and not os.environ.get("GHR_NO_PICKER"):
         # evrank, NOT picker, since 2026-09-08. Same (pick_fn, stats_fn) contract, so nothing
         # downstream changes -- but it ranks on the event's WRITTEN RECORD and whether its arc has
         # moved, where picker ranked on "catalyst arc" alone and is one of the three LLM rankers
@@ -393,7 +405,9 @@ def main(argv=None):
         # arithmetic evscore, which is the mechanical control this has to beat.
         import evrank as _pk
         _picker, _pstats = _pk.make_ranker(fm)
-        print(f"  event-ranker ON: cap {fm.get('max_events')} via {_pstats()[1]}", flush=True)
+        _cap_txt = (f"cap {fm['max_events']}" if int(fm.get("max_events") or 0)
+                    else "SCORING ONLY (max_events 0 -- nothing is culled on rank)")
+        print(f"  event-ranker ON: {_cap_txt} via {_pstats()[1]}", flush=True)
     news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
     ev_cap = a.event_news_cap if a.event_news_cap is not None else int(fm.get("event_news_cap", 20))
     rel_keep = a.relevance_keep if a.relevance_keep is not None else int(fm.get("relevance_keep", 0))

@@ -1982,6 +1982,42 @@ def _cat_words(t) -> set:
     return out
 
 
+def _rank_meta(_live: list) -> list:
+    """The brief the event ranker reads, for a list of live events.
+
+    EXTRACTED 2026-09-12 so the CULL path and the SCORE-ONLY path cannot drift apart. They were one
+    block when ranking existed only to serve culling; now that a run can score without culling, two
+    copies would eventually disagree about what the judge sees -- and a score stamped under a
+    different brief than the cull would have used is not the same number, however similar it looks.
+    Everything here is the event's own history UP TO THIS SCAN; nothing later is visible, so the
+    ranking carries no look-ahead."""
+    return [{"ticker": ev["id"], "vehicles": sorted(ev["vehicles"]),
+            "catalyst": ev["catalyst"],
+            "pending_next": ev.get("pending_next", ""),
+            "exposure": ev.get("exposure") or [],
+            "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
+            # AT BIRTH THERE IS NO EXIT YET. The cull runs BEFORE the event agents write
+            # this scan's entries, so a newborn's exit_advice is empty and the judge was
+            # scoring exit_quality on a blank field -- arbitrarily, since it sometimes read
+            # the blank as 0-1 ("exit condition is blank") and sometimes inferred 4-5 from
+            # pending_next. Measured: mean 2.10 on first-scan entries against 4.44 later,
+            # which is not newborn exits being worse but half the population having none.
+            # The scout's pending act IS the exit at birth -- the agent prompt already says
+            # "START FROM WHAT WAS PENDING" -- so say that instead of showing nothing.
+            "exit_condition": ((ev.get("entries") or [{}])[-1].get("exit_advice", "")
+                               or (f"(not written yet -- this event is new; the pending act "
+                                   f"it would exit on is: {ev.get('pending_next','')})"
+                                   if ev.get("pending_next") else "")),
+            # the arc, in the agent's own words -- a trail that repeats "no decision yet"
+            # is what arc_progress is asked to score 0-1, and it is only visible here.
+            "recent_assessments": [str(x.get("assessment") or "")
+                                   for x in (ev.get("entries") or [])[-3:]],
+            # the SAME age the cull uses -- the ranker must not think a seeded event is
+            # younger than the mechanism that retires it does.
+            "weeks_alive": event_age(ev)} for ev in _live]
+
+
+
 def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = None,
                   min_score: int = 0, want_scores: bool = False):
     """The articles ONE event-agent re-reads this scan, BEST FIRST.
@@ -2678,6 +2714,31 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # (insertion order), which is the null any LLM ranker must beat. Without a control, "the picker
     # helped" cannot be distinguished from "capping concurrency helped".
     _cov = {}                 # per-event COVERAGE metrics for this scan; stamped onto the entry below
+    # SCORE EVERY LIVE EVENT WHENEVER A RANKER EXISTS, whether or not anything is culled.
+    # 2026-09-12: ranking and culling are now separate concerns. backtest_gdelt builds the ranker on
+    # `picker_model` alone; `max_events` decides only whether the result DISCARDS anything. With
+    # max_events 0 the block below is skipped entirely, so without this the ranker would be
+    # constructed and never called and the reports would have nothing to show -- which is the state
+    # v37 was promoted in, while its provenance note claimed the opposite.
+    # `_score_only` runs the identical brief over the identical `meta`, so a score stamped here is
+    # the same number the cull would have acted on had one been running. It is cached per
+    # (event, scan) inside make_ranker, so a later run with max_events > 0 pays nothing twice.
+    _score_only = bool(picker) and not max_events
+    if _score_only:
+        _ev_metrics = ev_metrics if ev_metrics is not None else {}
+        _live = [ev for ev in events.values() if ev["status"] == "live"]
+        if _live:
+            _meta = _rank_meta(_live)
+            try:
+                picker(_meta, len(_live), context=str(anchor.date()))   # rank all, discard nothing
+                for _eid, _sv in (getattr(picker, "last_scores", None) or {}).items():
+                    _cov.setdefault(_eid, {})["evrank"] = _sv
+                print(f"  evrank: scored {len(getattr(picker, 'last_scores', None) or {})} of "
+                      f"{len(_live)} live events ({anchor.date()}) -- NOTHING culled on rank",
+                      flush=True)
+            except Exception as _e:  # noqa: BLE001 -- scoring is reporting; it must never sink a scan
+                print(f"  evrank scoring skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
+
     if max_events:
         _ev_metrics = ev_metrics if ev_metrics is not None else {}
         _live = [ev for ev in events.values() if ev["status"] == "live"]
@@ -2687,30 +2748,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             # vehicle is attached, and whether the arc has MOVED -- so `pending_next`, `exposure`
             # and the recent assessments have to be here. Everything is the event's own history UP
             # TO THIS SCAN; nothing later is visible, so the ranking carries no look-ahead.
-            meta = [{"ticker": ev["id"], "vehicles": sorted(ev["vehicles"]),
-                     "catalyst": ev["catalyst"],
-                     "pending_next": ev.get("pending_next", ""),
-                     "exposure": ev.get("exposure") or [],
-                     "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
-                     # AT BIRTH THERE IS NO EXIT YET. The cull runs BEFORE the event agents write
-                     # this scan's entries, so a newborn's exit_advice is empty and the judge was
-                     # scoring exit_quality on a blank field -- arbitrarily, since it sometimes read
-                     # the blank as 0-1 ("exit condition is blank") and sometimes inferred 4-5 from
-                     # pending_next. Measured: mean 2.10 on first-scan entries against 4.44 later,
-                     # which is not newborn exits being worse but half the population having none.
-                     # The scout's pending act IS the exit at birth -- the agent prompt already says
-                     # "START FROM WHAT WAS PENDING" -- so say that instead of showing nothing.
-                     "exit_condition": ((ev.get("entries") or [{}])[-1].get("exit_advice", "")
-                                        or (f"(not written yet -- this event is new; the pending act "
-                                            f"it would exit on is: {ev.get('pending_next','')})"
-                                            if ev.get("pending_next") else "")),
-                     # the arc, in the agent's own words -- a trail that repeats "no decision yet"
-                     # is what arc_progress is asked to score 0-1, and it is only visible here.
-                     "recent_assessments": [str(x.get("assessment") or "")
-                                            for x in (ev.get("entries") or [])[-3:]],
-                     # the SAME age the cull uses -- the ranker must not think a seeded event is
-                     # younger than the mechanism that retires it does.
-                     "weeks_alive": event_age(ev)} for ev in _live]
+            meta = _rank_meta(_live)
             if picker is not None:
                 keep = set(picker(meta, max_events, context=str(anchor.date())))
                 _how = "evrank"          # the LLM ranker; "picker" was its retired predecessor

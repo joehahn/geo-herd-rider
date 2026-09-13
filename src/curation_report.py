@@ -371,72 +371,50 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             # rather than forced into the new shape, so an old report still describes what old code
             # actually did.
             _r2 = f" · rank {rank[0]} of {rank[1]} live" if rank else ""
+            # THE FIVE-METRIC RUBRIC, RESTORED 2026-09-12 at the user's request, WITH exit_quality
+            # NOW SCORED. It judges the EVENT -- is the catalyst one specific occurrence, how much
+            # of the market it reaches, has the arc MOVED, does every vehicle have its own reason,
+            # and is the exit both well formed AND actually arriving. That is what a reader wants
+            # from a report about whether an event was handled well; the coverage score it replaces
+            # measured how widely the press was writing, which is a different question and, under
+            # non-negotiable #2, often the opposite answer.
+            # NOTHING IS CULLED ON IT. max_events is 0, so the ranker scores and discards nothing;
+            # tickers are still culled by trailing mean/sd in _ranked_cull, which never reads this.
+            # WEIGHTS ARE NOT FITTED: 1.0 on the three evidenced terms, 0.5 on alignment, 1.0 on
+            # exit_quality, +1.0 flat for an event expected to outlast a month. Each term's
+            # evidence -- and which have none -- is in evrank.py's header. The two weakest are
+            # named on the page rather than hidden, because a total nobody can decompose is exactly
+            # what this report exists to avoid printing.
+            _eq = _er.get("exit_quality", "?")
+            _sp = bool(_er.get("spans_a_month"))
             L.append(
-                f"**Event rank** (five-metric rubric, retired 2026-09-09)**.** "
-                f"total **{float(_er.get('key', 0)):.1f}**{_r2}  \u2014  "
+                f"**Event score.** total **{float(_er.get('key', 0)):.1f}**{_r2}  \u2014  "
                 f"*catalyst* {_er.get('catalyst_strength', '?')}/5 + "
                 f"*market reach* {_er.get('market_impact', '?')}/5 + "
                 f"*arc progress* {_er.get('arc_progress', '?')}/5 + "
                 f"\u00bd\u00d7*thesis alignment* {_er.get('thesis_alignment', '?')}/5 + "
-                f"*lasts a month* {'yes +1' if _er.get('spans_a_month') else 'no +0'}  ·  "
-                f"**not counted:** *exit* {_er.get('exit_quality', '?')}/5. "
-                + (f"*{_trim(str(_er.get('why') or ''), 120)}*" if _er.get("why") else ""))
-    # COVERAGE RANK (evscore), RESTORED 2026-09-12 at the user's request -- WITH THE BUG THAT GOT
-    # IT PULLED FIXED. It was removed on 2026-09-08 not because the number is useless but because
-    # rendering it from a journal that no longer stamped it INVENTED one: ev585 showed
-    # "score 0.0 · 0 independent desks · 0 matching articles" purely from .get(..., 0) defaults on a
-    # MISSING block. So this guards on PRESENCE (`score is not None`) and prints nothing at all when
-    # the block is absent -- never a zero, which reads as a measurement.
-    # WHAT IT IS AND IS NOT. Four counts over the articles that matched this event THIS scan, plus
-    # how the match count moved since last scan. Arithmetic over a pool already in memory: no LLM,
-    # no forecast, so it stays inside non-negotiable #1. It is NOT a quality judgement and NOTHING
-    # culls on it -- max_events is 0, so events are never ranked away, and tickers are culled by
-    # trailing mean/sd in _ranked_cull, which never reads this. It is here to be LOOKED AT.
-    # THE RANK IS OVER THIS SCAN'S LIVE EVENTS, which is the only population it means anything
-    # against -- "8th of 53" is comparable across scans where a raw score is not, because a scan
-    # holding 12 events and one holding 53 do not produce comparable score distributions.
-    # velocity is the term to read with most suspicion: it carries weight 4.0 of ~8, it is the
-    # scan-over-scan change in MATCH COUNT, and a generic catalyst word inflates it. It is
-    # legitimately 0.00 on an event's first scan (33% of entries on cbs_v13), where there is no
-    # prior count to difference against.
-    if isinstance(_cv, dict) and _cv.get("score") is not None:
-        _rk = f"**{rank[0]} of {rank[1]}** live this scan" if rank else "unranked"
-        # THE DECOMPOSITION, NOT JUST THE INPUTS. Printing the four raw counts does not let a reader
-        # see WHICH term produced the number, and on this score that is the whole question: measured
-        # over cbs_v13's 420 scored entries, velocity contributes between -0.5 and +0.5 for 64% of
-        # events -- nothing -- and ±4 to +12 for 1%, a range 2.5x wider than any other term and
-        # wider than the ENTIRE author-breadth term. It also correlates worst with the final score
-        # (+0.345 against source breadth's +0.895), which is the signature of a term that is inert
-        # for the typical event and then swamps everything for a few. ev507 scored +12.00 from
-        # velocity alone against a breadth term of ~9.
-        # WHY THE FORMULA IS LEFT ALONE. velocity carries weight 4.0 deliberately: breadth enters as
-        # log1p so it SATURATES, and raw breadth would prefer the most crowded story, which inverts
-        # non-negotiable #2 -- the bet is a name the press has started naming while it is still
-        # under-owned. Cutting the weight hands the ranking back to three breadth terms that measure
-        # crowdedness. And #6 forbids tuning it here: this is one curation, and today's sweep showed
-        # knobs flipping sign between curations. So the number stays and the reader gets to SEE it.
-        # The zeros are not a bug either: 33% are an event's FIRST scan, where there is no prior
-        # count to difference against. Imputing anything there would invent a measurement, which is
-        # the bug that got this whole line pulled on 2026-09-08.
-        import math as _m
-        _vc = 4.0 * max(-1.0, min(3.0, float(_cv.get("velocity", 0.0) or 0.0)))
-        _terms = [("source breadth", 2.0 * _m.log1p(_cv.get("source_breadth", 0) or 0),
-                   _cv.get("source_breadth", "?")),
-                  ("superlatives", 1.5 * _m.log1p(_cv.get("superlatives", 0) or 0),
-                   _cv.get("superlatives", "?")),
-                  ("velocity", _vc, f"{float(_cv.get('velocity', 0.0) or 0.0):+.2f}"),
-                  ("author breadth", 0.5 * _m.log1p(_cv.get("author_breadth", 0) or 0),
-                   _cv.get("author_breadth", "?"))]
-        _lead = max(_terms, key=lambda t: abs(t[1]))
-        L.append(
-            f"**Coverage score.** **{float(_cv['score']):.2f}** — {_rk}  ·  "
-            + " · ".join(f"*{nm}* {raw} → **{val:+.2f}**" for nm, val, raw in _terms)
-            + f"  ·  *mentions* {_cv.get('mentions', '?')}. "
-            + f"Largest term: **{_lead[0]}** ({_lead[1]:+.2f}). "
-            + "Arithmetic over this scan's matched articles — not a forecast, and nothing culls "
-              "on it. Breadth is log-compressed so it saturates; velocity is the scan-over-scan "
-              "change in MATCH COUNT and is the term most easily inflated by a generic catalyst "
-              "word, so read a large one against the mention count beside it.")
+                f"*exit* {_eq}/5 + "
+                f"*lasts a month* {'yes +1' if _sp else 'no +0'}. "
+                + (f"*{_trim(str(_er.get('why') or ''), 120)}*  " if _er.get("why") else "")
+                + "Judges the EVENT, not its press coverage \u2014 and nothing is culled on it. "
+                + ("**Exit 1-2:** either the clause is malformed, or its act is going nowhere. A "
+                   "well-written exit on an occurrence that never arrives is the ev214 shape and "
+                   "is scored as the defect it is. "
+                   if isinstance(_eq, int) and _eq <= 2 else "")
+                + ("*lasts a month* answered yes for 100% of events on the run that restored this, "
+                   "so read it as a constant, not a signal. " if _sp else ""))
+    # COVERAGE RANK (evscore) IS NOT PRINTED, 2026-09-12 (user's call). It was briefly restored
+    # earlier the same day and removed again once the decomposition it added made its problem
+    # visible: measured over 2,965 scored entries across three curations, SOURCE BREADTH is the
+    # largest term on ~100% of them and velocity -- weighted 4.0 precisely so it would lead --
+    # leads on 1. So the number ranks events by HOW WIDELY THE PRESS IS WRITING, which under
+    # non-negotiable #2 is closer to a warning than a recommendation: the bet is a name the press
+    # has started naming while it is still under-owned, and this scores the herd arriving first.
+    # evrank.py's own docstring records the same failure from the other side -- ev207 (falsifiable
+    # exit that fired on its own terms, six dated milestones) and ev214 ("Cameco HOPES to repeat its
+    # 2018 success", twelve scans of "no tariff decision") BOTH scored 17.2.
+    # It is still computed and stamped, as the mechanical control the LLM ranker is measured
+    # against. It just does not belong in a report about whether an event was handled well.
     # THE PROCESS AUDIT of how this event was WRITTEN -- judged after the fact, with no prices in
     # front of the judge, and NOT used by any cull. Measured on 303 v31 events: the TOTAL does not
     # separate events that end on the agent's judgement from ones a counter retires (11.0 vs 11.0),

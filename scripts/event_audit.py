@@ -153,12 +153,16 @@ def build(run: Path):
     # scored in. Built once here rather than per event: the audit renders hundreds of blocks and
     # each would otherwise re-walk the whole journal.
     scan_scores = collections.defaultdict(dict)
+    key_by_scan = collections.defaultdict(dict)
     for _eid, _e in events.items():
         for _x in (_e.get("entries") or []):
             _c = _x.get("coverage") or {}
             if _c.get("score") is not None:
                 scan_scores[_x["date"]][_eid] = _c["score"]
-    return events, scout, match, rank, culled, name2tk, arrived, log, scan_scores
+            _k = (_c.get("evrank") or {}).get("key")
+            if _k is not None:
+                key_by_scan[_x["date"]][_eid] = _k
+    return events, scout, match, rank, culled, name2tk, arrived, log, scan_scores, key_by_scan
 
 
 def fate_of(e, culled) -> str:
@@ -180,7 +184,7 @@ def fate_of(e, culled) -> str:
 
 
 def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
-    events, scout, match, rank, culled, name2tk, arrived, log, _scan_scores = ctx
+    events, scout, match, rank, culled, name2tk, arrived, log, _scan_scores, _key_by_scan = ctx
     L, flags = [], []
     ents = e.get("entries") or []
     born = ents[0]["date"] if ents else "?"
@@ -335,30 +339,36 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
     # The RANK is computed here rather than stored, over the other live events IN THE SAME SCAN,
     # because that is the only population the number means anything against: "8th of 53 this scan".
     # Recomputable from the journal, so it cannot drift from what the report shows.
-    _cov = [(en["date"], (en.get("coverage") or {})) for en in ents]
-    _cov = [(d, c) for d, c in _cov if c.get("score") is not None]
-    if _cov:
-        for d, c in (_cov if show_all_scans else _cov[-1:]):
-            _pop = sorted((_scan_scores.get(d) or {}).values(), reverse=True)
-            _r = (_pop.index(c["score"]) + 1) if c["score"] in _pop else None
-            _pos = f"rank {_r} of {len(_pop)}" if _r else f"of {len(_pop)}"
-            L.append(f"  EVSCORE {d}  {c['score']:.2f}   {_pos}"
-                     f"   mentions {c.get('mentions','?')} · sources {c.get('source_breadth','?')}"
-                     f" · authors {c.get('author_breadth','?')} · superl {c.get('superlatives','?')}"
-                     f" · velocity {c.get('velocity',0.0):+.2f}")
+    # evscore (the arithmetic coverage count) IS NOT SHOWN, 2026-09-12 at the user's call. It
+    # ranks by HOW WIDELY THE PRESS IS WRITING: measured over 2,965 entries across three curations,
+    # source breadth is its largest term on ~100% of them, and velocity -- weighted 4.0 so it would
+    # lead -- leads on 1. Under non-negotiable #2 that is closer to a warning than a recommendation.
+    # It is still stamped, as the mechanical control the LLM ranker is measured against.
+    # PRESENCE ONLY, not displayed: evscore is still stamped as the mechanical control, and
+    # NO-SCORE should mean "NEITHER scorer left a trace", not "the one we stopped printing is gone".
+    _has_evscore = any((en.get("coverage") or {}).get("score") is not None for en in ents)
     scored = [(en["date"], (en.get("coverage") or {}).get("evrank")) for en in ents]
     scored = [(d, v) for d, v in scored if v]
     if not scored:
-        if not _cov:                       # only a real gap when NEITHER scorer left a trace
+        if not _has_evscore:               # only a real gap when NEITHER scorer left a trace
             flags.append("NO-SCORE")
             L.append("  SCORES    none   [NO-SCORE]")
     else:
         for d, v in (scored if show_all_scans else scored[-1:]):
-            L.append(f"  SCORE {d}  key {v.get('key')} = cat{v.get('catalyst_strength')} "
+            # exit_quality IS IN THE KEY as of 2026-09-12 -- and the metric was redefined in the
+            # same change, because the old one measured BACKWARDS (timer-retired events scored 5
+            # against 4 for events that ended on the agent's judgement). It graded the FORM of the
+            # clause and never asked whether the act it waits on will arrive. It now asks both, and
+            # an undated act the record shows sitting still caps at 2.
+            _pop = sorted((_key_by_scan.get(d) or {}).values(), reverse=True)
+            _k = v.get("key")
+            _r = (_pop.index(_k) + 1) if _k in _pop else None
+            L.append(f"  SCORE {d}  key {_k}"
+                     + (f"  rank {_r} of {len(_pop)}" if _r else "")
+                     + f"   = cat{v.get('catalyst_strength')} "
                      f"+ mkt{v.get('market_impact')} + arc{v.get('arc_progress')} "
-                     f"+ ½×align{v.get('thesis_alignment')}"
-                     f"{' + span' if v.get('spans_a_month') else ''}"
-                     f"   [exit {v.get('exit_quality')} NOT counted]")
+                     f"+ ½×align{v.get('thesis_alignment')} + exit{v.get('exit_quality')}"
+                     f"{' + span' if v.get('spans_a_month') else ''}")
             w = str(v.get("why") or "")
             if w:
                 subs = {k: v.get(k) for k in ("catalyst_strength", "market_impact", "arc_progress",
