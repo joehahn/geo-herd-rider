@@ -867,6 +867,16 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # it, the declaration has outlived its reason and is suppressing a check for nothing -- which is
 # exactly how a finished experiment silently swallows the next real drift on that knob.
 ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
+    "rebalance_period":
+        "WEEKLY in .forward from 2026-09-15, MONTHLY in .backtest, at the user's direction. The "
+        "bootstrap is the debugging surface: a weekly cadence gives ~4x the scans over the same "
+        "corpus, so a curation change shows up in four times as many event records. It is NOT a "
+        "claim that weekly is better, and the backtest stays monthly so the sweep and the SBT keep "
+        "describing the same book. NOTE it re-times every scan-COUNTING knob -- max_event_scans, "
+        "max_silent_scans, max_stale_scans, exit_patience_scans, cull_fresh_scans, "
+        "drop_unfunded_weeks -- by ~4x in wall-clock terms, deliberately not re-scaled, so expect "
+        "shorter event lives and more counter-retirements on the bootstrap. Revert and DELETE THIS "
+        "LINE when the cadence experiment is done.",
     # "rebalance_period": "WEEKLY in .forward from 2026-09-14 to test cadence against the monthly "
     #                     "backtest. Revert to monthly when done, and delete this line.",
 }

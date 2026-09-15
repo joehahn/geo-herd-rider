@@ -770,10 +770,20 @@ def _md_to_html(lines: list) -> str:
             _close(0); html.append("<hr>"); continue
         if st.startswith("@@B:") and "@@### " in st:
             _b, _, _rest = st[4:].partition("@@")
-            _lbl = {"new": "NEW", "cont": "CONTINUING", "unfunded": "UNFUNDED"}.get(_b, _b.upper())
+            # TWO BADGES, TWO QUESTIONS. These used to be one label and it conflated them: a
+            # CONTINUING event that held no capital was badged "UNFUNDED", so the lifecycle axis
+            # silently lost a value -- and a NEW event that was also unfunded showed "NEW" with no
+            # funding indicator at all, which is the combination a reader most wants to spot.
+            # Lifecycle (did it open / carry on / end at this scan) and funding (did the optimizer
+            # give it weight) are independent, so they get a badge each.
+            _LC = {"new": "NEW", "cont": "CONTINUING", "exited": "EXITED"}
+            _FD = {"funded": "FUNDED", "unfunded": "UNFUNDED"}
+            _parts = _b.split(":")
             _close(0)
-            html.append(f'<h3><span class="badge b-{_esc(_b)}">{_esc(_lbl)}</span>'
-                        f'{_inline(_rest[4:])}</h3>')
+            _sp = "".join(
+                f'<span class="badge b-{_esc(p)}">'
+                f'{_esc(_LC.get(p) or _FD.get(p) or p.upper())}</span>' for p in _parts if p)
+            html.append(f'<h3>{_sp}{_inline(_rest[4:])}</h3>')
             continue
         if st.startswith("### "):
             _close(0); html.append(f"<h3>{_inline(st[4:])}</h3>"); continue
@@ -844,6 +854,8 @@ details ul {{ font-size:13px; }}
 .b-new {{ background:#16a34a; }}
 .b-cont {{ background:#2563eb; }}
 .b-unfunded {{ background:#b45309; }}
+.b-funded {{ background:#0f766e; }}
+.b-exited {{ background:#6b7280; }}
 .nav {{ font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
   padding-bottom:11px; margin-bottom:20px; }}
 </style></head><body><div class="wrap">
@@ -1255,18 +1267,18 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         # split was actually protecting.
         _cat = {}
         for k in _new_funded:
-            _cat[k] = ("new", weights, True, "funded at birth")
+            _cat[k] = ("new:funded", weights, True, "funded at birth")
         for k in _new_unfunded:
-            _cat[k] = ("new", {}, False, "opened unfunded")
+            _cat[k] = ("new:unfunded", {}, False, "opened unfunded")
         for k in held:
-            _cat[k] = ("cont", weights, True,
+            _cat[k] = ("cont:funded", weights, True,
                        (f"vehicle also claimed by {', '.join(_co[k])}" if _co.get(k) else None))
         for k in missed:
             _vs = sorted(ev[k].get("vehicles") or [])
             _why = ("survived the cull, then the optimizer gave it no weight" if _on_wl(k)
                     else f"culled by max_watchlist {int(fm.get('max_watchlist') or 0)}")
             _rp = _pct(panel, _vs, d0, d1) if d1 else None
-            _cat[k] = ("unfunded", {}, False,
+            _cat[k] = ("cont:unfunded", {}, False,
                        _why + (f" · its vehicles ran {_rp * 100:+.1f}% over the period"
                                if _rp is not None else ""))
         _ordered = sorted(_cat, key=lambda k: (_cov_rank.get(k, (10**6, 0))[0], k))
@@ -1350,10 +1362,17 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 _st = str((ev[k].get("entries") or [{}])[0].get("date", ""))[:10]
                 _note = (f"funded at {len(_fd)} of {n} scans since {_st}"
                          + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
+                # EXITED EVENTS GET BADGES TOO. They had none, so the one section where the
+                # lifecycle is most informative -- the event is over -- was the one that did not
+                # say so, and whether the book ever had money in it had to be read out of the note.
+                # `_fd` is the funded-scan list already computed above, so FUNDED here means the
+                # optimizer gave it weight at some point in its life, not at this scan -- which is
+                # the only sense that means anything for an event that has ended.
+                _bd_x = "exited:" + ("funded" if _fd else "unfunded")
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None, rank=_cov_rank.get(k), quality=_qual.get(k),
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
                                   exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned, namemap=namemap,
-                                  exposure=_expo(k),
+                                  exposure=_expo(k), badge=_bd_x,
                                   note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
                                ("Ran their course unfunded", _ran)):
