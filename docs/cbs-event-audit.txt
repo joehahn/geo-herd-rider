@@ -1279,8 +1279,8 @@ ev539  exited  born 2026-04-27  5 scan(s)
   DEATH     COUNTER: silence/age cap
 
 ev540  live  born 2026-04-27  6 scan(s)
-  CATALYST  <=16 words: the catalyst EVENT, with subject, timing and status
-  PENDING   the concrete thing still to happen, whose happening ends this thesis
+  CATALYST  <=16 words: the catalyst EVENT, with subject, timing and status   [SCHEMA-ECHO -- this is the prompt's template, not a catalyst; the ranker scores AROUND it]
+  PENDING   the concrete thing still to happen, whose happening ends this thesis   [SCHEMA-ECHO]
   EXIT      exit if/when US-Iran stand-off ends or Hormuz transit resumes   [no date (not a defect)]
   SUBJECT   HP (the others are peers)
   VEHICLES
@@ -2712,5 +2712,6 @@ ev618  exited  born 2026-08-25  1 scan(s)
      13  PENDING-DRIFT
       9  SUBJECT-DROPPED
       6  NO-CLAUSE
+      1  SCHEMA-ECHO
       1  RESTATES
       1  NOT-A-PARTY

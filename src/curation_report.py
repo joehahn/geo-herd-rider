@@ -24,6 +24,7 @@ from __future__ import annotations
 import collections
 import json
 import re as _re
+import agent as _agent   # is_schema_echo -- the ONE definition, shared with the scout gate
 
 
 def _norm_cat(t: str) -> str:
@@ -307,7 +308,20 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     L = [(f"@@B:{badge}@@" if badge else "")
          + f"### {eid} · {date} · {_trim(e.get('catalyst'), 110)}"
          + (f" · *{note}*" if note else "")]
-    L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
+    # A CATALYST THAT IS THE PROMPT'S TEMPLATE, not an answer, is called out rather than printed
+    # straight. The reader cannot rely on the SCORE to reveal it: seven of the nine fields the
+    # ranker reads are the event's real record, so it reconstructs the event from those and scores
+    # catalyst_strength 3-4 for a field with no subject, no status and no date. cbs_v14's ev540
+    # ranked FIRST of 59 that way, at 18.5. The scout gate (2026-09-11) stops new ones and the seed
+    # filter (2026-09-15) stops carried ones; a journal already written can only be flagged, which
+    # is free -- purging it costs a re-curation.
+    _echo_cat = _agent.is_schema_echo(e.get("catalyst"))
+    L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}"
+             + ("  \n**\u26a0 This catalyst is the scout prompt's own template, echoed back instead "
+                "of answered.** The event's milestones, vehicle theses and exit clause below are "
+                "real; only this field is broken. The event score above reads those and scores "
+                "*around* the break, so it does not reflect this defect."
+                if _echo_cat else ""))
 
     # WHAT THE BOOK PUT BEHIND IT, and what that earned. The weight says how much conviction the
     # optimizer expressed; the per-ticker return says whether it was repaid; the event's dollars are

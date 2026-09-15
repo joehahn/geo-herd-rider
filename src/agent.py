@@ -1982,6 +1982,29 @@ def _cat_words(t) -> set:
     return out
 
 
+_SCHEMA_TPL = None
+
+
+def is_schema_echo(v) -> bool:
+    """Is this field the scout's JSON TEMPLATE echoed back instead of answered?
+
+    ONE DEFINITION, exported, because three places now need it and a second copy would drift: the
+    scout gate in _admit (which stops new ones), the SEED filter in backtest_gdelt (which stops
+    carried ones), and the REPORT and AUDIT, which must say so about events already in a journal.
+    A curation predating the gate can carry one -- v37's ev540 ranked FIRST of 59 in cbs_v14 on a
+    catalyst reading "<=16 words: the catalyst EVENT, with subject, timing and status" -- and no
+    amount of re-curating fixes a journal already written. Flagging is free; purging is not.
+    THE TEMPLATE, NOT THE WHOLE PROMPT. The prose carries worked EXAMPLES scouts are meant to
+    imitate, and v37's ev16 copied one correctly onto a real EC investigation. Matching against the
+    prose would reject that."""
+    global _SCHEMA_TPL
+    if _SCHEMA_TPL is None:
+        _t = SCOUT_SYSTEM[SCOUT_SYSTEM.find('{"candidates"'):]
+        _SCHEMA_TPL = " ".join(_t[:_t.find("}]}") + 3].split()).lower()
+    _v = " ".join(str(v or "").split()).lower()
+    return len(_v) >= 25 and bool(_SCHEMA_TPL) and _v in _SCHEMA_TPL
+
+
 def _rank_meta(_live: list) -> list:
     """The brief the event ranker reads, for a list of live events.
 

@@ -32,6 +32,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+import agent  # noqa: E402  -- is_schema_echo, the ONE definition shared with the scout gate
 from agent import _restates_resolved as _agent_restates, _stem   # gates the scout already trusts
 
 STOP = set("the a an of to in on for and or by at with its it is are was were be been as from that "
@@ -190,8 +191,20 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
     born = ents[0]["date"] if ents else "?"
     fate = fate_of(e, culled)
     L.append(f"{eid}  {e['status']}  born {born}  {len(ents)} scan(s)")
-    L.append(f"  CATALYST  {e.get('catalyst','')}")
-    L.append(f"  PENDING   {e.get('pending_next','')}")
+    # SCHEMA-ECHO: the field is the scout's JSON template echoed back, not an answer. Flagged
+    # rather than silently printed, because the RANKER cannot see it -- seven of the nine fields it
+    # reads are the event's real record, so it reconstructs the event from those and scores
+    # catalyst_strength 3-4 for a field with no subject, no status and no date. cbs_v14's ev540
+    # ranked FIRST of 59 that way. The scout gate (2026-09-11) and the seed filter (2026-09-15)
+    # stop new ones; a journal already written can only be flagged.
+    _echo_f = [f for f in ("catalyst", "pending_next") if agent.is_schema_echo(e.get(f))]
+    if _echo_f:
+        flags.append("SCHEMA-ECHO")
+    L.append(f"  CATALYST  {e.get('catalyst','')}"
+             + ("   [SCHEMA-ECHO -- this is the prompt's template, not a catalyst; the ranker "
+                "scores AROUND it]" if "catalyst" in _echo_f else ""))
+    L.append(f"  PENDING   {e.get('pending_next','')}"
+             + ("   [SCHEMA-ECHO]" if "pending_next" in _echo_f else ""))
 
     # PENDING-DRIFT: `pending_next` names an act the CATALYST'S OWN PROCEDURE does not require.
     # ADDED 2026-09-10, after auditing the 2026-07-26 scan showed EXIT-DRIFT was watching the wrong
