@@ -955,6 +955,19 @@ ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
 }
 
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    "data/cbs_v14": {
+        "src/agent.py":
+            "ADDITIVE ONLY, accepted 2026-09-15. The stamp names 062cb25 with dirty=true; the file "
+            "hash c30cbd28b0cf is e199f4b's agent.py, i.e. this curation ran on the rubric-restore "
+            "working tree that e199f4b then committed. From e199f4b to HEAD the diff is 23 lines "
+            "added and ZERO removed, all in one hunk after _cat_words: the module-level "
+            "is_schema_echo() and its memoised template. Its only callers are curation_report.py and "
+            "event_audit.py, which run AFTER a curation and decide nothing the curator did -- the "
+            "scout gate still uses its own inline _is_schema_echo, unchanged by this diff. So this "
+            "journal IS what today's code produces. Note what this does NOT cover: if a later edit "
+            "points _admit at the shared is_schema_echo, that IS a behaviour change (the guard "
+            "rejects candidates the curator admitted) and this note must come out.",
+    },
     "data/cbt_3yr_v28_exposure": {
         "src/agent.py":
             "No drift expected: v28 was curated at the commit that promoted it. This slot is kept so "
