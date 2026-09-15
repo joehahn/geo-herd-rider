@@ -1214,29 +1214,16 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         _new_unfunded = [k for k in missed if _is_new(k)]
         missed = [k for k in missed if not _is_new(k)]
 
-        # HOW TO READ THE SCORE, once, before the first event. The components repeat on every block
-        # and mean nothing without the weights; a reader checking that events were ranked properly
-        # needs to be able to redo the arithmetic.
-        if any((v[1].get("coverage") or {}).get("evrank") for v in _all_f.values()):
-            # BRIEF ON PURPOSE -- this file is a debugging doc, not a user-facing one. The RANGE is
-            # derived from the weights rather than written down, so it cannot drift from them the way
-            # a hand-typed "0-17.5" already did (the real ceiling is 18.5).
-            L += ["", "## How events are ranked", "",
-                  "One AI call ranks every live event at each scan, best first, and there is no "
-                  "formula behind it. This solution bets on a ticker the press has already NAMED "
-                  "while the story is still early and under-noticed, so that is what the ranking "
-                  "looks for \u2014 how early, how under-noticed, how specific. The ranker is shown "
-                  "no prices, returns or position sizes, because ranking by likely payoff is a "
-                  "forecast and this solution does not forecast.",
-                  "",
-                  f"*rank* below is that order. The lowest-ranked are what `max_events` "
-                  f"({int(fm.get('max_events') or 0)}) retires, and where the model gave a reason it "
-                  "is printed with the event.",
-                  "",
-                  "Every live event is listed below in that order, best first, with a coloured label for "
-                  "whether it is NEW this scan, CONTINUING, or live but UNFUNDED. Events that "
-                  "exited at this scan follow after.", ""]
-
+        # THE "How events are ranked" EXPLAINER WAS DELETED 2026-09-15 (user's call), and the
+        # reason is worth keeping: it described the HOLISTIC ranker -- "one AI call ranks every live
+        # event, and there is no formula behind it" -- which stopped being true on 2026-09-12 when
+        # the five-metric rubric was restored. There IS a formula now, it is printed per event on
+        # every block, and a paragraph insisting otherwise contradicted the numbers beside it.
+        # It also said the lowest-ranked are "what max_events retires", which has been false since
+        # ranking was decoupled from culling the same day: max_events is 0, nothing is retired on
+        # rank, and each event block now says so itself.
+        # NOT REPLACED. Every claim it made is either on the event blocks already or was wrong; a
+        # standing explainer is exactly the thing that goes stale silently while the code moves.
         # ONE LIST, RANK ORDER, CATEGORY AS A BADGE. These were three sections -- opened this scan,
         # funded continuing, live but unfunded -- which meant the page could not be read down the
         # ranking: a rank-3 unfunded event sat forty blocks below a rank-19 funded one, and the

@@ -262,6 +262,18 @@ def main(argv=None):
             import datetime as _dt
             from util import REBALANCE_PERIODS as _RP
             _perd = _RP.get(str(fm.get("rebalance_period", "weekly")).lower(), 7)
+            # ONE DEFINITION, shared with agent._admit by construction: an echoed placeholder is a
+            # substring of the scout prompt's JSON TEMPLATE. The template, not the whole prompt --
+            # the prose carries WORKED EXAMPLES that scouts are meant to imitate, and v37's ev16
+            # copied one correctly onto a real EC investigation.
+            _tpl = agent.SCOUT_SYSTEM[agent.SCOUT_SYSTEM.find('{"candidates"'):]
+            _tpl = " ".join(_tpl[:_tpl.find("}]}") + 3].split()).lower()
+
+            def _schema_echo(v) -> bool:
+                _t = " ".join(str(v or "").split()).lower()
+                return len(_t) >= 25 and bool(_tpl) and _t in _tpl
+
+            _dropped_echo: list = []
             _keep, _nid = {}, 0
             for _eid, _e in (_src.get("events") or {}).items():
                 _ents = [x for x in (_e.get("entries") or []) if str(x.get("date", "")) <= _seedd]
@@ -272,6 +284,24 @@ def main(argv=None):
                     continue                       # not re-judged at the handover scan: already gone
                 if not _last.get("thesis_live", True) or _last.get("catalyst_resolved"):
                     continue                       # dead or resolved at the handover: do not carry
+                # AND DO NOT CARRY A SCHEMA ECHO. The scout is shown a JSON template and sometimes
+                # returns its placeholder AS the answer; agent._admit has dropped those at the door
+                # since 2026-09-11, but that guard runs at SCOUT ADMISSION and never sees an event
+                # arriving through the seed. So ev540 -- catalyst "<=16 words: the catalyst EVENT,
+                # with subject, timing and status", pending_next "the concrete thing still to
+                # happen" -- walked out of cbt_3yr_v37_nocull (curated before the guard existed)
+                # into cbs_v13 and cbs_v14, and RANKED FIRST of 59 in the last scan.
+                # THE RANKER CANNOT CATCH IT, which is why this has to. Seven of the nine fields it
+                # reads are coherent -- real Hormuz milestones, real vehicle theses, a real exit --
+                # so it reconstructs the event from those and scores catalyst_strength 3-4 for a
+                # catalyst field that has no subject, no status and no date and should be a 0-1.
+                # Reading around a broken field is reasonable behaviour; it just means the break is
+                # invisible to the score, so a corrupted event can top the ranking.
+                # ONE OF 125 in cbs_v14, but it is a CLASS, not an instance: every curation predating
+                # the guard can carry one, and the seed is the only path that bypasses it.
+                if _schema_echo(_e.get("catalyst")) or _schema_echo(_e.get("pending_next")):
+                    _dropped_echo.append(_eid)
+                    continue
                 # AGE OFFSET, so the age cap means the same wall-clock lease for an inherited
                 # thesis as for one this run opened. The seed run's entries are at ITS cadence
                 # (CBT: monthly, 30d apart); this run counts scans at its own (weekly). Without the
@@ -291,6 +321,9 @@ def main(argv=None):
             (OUT / "journal.json").write_text(json.dumps(
                 {"events": agent.jsonable_events(_keep), "nid": _nid,
                  "retired": {}, "week_seq": []}, default=str))
+            if _dropped_echo:
+                print(f"  seed: dropped {len(_dropped_echo)} carried event(s) whose catalyst or "
+                      f"pending_next is prompt-schema text: {', '.join(_dropped_echo)}", flush=True)
             print(f"  SEEDED JOURNAL from {a.seed_journal}: {len(_keep)} events live at {_seedd} "
                   f"carried in (nid={_nid})", flush=True)
         except Exception as _e:  # noqa: BLE001 -- an unseeded run is valid, just not a continuation
