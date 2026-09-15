@@ -872,28 +872,32 @@ ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
     # their WALL-CLOCK meaning -- which is the property that was actually chosen for each. Scaled,
     # never re-derived: the wall-clock value carries whatever evidence the original had, and
     # re-picking a number here would be tuning under cover of a unit change.
-    #   knob                  monthly  =days   weekly  =days
-    #   curator_memory_weeks       8    240       34    238
-    #   max_event_scans           12    360       51    357
-    #   max_silent_scans           5    150       21    147
-    #   max_stale_scans            5    150       21    147
-    #   drop_unfunded_weeks        4    120       17    119
-    #   exit_patience_scans        2     60        9     63
-    #   cull_fresh_scans           2     60        9     63
-    # NOT RE-SCALED, and each for a reason: news_lookback_days is 0, which already TRACKS the
-    # cadence; unfunded_cooldown_weeks is 0, which means never and has no wall-clock meaning to
-    # preserve.
+    # THE FACTOR IS 4, not 30/7 = 4.286 (user's call). "A month is four weeks" is how every one of
+    # these was reasoned about in the first place, the round numbers are legible on the page, and
+    # the ~7% difference is far inside the precision any of them was chosen with -- none was
+    # measured to the day.
+    #   curator_memory_weeks  8 -> 32     drop_unfunded_weeks   4 -> 16
+    #   max_event_scans      12 -> 48     exit_patience_scans   2 ->  8
+    #   max_silent_scans      5 -> 20     cull_fresh_scans      2 ->  8
+    #   max_stale_scans       5 -> 20
+    # news_lookback_days GOES TO 31, MATCHING THE BACKTEST rather than tracking the cadence, and
+    # this is the one that is not a re-scale. At 0 it follows rebalance_period, so a weekly scan
+    # would read SEVEN days of news -- a quarter of the articles -- and weekly curation would look
+    # worse for a reason that is purely window size rather than cadence. Holding the window at 31
+    # makes cadence the only variable. The cost is overlap: consecutive scans are 7 days apart over
+    # a 31-day window, so each article is read by about four scans instead of one.
+    # unfunded_cooldown_weeks stays 0: that means NEVER, and has no wall-clock meaning to preserve.
     # REVERT ALL EIGHT TOGETHER. Putting rebalance_period back to monthly without restoring these
     # would leave the bootstrap ageing events 4.29x SLOWER than the backtest, which is the mirror
     # of the bug this block exists to prevent -- and the stale-declaration check would not catch
     # it, because these knobs would still differ.
-    "curator_memory_weeks": "Re-scaled with the cadence: 8 (monthly) -> 34 (weekly). See rebalance_period.",
-    "max_event_scans": "Re-scaled with the cadence: 12 -> 51, holding the ~1-year age cap. See rebalance_period.",
-    "max_silent_scans": "Re-scaled with the cadence: 5 -> 21, holding ~150 days of silence. See rebalance_period.",
-    "max_stale_scans": "Re-scaled with the cadence: 5 -> 21. See rebalance_period.",
-    "drop_unfunded_weeks": "Re-scaled with the cadence: 4 -> 17, holding ~120 days unfunded. See rebalance_period.",
-    "exit_patience_scans": "Re-scaled with the cadence: 2 -> 9, holding ~60 days of hysteresis. See rebalance_period.",
-    "cull_fresh_scans": "Re-scaled with the cadence: 2 -> 9. See rebalance_period.",
+    "curator_memory_weeks": "Re-scaled x4 with the cadence: 8 -> 32, holding ~7 months of resolved-catalyst memory. See rebalance_period.",
+    "max_event_scans": "Re-scaled x4 with the cadence: 12 -> 48, holding the ~1-year age cap. See rebalance_period.",
+    "max_silent_scans": "Re-scaled x4 with the cadence: 5 -> 20, holding ~5 months of silence. See rebalance_period.",
+    "max_stale_scans": "Re-scaled x4 with the cadence: 5 -> 20, holding ~5 months stale. See rebalance_period.",
+    "drop_unfunded_weeks": "Re-scaled x4 with the cadence: 4 -> 16, holding ~4 months unfunded. See rebalance_period.",
+    "exit_patience_scans": "Re-scaled x4 with the cadence: 2 -> 8, holding ~2 months of hysteresis. See rebalance_period.",
+    "cull_fresh_scans": "Re-scaled x4 with the cadence: 2 -> 8, holding ~2 months of freshness. See rebalance_period.",
     "rebalance_period":
         "WEEKLY in .forward from 2026-09-15, MONTHLY in .backtest, at the user's direction. The "
         "bootstrap is the debugging surface: a weekly cadence gives ~4x the scans over the same "

@@ -1920,13 +1920,17 @@ def main(argv=None) -> int:
     # when everything above them was multiplied by 4.
     CADENCE_ORDER = [
         "rebalance_period",                        # the unit the rest are counted in
-        "— re-scale when the cadence changes —",
+        "— counted in SCANS: re-scale all of these when the cadence changes —",
         # news_lookback_days is in DAYS, not scans -- but 0 means "track rebalance_period", so it
         # moves with the cadence unless it is set, which is exactly what this block should surface.
         "news_lookback_days",
         "curator_memory_weeks", "max_event_scans", "max_silent_scans",
         "max_stale_scans", "drop_unfunded_weeks", "unfunded_cooldown_weeks",
-        "— counted in scans, deliberately not re-scaled —",
+        # exit_patience_scans and cull_fresh_scans SAT UNDER "deliberately not re-scaled" until
+        # 2026-09-15, and that heading had become false: when .forward went weekly they were scaled
+        # x4 with the other five, because they count scans exactly like the rest and holding them
+        # fixed would have cut their wall-clock lease to a quarter. A standing "do not re-scale"
+        # label on knobs that must be re-scaled is worse than no label, so they join the group.
         "exit_patience_scans", "cull_fresh_scans",
     ]
     _cadence_keys = {k for k in CADENCE_ORDER if not k.startswith("—")}
@@ -2103,7 +2107,13 @@ def main(argv=None) -> int:
               f'<code>rebalance_period</code> re-times all of them at once. '
               f'<code>max_event_scans: 12</code> is about a year at monthly and a quarter at '
               f'weekly. Shaded rows are curator knobs and cost a re-curation; the rest are a '
-              f'rebuild.</p>'
+              f'rebuild. <b>The two halves are read from different places, and after a cadence '
+              f'change this block reads as a mixture until the next curation:</b> a shaded row is '
+              f'what the curation ACTUALLY RAN, taken from its own stamp, and cannot change on '
+              f'rebuild; an unshaded row is what THIS BUILD replayed, taken from the live profile, '
+              f'and moves the moment the profile does. So a shaded <code>monthly</code> beside an '
+              f'unshaded <code>exit_patience_scans: 8</code> is not a combination that ever '
+              f'existed \u2014 it is history beside the present.</p>'
               f'</section>')
 
     # ---- curation log: every week that CHANGED something ------------------------------------------
