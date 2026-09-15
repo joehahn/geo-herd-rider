@@ -99,9 +99,17 @@ def main(argv=None) -> int:
     # never saw. The row below now names the path explicitly so the mismatch is visible.
     ap.add_argument("--corpus", default=_canon.CANON_CORPUS)
     ap.add_argument("--out", default=None)
-    ap.add_argument("--reports", type=int, default=0, metavar="N",
-                    help="write a curation report for only the last N scans (0 = every scan). A "
-                         "3-year run rewrites 37 report files per build otherwise; whole-run "
+    # DEFAULT 1 AS OF 2026-09-15 (user's call): write the FINAL scan's report only. It was 0,
+    # meaning EVERY scan -- and since the 06:30 cron calls this with no --reports, it rewrote all
+    # five bootstrap reports every morning, and a 3-year backtest build rewrote 37. Only the last
+    # scan describes the book as it stands; the earlier ones are a record of how it got there, and
+    # that is what scripts/event_audit.py is for -- it covers EVERY event of the run in one file
+    # rather than one file per scan.
+    # 0 STILL MEANS ALL, so nothing is lost: `--reports 0` reproduces the old behaviour and
+    # `--reports 6` the recent habit. Only the default moved.
+    ap.add_argument("--reports", type=int, default=1, metavar="N",
+                    help="write a curation report for only the last N scans. DEFAULT 1 (the final "
+                         "scan). 0 = every scan, which rewrites 37 files on a 3-year run; whole-run "
                          "debugging goes through scripts/event_audit.py instead.")
     ap.add_argument("--bootstrap", action="store_true",
                     help="render CBS (docs/cbs.html) -- the curation of the BOOTSTRAP corpus "
