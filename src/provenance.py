@@ -852,6 +852,48 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # Drift that has been LOOKED AT and accepted, per run, with the reason. Anything not listed here is
 # reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
 # entry has to say WHY the journal is still trustworthy under the new code.
+# ------------------------------------------------------------------------- cadence presets
+# HOPPING BETWEEN MONTHLY AND WEEKLY IS AN EIGHT-KNOB EDIT, and doing it by hand is how half of it
+# gets forgotten. Every knob here counts SCANS, so the cadence alone re-times all of them: leave
+# them and a weekly run gives each event a QUARTER of the wall-clock lease a monthly one does --
+# shorter lives, more counter-retirements -- and the difference reads as a curation regression when
+# it is a unit error.
+# THE FACTOR IS 4, not 30/7 = 4.286 (2026-09-15, user's call). "A month is four weeks" is how every
+# one of these was reasoned about, the round numbers are legible on the page, and the ~7% is far
+# inside the precision any of them was chosen with -- none was measured to the day.
+# news_lookback_days IS NOT SCALED and is NOT 0. It is calendar days, and 0 means "follow the
+# cadence" -- the confusing behaviour that makes a weekly run read a quarter of the articles a
+# monthly one does, so its curation looks worse for a reason that is window size rather than
+# cadence. Held at 31 at BOTH cadences so cadence is the only variable; at weekly that means a
+# 31-day window stepping 7 days, i.e. each article read by about four scans.
+# unfunded_cooldown_weeks IS NOT HERE: 0 means never, which has no wall-clock meaning to preserve.
+# REVERTING IS THE DANGEROUS DIRECTION. Putting rebalance_period back without the other seven
+# leaves the bootstrap ageing events 4x SLOWER than the backtest -- the mirror of the same bug --
+# and no check catches it, because the seven would still differ from .backtest either way.
+CADENCE_PRESETS: dict[str, dict[str, int | str]] = {
+    "monthly": {"rebalance_period": "monthly", "news_lookback_days": 31,
+                "curator_memory_weeks": 8, "max_event_scans": 12, "max_silent_scans": 5,
+                "max_stale_scans": 5, "drop_unfunded_weeks": 4,
+                "exit_patience_scans": 2, "cull_fresh_scans": 2},
+    "weekly":  {"rebalance_period": "weekly", "news_lookback_days": 31,
+                "curator_memory_weeks": 32, "max_event_scans": 48, "max_silent_scans": 20,
+                "max_stale_scans": 20, "drop_unfunded_weeks": 16,
+                "exit_patience_scans": 8, "cull_fresh_scans": 8},
+}
+
+
+def cadence_mismatch(fm: dict) -> list[tuple[str, object, object]]:
+    """Which cadence knobs do NOT match the preset for this profile's rebalance_period?
+
+    Returns [(knob, profile value, preset value)], empty when consistent. An unknown cadence
+    (biweekly, quarterly) has no preset and returns empty rather than inventing one -- absent is
+    reported by the caller, never guessed at here."""
+    p = CADENCE_PRESETS.get(str(fm.get("rebalance_period", "")).lower())
+    if not p:
+        return []
+    return [(k, fm.get(k), v) for k, v in p.items() if fm.get(k) != v]
+
+
 # --------------------------------------------------------------- deliberate profile divergence
 # CLAUDE.md requires the STRATEGY knobs synced across investor_profile.backtest.md and
 # investor_profile.forward.md, so the backtest stays a valid proxy for the live book. Sometimes they

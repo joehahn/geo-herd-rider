@@ -94,8 +94,14 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   span 4x too short). A retired knob that still resolves to a plausible
                                        #   number is worse than one that is absent. A numeric override now lives
                                        #   ONLY on the CLI (--rebalance-days), where it cannot masquerade as config.
-    "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
-                                       #   sparse-coverage smoothing). None => news window follows the cadence.
+    "news_lookback_days": 31,          # trailing calendar days of news each scan reads. SET IT
+                                       #   EXPLICITLY, always. 0 and None both mean "follow the
+                                       #   cadence", which is the confusing behaviour this default
+                                       #   exists to avoid: the window then changes silently when
+                                       #   rebalance_period does, so a weekly run reads a QUARTER of
+                                       #   the articles a monthly one does and its curation looks
+                                       #   worse for a reason that is window size, not cadence.
+                                       #   31 is the value both profiles carry, at either cadence.
     "max_events": 0,                   # LIVE (scan): how many events may be LIVE AT ONCE; 0 = uncapped. The
                                        #   picker decides which survive. Prefer this over max_new_events: an
                                        #   ADMISSION cap bins candidates unexamined and forever, a CONCURRENCY
@@ -106,8 +112,11 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   can no longer be crowded out of the admission slots by routine coverage.
                                        #   The EVENT AGENTS are unaffected: they still read the full corpus, because
                                        #   tracking an event needs its ordinary follow-up, which carries no superlative.
-    "news_lookback_days": 0,           # LIVE: trailing calendar days of news each scan reads. 0 = follow
-                                       #   the cadence. Set it LONGER than the cadence for a deliberate
+    "news_lookback_days": 31,          # LIVE: trailing calendar days of news each scan reads. NEVER
+                                       #   leave this at 0 -- see the note on the other default
+                                       #   above; 0 follows the cadence and changes the window
+                                       #   silently underneath a cadence change.
+                                       #   Set it LONGER than the cadence for a deliberate
                                        #   OVERLAP, so an article GDELT indexes late -- or one published
                                        #   right on a scan boundary -- still gets read on the next scan
                                        #   instead of falling in the gap. PWR carries the same knob.

@@ -163,6 +163,35 @@ def main(argv=None) -> int:
     #   news_lookback_days  the backtest reads a window, the forward accumulates daily pulls
     # WARNS, DOES NOT FAIL: promoting a candidate is a dated re-freeze the operator performs, and a
     # profile mid-edit is a normal state. This exists so the edit is not FORGOTTEN.
+    # CADENCE CONSISTENCY, both profiles. Every knob in a preset counts SCANS, so switching
+    # rebalance_period without the other seven silently re-times all of them by 4x -- and the
+    # symptom (shorter event lives, more counter-retirements) reads as a curation regression rather
+    # than as the unit error it is. This is the check that makes hopping between monthly and weekly
+    # a lookup instead of an eight-line edit somebody half-finishes.
+    print("\nCADENCE PRESETS")
+    try:
+        import optimizer as _opt_cad
+        _fp_cad = ROOT / "investor_profile.forward.md"
+        _fwd_cad = _opt_cad.load_financial_model(str(_fp_cad)) if _fp_cad.exists() else None
+    except Exception:  # noqa: BLE001 -- an unreadable forward profile is reported by the pair check
+        _fwd_cad = None
+    for _lbl, _pf in (("backtest", fm), ("forward", _fwd_cad)):
+        if not _pf:
+            continue
+        _cad = str(_pf.get("rebalance_period", "?"))
+        _mm = P.cadence_mismatch(_pf)
+        if _cad.lower() not in P.CADENCE_PRESETS:
+            print(f"  {WARN} {_lbl}: rebalance_period {_cad!r} has no preset -- the scan-counting "
+                  f"knobs cannot be checked")
+        elif not _mm:
+            print(f"  {OK} {_lbl}: {_cad}, and all {len(P.CADENCE_PRESETS[_cad.lower()])} "
+                  f"cadence knobs match the preset")
+        else:
+            print(f"  {WARN} {_lbl}: {_cad}, but {len(_mm)} cadence knob(s) do NOT match the "
+                  f"preset -- a cadence switch left half-done re-times these by 4x:")
+            for _k, _got, _want in _mm:
+                print(f"      {_k}: profile {_got!r}, {_cad} preset {_want!r}")
+
     print("\nPROFILE PAIR (backtest vs forward)")
     _RETRIEVAL_ONLY = {"gather_model", "org_tagger_model", "news_lookback_days", "news_cap",
                        "retrieval_engine", "event_news_cap", "scout_articles_per_call",

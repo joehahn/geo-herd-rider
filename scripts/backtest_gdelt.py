@@ -341,8 +341,19 @@ def main(argv=None):
 
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
+    # 0 STILL FALLS BACK TO THE CADENCE, but it is no longer SILENT. The fallback is the confusing
+    # behaviour the user asked to be rid of (2026-09-15): the news window then changes underneath a
+    # cadence change, so a weekly run reads a quarter of the articles a monthly one does and its
+    # curation looks worse for a reason that is window size rather than cadence. Both profiles now
+    # set 31 explicitly and both DEFAULTS are 31, so this branch should never fire -- and if it
+    # does, something omitted the knob and the run says so rather than quietly halving its input.
     news_win = int(a.news_lookback_days if a.news_lookback_days is not None
-                   else (fm.get("news_lookback_days") or 0)) or cadence
+                   else (fm.get("news_lookback_days") or 0))
+    if not news_win:
+        news_win = cadence
+        print(f"  !! news_lookback_days is 0/unset -- falling back to the cadence ({cadence}d). "
+              f"Set it EXPLICITLY: a window that tracks the cadence changes silently when "
+              f"rebalance_period does.", file=sys.stderr, flush=True)
     if a.news_lookback_days is not None:            # same reason as the cadence write-back above
         fm = {**fm, "news_lookback_days": int(a.news_lookback_days)}
     anchors = scan_anchors(a.start, a.end, cadence)
