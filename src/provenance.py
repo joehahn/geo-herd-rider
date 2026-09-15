@@ -385,7 +385,7 @@ CANON_RUN = "data/cbt_3yr_v37_nocull"       # v34 -> v37 on 2026-09-10. NO EVENT
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_BOOTSTRAP_RUN = "data/cbs_v14"   # the curation behind docs/cbs.html.
+CANON_BOOTSTRAP_RUN = "data/cbs_v15"   # the curation behind docs/cbs.html.
                                       # v13 -> v14 on 2026-09-13. SAME SEED, SAME CONFIG -- the only change is that
                                       # EVENTS ARE NOW SCORED. Ranking was decoupled from culling, so evrank runs on
                                       # picker_model alone while max_events (0) decides only whether anything is
@@ -955,9 +955,13 @@ ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
 }
 
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    # cbs_v14 was SUPERSEDED by cbs_v15 on 2026-09-15, the weekly re-curation. The acceptance below
+    # is kept, RETIRED IN PLACE (the v25 pattern), because the reasoning is the record of how an
+    # additive diff was told apart from a behavioural one -- and v15 needs no acceptance at all:
+    # check_canon reports its scan-path code unchanged since curation.
     "data/cbs_v14": {
-        "src/agent.py":
-            "ADDITIVE ONLY, accepted 2026-09-15. The stamp names 062cb25 with dirty=true; the file "
+        "_src/agent.py_retired_2026-09-15":
+            "ADDITIVE ONLY, accepted 2026-09-15 and retired the same day when cbs_v15 replaced it. The stamp names 062cb25 with dirty=true; the file "
             "hash c30cbd28b0cf is e199f4b's agent.py, i.e. this curation ran on the rubric-restore "
             "working tree that e199f4b then committed. From e199f4b to HEAD the diff is 23 lines "
             "added and ZERO removed, all in one hunk after _cat_words: the module-level "
