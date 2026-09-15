@@ -867,6 +867,33 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # it, the declaration has outlived its reason and is suppressing a check for nothing -- which is
 # exactly how a finished experiment silently swallows the next real drift on that knob.
 ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
+    # THE SEVEN BELOW ARE ONE DECISION, NOT SEVEN. They all count SCANS, so the cadence change
+    # re-times every one of them by 30/7 = 4.29x, and they were re-scaled in the same edit to hold
+    # their WALL-CLOCK meaning -- which is the property that was actually chosen for each. Scaled,
+    # never re-derived: the wall-clock value carries whatever evidence the original had, and
+    # re-picking a number here would be tuning under cover of a unit change.
+    #   knob                  monthly  =days   weekly  =days
+    #   curator_memory_weeks       8    240       34    238
+    #   max_event_scans           12    360       51    357
+    #   max_silent_scans           5    150       21    147
+    #   max_stale_scans            5    150       21    147
+    #   drop_unfunded_weeks        4    120       17    119
+    #   exit_patience_scans        2     60        9     63
+    #   cull_fresh_scans           2     60        9     63
+    # NOT RE-SCALED, and each for a reason: news_lookback_days is 0, which already TRACKS the
+    # cadence; unfunded_cooldown_weeks is 0, which means never and has no wall-clock meaning to
+    # preserve.
+    # REVERT ALL EIGHT TOGETHER. Putting rebalance_period back to monthly without restoring these
+    # would leave the bootstrap ageing events 4.29x SLOWER than the backtest, which is the mirror
+    # of the bug this block exists to prevent -- and the stale-declaration check would not catch
+    # it, because these knobs would still differ.
+    "curator_memory_weeks": "Re-scaled with the cadence: 8 (monthly) -> 34 (weekly). See rebalance_period.",
+    "max_event_scans": "Re-scaled with the cadence: 12 -> 51, holding the ~1-year age cap. See rebalance_period.",
+    "max_silent_scans": "Re-scaled with the cadence: 5 -> 21, holding ~150 days of silence. See rebalance_period.",
+    "max_stale_scans": "Re-scaled with the cadence: 5 -> 21. See rebalance_period.",
+    "drop_unfunded_weeks": "Re-scaled with the cadence: 4 -> 17, holding ~120 days unfunded. See rebalance_period.",
+    "exit_patience_scans": "Re-scaled with the cadence: 2 -> 9, holding ~60 days of hysteresis. See rebalance_period.",
+    "cull_fresh_scans": "Re-scaled with the cadence: 2 -> 9. See rebalance_period.",
     "rebalance_period":
         "WEEKLY in .forward from 2026-09-15, MONTHLY in .backtest, at the user's direction. The "
         "bootstrap is the debugging surface: a weekly cadence gives ~4x the scans over the same "
