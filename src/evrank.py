@@ -41,6 +41,36 @@ judge, the same discipline as the Fable-5 audit that chose the event-agent model
                                   kept small enough not to override the evidenced terms. See
                                   SPAN_BONUS.
 
+MEASURED ON cbs_v14 (125 events, 5 scans), 2026-09-15 -- the first time this rubric has been
+tested against the bar it replaced evscore for.
+
+  IT PASSES THAT BAR. Mean key by how the event ENDED: resolved 13.0, thesis-dead 16.1, live 12.5,
+  counter-retired 11.5. Ended on its MERITS (resolved + thesis-dead, n=50) median 13.2 against
+  COUNTER-retired (n=27) median 11.5 -- a separation of +1.8 the right way round. This is the exact
+  comparison evscore failed, where ev207 and ev214 both scored 17.2 and the lifetime average ranked
+  ev214 ABOVE ev207.
+
+  catalyst_strength GENUINELY READS THE CATALYST, and is the sharpest term here. Mean by what the
+  catalyst field contains: carries a date/quarter 4.76 (n=15), neither 3.45 (n=62), says "no date
+  announced" 2.50 (n=42) -- a +2.26 spread along precisely the axis the criterion names ("a
+  subject, a status and ideally a date").
+
+  BUT IT DEGRADES IN THE WRONG DIRECTION ON A DESTROYED FIELD. ev540's catalyst is the scout
+  prompt's own JSON template; its mean catalyst_strength is 3.20 against a corpus mean of 3.28 --
+  DEAD AVERAGE, where it should sit below the undated group's 2.50. Seven of the nine fields the
+  judge reads are the event's real record, so it reconstructs the event from those and scores the
+  event rather than the field. The break is invisible to the score, which is why it is flagged in
+  the report and audit instead (agent.is_schema_echo) and blocked at the scout gate and the seed.
+
+  THREE OF SIX TERMS BARELY DISCRIMINATE, which is the finding that matters most if this rubric is
+  ever allowed to CULL. Modal value concentration over the 59 events live at 2026-08-25:
+  arc_progress 3 on 66%, exit_quality 2 on 54%, thesis_alignment 1 on 53%, spans_a_month true on
+  98%. So the ranking turns on the handful of events that escape the mode, mostly via
+  market_impact and arc_progress. ev540 topped the scan that way -- and setting its
+  catalyst_strength to 0, the honest value, still leaves it 9th of 59: the catalyst is 22% of its
+  key, and no single term can sink an event the others favour.
+  NOTHING IS CULLED ON THIS TODAY (max_events 0). Re-check the concentration before that changes.
+
 THE WEIGHTS ARE NOT FITTED. Equal weight on the three evidenced terms and half on alignment. Fitting
 them to this backtest's outcomes is the overfitting CLAUDE.md #6 warns about, and today's two sweeps
 flipped four of five knobs between neighbouring curations.

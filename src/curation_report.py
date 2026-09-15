@@ -305,8 +305,16 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # reports are linked individually, so one opened on its own gave no date until the Catalyst line.
     # THE BADGE RIDES IN THE HEADING as a sentinel, because _inline escapes every < it sees, so raw
     # HTML here would render as literal text. _md_to_html's h3 branch turns it back into a span.
+    # THE HEADER CARRIES THE FLAG TOO, not just the Catalyst line below it. Events are listed in
+    # RANK ORDER, so a broken catalyst that scores well sits at the TOP of the page -- cbs_v14's
+    # ev540 is rank 1 of 59 -- and the header is the line a reader scans. Printing the prompt's own
+    # template there unmarked, with the explanation one line further down, is where the reader's eye
+    # actually lands and the only place it said nothing.
+    _echo_hdr = _agent.is_schema_echo(e.get("catalyst"))
     L = [(f"@@B:{badge}@@" if badge else "")
-         + f"### {eid} · {date} · {_trim(e.get('catalyst'), 110)}"
+         + f"### {eid} · {date} · "
+         + ("\u26a0 BROKEN CATALYST (prompt template) — " if _echo_hdr else "")
+         + f"{_trim(e.get('catalyst'), 110)}"
          + (f" · *{note}*" if note else "")]
     # A CATALYST THAT IS THE PROMPT'S TEMPLATE, not an answer, is called out rather than printed
     # straight. The reader cannot rely on the SCORE to reveal it: seven of the nine fields the
