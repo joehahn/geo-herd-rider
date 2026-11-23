@@ -1,0 +1,2458 @@
+{
+  "week": "2023-08-11",
+  "model": "x-ai/grok-4.3",
+  "pool": [
+    {
+      "published_date": "2023-08-11",
+      "source": "tmcnet.com",
+      "title": "WISeKey, Italpreziosi, and Kaufmann & Partners Announce the Launch of Precious Metalverse AG: a Unique Joint Venture to Market Gold and Precious Metals as Authenticated and Verified Trusted NFTs",
+      "snippet": "WISeKey, Italpreziosi, and Kaufmann & Partners Announce the Launch of Precious Metalverse AG: a Unique Joint Venture to Market Gold and Precious Metals as Authenticated and Verified Trusted NFTs",
+      "url": "https://www.tmcnet.com/usubmit/2023/08/11/9863176.htm",
+      "language": "English",
+      "tone": 5.9,
+      "queries": [
+        "gold silver mining stocks"
+      ],
+      "orgs": [
+        "Wisekey International",
+        "Wisekey International Holding"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "tmcnet.com"
+      ],
+      "lede_live": "WISeKey, Italpreziosi, and Kaufmann & Partners Announce the Launch of Precious Metalverse AG: a Unique Joint Venture to Market Gold and Precious Metals as Authenticated and Verified Trusted NFTs",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "bangordailynews.com",
+      "title": "What the bankruptcy of a national trucking giant means for Maine",
+      "snippet": "After the trucking giant Yellow Corp. filed for bankruptcy protection in late July, at least 77 Maine workers are out of a job.",
+      "url": "https://www.bangordailynews.com/2023/08/11/business/yellow-trucking-bankruptcy-effects-maine-joam40zk0w/",
+      "language": "English",
+      "tone": -3.32,
+      "queries": [
+        "freight trucking rail air cargo logistics stocks"
+      ],
+      "orgs": [
+        "Yellow"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "bangordailynews.com"
+      ],
+      "lede": "After the trucking giant Yellow Corp. filed for bankruptcy protection in late July, at least 77 Maine workers are out of a job.",
+      "lede_source": "wayback",
+      "lede_live": "After the trucking giant Yellow Corp. filed for bankruptcy protection in late July, at least 77 Maine workers are out of a job.",
+      "author": "Lori Valigra",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "araratadvertiser.com.au",
+      "title": "WRL: Farmer alliance plan to rally on parliament steps next week | The Ararat Advertiser",
+      "snippet": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "url": "https://www.araratadvertiser.com.au/story/8304606/taken-for-a-ride-farmer-protest-planned-for-spring-street-over-transmission-lines/?cs=1516",
+      "language": "English",
+      "tone": -0.75,
+      "queries": [
+        "electric power grid pipeline energy infrastructure stocks"
+      ],
+      "orgs": [
+        "Parliament House"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "araratadvertiser.com.au"
+      ],
+      "lede": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "lede_source": "wayback",
+      "lede_live": "Home   General News   Council & Politics   Rural & Agriculture   Lifestyle & Entertainment   Our People   Sport   The Ararat Advocate   General News   Council & Politics   Rural & Agriculture   Lifestyle & Entertainment   Our People   Sport   The Stawell Times News   General News",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Cathie Wood Slashes Tesla Stake Further: How Much Ark Offloaded On Thursday - Tesla (NASDAQ:TSLA), ARK Autonomous Technology & Robotics ETF (BATS:ARKQ), ARK Innovation ETF (ARCA:ARKK)",
+      "snippet": "Cathie Wood's Ark Invest sold more shares in Tesla despite the fund manager remaining bullish on the Elon Musk-led company.",
+      "url": "https://www.benzinga.com/markets/equities/23/08/33735726/cathie-wood-slashes-tesla-stake-further-as-ark-offloads-nearly-19m-worth-of-stock",
+      "language": "English",
+      "tone": -0.41,
+      "queries": [
+        "robotics automation ETF surging",
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Ark Autonomous Technology Robotics"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Cathie Wood's Ark Invest sold more shares in Tesla despite the fund manager remaining bullish on the Elon Musk-led company.",
+      "lede_source": "wayback",
+      "lede_live": "Cathie Wood's Ark Invest sold more shares in Tesla despite the fund manager remaining bullish on the Elon Musk-led company.",
+      "author": "Shanthi Rexaline",
+      "author_source": "live",
+      "queries_raw": [
+        "robotics stocks",
+        "robotics automation ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "rnz.co.nz",
+      "title": "Software company Enprise Group slapped with warning by Financial Markets Authority",
+      "snippet": "The FMA said Enprise Group did not provide it with sufficient evidence to support disclosures and assumptions made relating to the value of its Australian subsidiary and certain tax-related assets.",
+      "url": "https://www.rnz.co.nz/news/business/495606/software-company-enprise-group-slapped-with-warning-by-financial-markets-authority",
+      "language": "English",
+      "tone": -3.79,
+      "queries": [
+        "technology stocks"
+      ],
+      "orgs": [
+        "Enprise"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "rnz.co.nz"
+      ],
+      "lede": "The FMA said Enprise Group did not provide it with sufficient evidence to support disclosures and assumptions made relating to the value of its Australian subsidiary and certain tax-related assets.",
+      "lede_source": "wayback",
+      "lede_live": "The Financial Markets Authority has issued a warning against listed software company Enprise Group, for failing to keep proper accounting records.",
+      "author": "RNZ | Te Reo Irirangi o Aotearoa",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "wkzo.com",
+      "title": "US asset manager Thornburg loses outbound investment licence in China",
+      "snippet": "By Summer Zhen HONG KONG (Reuters) - U.S.-based Thornburg Investment Management lost its business licence in China to raise funds for outbound investm...",
+      "url": "https://wkzo.com/2023/08/11/us-asset-manager-thornburg-loses-outbound-investment-licence-in-china/",
+      "language": "English",
+      "tone": -0.9,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Thornburg Investment Management Shanghai"
+      ],
+      "syndication": 5,
+      "syndicated_sources": [
+        "wkzo.com",
+        "marketscreener.com",
+        "933thedrive.com",
+        "dealstreetasia.com",
+        "channelnewsasia.com"
+      ],
+      "lede_live": "By Summer Zhen HONG KONG (Reuters) - U.S.-based Thornburg Investment Management lost its business licence in China to raise funds for outbound investm...",
+      "author": "Syndicated Content",
+      "author_source": "live",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "stawelltimes.com.au",
+      "title": "WRL: Farmer alliance plan to rally on parliament steps next week | The Stawell Times-News",
+      "snippet": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "url": "https://www.stawelltimes.com.au/story/8304606/taken-for-a-ride-farmer-protest-planned-for-spring-street-over-transmission-lines/",
+      "language": "English",
+      "tone": -0.75,
+      "queries": [
+        "electric power grid pipeline energy infrastructure stocks"
+      ],
+      "orgs": [
+        "Parliament House"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "stawelltimes.com.au"
+      ],
+      "lede": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "lede_source": "wayback",
+      "lede_live": "Home   General News   Council & Politics   Rural & Agriculture   Lifestyle & Entertainment   Our People   Sport   The Ararat Advocate   General News   Council & Politics   Rural & Agriculture   Lifestyle & Entertainment   Our People   Sport   The Stawell Times News   General News",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "shippingtribune.com",
+      "title": "Shipping Tribune",
+      "snippet": "Shipping Tribune",
+      "url": "https://www.shippingtribune.com/news/shipping/OPEC+flags+healthy+oil+market+fundamentals+in+second+half",
+      "language": "English",
+      "tone": -0.85,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Organization Of The Petroleum Exporting Countries"
+      ],
+      "syndication": 14,
+      "syndicated_sources": [
+        "shippingtribune.com"
+      ],
+      "text_miss": "unreachable",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "blueprint.ng",
+      "title": "NGX partners CSCS, Euroclear to create dollar settlement platform for Fintechs &#x2013; Blueprint Newspapers Limited",
+      "snippet": "The Nigerian Exchange Limited (NGX) has said that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar settleme",
+      "url": "https://www.blueprint.ng/ngx-partners-cscs-euroclear-to-create-dollar-settlement-platform-for-fintechs/",
+      "language": "English",
+      "tone": 0.99,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Nigerian Exchange"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "blueprint.ng"
+      ],
+      "lede": "The Nigerian Exchange Limited (NGX) has said that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar settleme",
+      "lede_source": "wayback",
+      "lede_live": "The Nigerian Exchange Limited (NGX) has said that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar",
+      "author": "Amaka Ifeakandu",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "SK hynix Starts Mass Production of Industry's First 24GB LPDDR5X DRAM - (HXSCL)",
+      "snippet": "First to offer industry&#39;s largest 24GB capacity; Begins supplying product to a global smartphone manufacturerIntegrates HKMG process, enabling the product to deliver both ultra-low power consumption and high",
+      "url": "https://www.benzinga.com/pressreleases/23/08/n33730569/sk-hynix-starts-mass-production-of-industrys-first-24gb-lpddr5x-dram",
+      "language": "English",
+      "tone": 2.39,
+      "queries": [
+        "memory chip DRAM shortage stock"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "First to offer industry&#39;s largest 24GB capacity; Begins supplying product to a global smartphone manufacturerIntegrates HKMG process, enabling the product to deliver both ultra-low power consumption and high",
+      "lede_source": "wayback",
+      "lede_live": "First to offer industry&#39;s largest 24GB capacity; Begins supplying product to a global smartphone manufacturerIntegrates HKMG process, enabling the product to deliver both ultra-low power consumption and high",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "theindependent.co.zw",
+      "title": "Ceteris Paribus: REITs and stocks: which way to go? - The Zimbabwe Independent",
+      "snippet": "Ceteris Paribus: REITs and stocks: which way to go?",
+      "url": "https://www.theindependent.co.zw/opinion/article/200015134/ceteris-paribus-reits-and-stocks-which-way-to-go",
+      "language": "English",
+      "tone": 0.88,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Tigere Property Fund",
+        "Zimbabwe Stock Exchange"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "theindependent.co.zw"
+      ],
+      "lede": "Ceteris Paribus: REITs and stocks: which way to go?",
+      "lede_source": "wayback",
+      "text_miss": "removed",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "sunnewsonline.com",
+      "title": "NGX partners CSCS, Euroclear to create dollar settlement platform for Fintechs &#x2013; The Sun Nigeria",
+      "snippet": "By Chinwendu Obienyi The Nigerian Exchange Limited (NGX) has disclosed that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar settlement platform that will enable tech startups to raise fund in dollars. This, the Exchange said, ",
+      "url": "https://sunnewsonline.com/ngx-partners-cscs-euroclear-to-create-dollar-settlement-platform-for-fintechs/",
+      "language": "English",
+      "tone": 0.43,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Nigerian Exchange"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "sunnewsonline.com"
+      ],
+      "lede": "By Chinwendu Obienyi The Nigerian Exchange Limited (NGX) has disclosed that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar settlement platform that will enable tech startups to raise fund in dollars. This, the Exchange said, ",
+      "lede_source": "wayback",
+      "lede_live": "By Chinwendu Obienyi The Nigerian Exchange Limited (NGX) has disclosed that it is working with the Central Securities Clearing System (CSCS) Plc and Euroclear to create a dollar settlement platform that will enable tech startups to raise fund in dollars. This, the Exchange said, ",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "indiatimes.com",
+      "title": "lic share price: LIC shares jump 6% after state insurer posts 14-fold jump in net profit",
+      "snippet": "LIC on Thursday reported that its standalone net profit for the quarter ended June 2023 rose multifold to Rs 9,544 crore. The same stood at Rs 683 crore in the same quarter of last year.",
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/lic-shares-jump-6-after-state-insurer-posts-14-fold-jump-in-net-profit/articleshow/102633375.cms",
+      "language": "English",
+      "tone": 1.65,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Life Insurance"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "indiatimes.com"
+      ],
+      "lede": "LIC on Thursday reported that its standalone net profit for the quarter ended June 2023 rose multifold to Rs 9,544 crore. The same stood at Rs 683 crore in the same quarter of last year.",
+      "lede_source": "wayback",
+      "lede_live": "LIC on Thursday reported that its standalone net profit for the quarter ended June 2023 rose multifold to Rs 9,544 crore. The same stood at Rs 683 crore in the same quarter of last year.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "zawya.com",
+      "title": "UAE's economy to continue its robust performance in 2023: OPEC monthly report",
+      "snippet": "According to OPEC's Monthly Oil Market Report for August, this robust performance will be delivered through constant contributions from the non-oil sector",
+      "url": "https://www.zawya.com/en/economy/gcc/uaes-economy-to-continue-its-robust-performance-in-2023-opec-monthly-report-hgpegcpl",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Organisation Of The Petroleum Exporting Countries",
+        "Monthly Oil Market Report For"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "zawya.com",
+        "newkerala.com"
+      ],
+      "lede": "According to OPEC's Monthly Oil Market Report for August, this robust performance will be delivered through constant contributions from the non-oil sector",
+      "lede_source": "wayback",
+      "text_miss": "http_400",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "cointelegraph.com",
+      "title": "Bitcoin ETFs to push US slice of crypto ETF trading volume to 99.5% &#x2014; Analyst",
+      "snippet": "ETFs that track crypto firms have been the top-performing equity funds so far in 2023, while the U.S. could soon be taking an even larger share of global crypto ETF trading volume.",
+      "url": "https://cointelegraph.com/news/bitcoin-spot-push-us-trading-volumes-crypto-etf",
+      "language": "English",
+      "tone": 1.85,
+      "queries": [
+        "crypto blockchain ETF surging",
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "United States"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "cointelegraph.com"
+      ],
+      "lede": "ETFs that track crypto firms have been the top-performing equity funds so far in 2023, while the U.S. could soon be taking an even larger share of global crypto ETF trading volume.",
+      "lede_source": "wayback",
+      "lede_live": "ETFs that track crypto firms have been the top-performing equity funds so far in 2023, while the U.S. could soon be taking an even larger share of global crypto ETF trading volume.",
+      "author": "Martin Young",
+      "author_source": "live",
+      "queries_raw": [
+        "cryptocurrency stocks",
+        "crypto blockchain ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "philstar.com",
+      "title": "Citicore Energy REIT declares record quarterly dividend",
+      "snippet": "Citicore Energy REIT\u00a0declared a Q2/23 dividend of P0.049/share, payable on October 4 to shareholders of record as of September 9.",
+      "url": "https://www.philstar.com/business/stock-commentary/2023/08/11/2287879/citicore-energy-reit-declares-record-quarterly-dividend",
+      "language": "English",
+      "tone": -0.43,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Citicore Energy"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "philstar.com"
+      ],
+      "lede_live": "Citicore Energy REIT\u00a0declared a Q2/23 dividend of P0.049/share, payable on October 4 to shareholders of record as of September 9.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "ocbj.com",
+      "title": "Indie Semiconductor Revenue Jumps - Orange County Business Journal",
+      "snippet": "Indie Semiconductor Revenue Jumps - Orange County Business Journal",
+      "url": "https://www.ocbj.com/automobiles/indie-semiconductor-revenue-jumps/",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "technology stocks"
+      ],
+      "orgs": [
+        "Indie Semiconductor In Aliso Viejo"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "ocbj.com"
+      ],
+      "text_miss": "no_text_on_page",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "yahoo.com",
+      "title": "Wheaton Precious Metals Corp. (WPM) Beats Q2 Earnings and Revenue Estimates",
+      "snippet": "Wheaton Precious Metals Corp. (WPM) delivered earnings and revenue surprises of 14.81% and 7.12%, respectively, for the quarter ended June 2023. Do the numbers hold clues to what lies ahead for the stock?",
+      "url": "https://finance.yahoo.com/news/wheaton-precious-metals-corp-wpm-223007280.html",
+      "language": "English",
+      "tone": 3.17,
+      "queries": [
+        "gold silver mining stocks"
+      ],
+      "orgs": [
+        "Wheaton Precious Metals"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "yahoo.com"
+      ],
+      "lede": "Wheaton Precious Metals Corp. (WPM) delivered earnings and revenue surprises of 14.81% and 7.12%, respectively, for the quarter ended June 2023. Do the numbers hold clues to what lies ahead for the stock?",
+      "lede_source": "wayback",
+      "lede_live": "Wheaton Precious Metals Corp. (WPM) delivered earnings and revenue surprises of 14.81% and 7.12%, respectively, for the quarter ended June 2023. Do the numbers hold clues to what lies ahead for the stock?",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "marketwatch.com",
+      "title": "Pagaya stock rallies as AI-backed fintech data company raises profitability outlook",
+      "snippet": "Pagaya Technologies shares rallied after hours Thursday after the AI-backed fintech data company's results.",
+      "url": "https://www.marketwatch.com/story/pagaya-stock-rallies-as-ai-backed-fintech-data-company-raises-profitability-outlook-1f161934",
+      "language": "English",
+      "tone": -0.96,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Pagaya Technologies"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "marketwatch.com"
+      ],
+      "lede": "Pagaya Technologies shares rallied after hours Thursday after the AI-backed fintech data company's results.",
+      "lede_source": "wayback",
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "streetinsider.com",
+      "title": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023",
+      "snippet": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023",
+      "url": "https://www.streetinsider.com/Business+Wire/Nordson%E2%80%99s+Semiconductor+Advanced+Packaging+Solutions+Will+Be+Demonstrated+at+SEMICON+Taiwan+2023/22030143.html",
+      "language": "English",
+      "tone": 4.74,
+      "queries": [
+        "artificial intelligence semiconductor stocks",
+        "technology stocks"
+      ],
+      "orgs": [
+        "See The Nordson Electronics Solutions",
+        "Nordson Electronics Solutions"
+      ],
+      "syndication": 4,
+      "syndicated_sources": [
+        "streetinsider.com",
+        "tmcnet.com",
+        "fuelsandlubes.com",
+        "marketscreener.com"
+      ],
+      "text_miss": "blocked_or_paywalled",
+      "queries_raw": [
+        "technology stocks",
+        "artificial intelligence semiconductor stocks"
+      ],
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kentuckytoday.com",
+      "title": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023 | Business News",
+      "snippet": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023 | Business News",
+      "url": "https://www.kentuckytoday.com/news/business/nordson-s-semiconductor-advanced-packaging-solutions-will-be-demonstrated-at-semicon-taiwan-2023/article_d49b4cc9-2bdc-50b9-836d-6ac2656aeb70.html",
+      "language": "English",
+      "tone": 4.46,
+      "queries": [
+        "artificial intelligence semiconductor stocks",
+        "technology stocks"
+      ],
+      "orgs": [
+        "Nordson Electronics Solutions"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "kentuckytoday.com"
+      ],
+      "text_miss": "removed",
+      "queries_raw": [
+        "technology stocks",
+        "artificial intelligence semiconductor stocks"
+      ],
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "yahoo.com",
+      "title": "Wheaton Precious Metals Corp. (WPM) Q2 Earnings: Taking a Look at Key Metrics Versus Estimates",
+      "snippet": "The headline numbers for Wheaton Precious Metals Corp. (WPM) give insight into how the company performed in the quarter ended June 2023, but it may be worthwhile to compare some of its key metrics to Wall Street estimates and the year-ago actuals.",
+      "url": "https://finance.yahoo.com/news/wheaton-precious-metals-corp-wpm-000002561.html",
+      "language": "English",
+      "tone": 2.18,
+      "queries": [
+        "gold silver mining stocks"
+      ],
+      "orgs": [
+        "Wheaton Precious Metals"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "yahoo.com"
+      ],
+      "lede": "The headline numbers for Wheaton Precious Metals Corp. (WPM) give insight into how the company performed in the quarter ended June 2023, but it may be worthwhile to compare some of its key metrics to Wall Street estimates and the year-ago actuals.",
+      "lede_source": "wayback",
+      "lede_live": "The headline numbers for Wheaton Precious Metals Corp. (WPM) give insight into how the company performed in the quarter ended June 2023, but it may be worthwhile to compare some of its key metrics to Wall Street estimates and the year-ago actuals.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "mailtimes.com.au",
+      "title": "WRL: Farmer alliance plan to rally on parliament steps next week | The Wimmera Mail-Times",
+      "snippet": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "url": "https://www.mailtimes.com.au/story/8304606/taken-for-a-ride-farmer-protest-planned-for-spring-street-over-transmission-lines/?cs=2669",
+      "language": "English",
+      "tone": -0.75,
+      "queries": [
+        "electric power grid pipeline energy infrastructure stocks"
+      ],
+      "orgs": [
+        "Parliament House"
+      ],
+      "syndication": 3,
+      "syndicated_sources": [
+        "mailtimes.com.au"
+      ],
+      "lede": "VFF petition calls for immediate stop to VNI-West and Western Renewables Link projects.",
+      "lede_source": "wayback",
+      "text_miss": "removed",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kopsource.com",
+      "title": "Hanlon Investment Management Inc. Makes New Investment in iShares Semiconductor ETF (NASDAQ:SOXX)",
+      "snippet": "Hanlon Investment Management Inc. Makes New Investment in iShares Semiconductor ETF (NASDAQ:SOXX)",
+      "url": "https://www.kopsource.com/2023/08/11/hanlon-investment-management-inc-makes-new-investment-in-ishares-semiconductor-etf-nasdaqsoxx.html",
+      "language": "English",
+      "tone": 1.44,
+      "queries": [
+        "semiconductor memory chip ETF surging",
+        "technology stocks"
+      ],
+      "orgs": [
+        "Hanlon Investment Management"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "kopsource.com"
+      ],
+      "text_miss": "removed",
+      "queries_raw": [
+        "technology stocks",
+        "semiconductor memory chip ETF surging"
+      ],
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "juniorminingnetwork.com",
+      "title": "Wheaton Precious Metals Announces Solid Second Quarter Results for 2023",
+      "snippet": "SECOND QUARTER FINANCIAL RESULTS VANCOUVER, BC, Aug. 10, 2023 /CNW/ - \"Wheaton delivered solid operational results during the quarter, generating o...",
+      "url": "https://www.juniorminingnetwork.com/junior-miner-news/press-releases/1009-tsx/wpm/146295-wheaton-precious-metals-announces-solid-second-quarter-results-for-2023.html",
+      "language": "English",
+      "tone": 0.57,
+      "queries": [
+        "gold silver mining stocks"
+      ],
+      "orgs": [
+        "Corporate Development"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "juniorminingnetwork.com"
+      ],
+      "lede_live": "SECOND QUARTER FINANCIAL RESULTS VANCOUVER, BC, Aug. 10, 2023 /CNW/ - \"Wheaton delivered solid operational results during the quarter, generating o...",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "menafn.com",
+      "title": "Opec Buoyant On Uae's Full-Year Economic Performance: Report",
+      "snippet": "DUBAI, Aug 11 (NNN-WAM) \u2013 The Organisation of the Petroleum Exporting Countries (OPEC), expressed confidence that the United Arab Emirates (UAE) wil",
+      "url": "https://menafn.com/1106832727/Opec-Buoyant-On-Uaes-Full-Year-Economic-Performance-Report",
+      "language": "English",
+      "tone": 0.92,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Organisation Of The Petroleum Exporting Countries",
+        "Menafn- Nam News Network"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "menafn.com",
+        "middleeaststar.com"
+      ],
+      "lede": "DUBAI, Aug 11 (NNN-WAM) \u2013 The Organisation of the Petroleum Exporting Countries (OPEC), expressed confidence that the United Arab Emirates (UAE) wil",
+      "lede_source": "wayback",
+      "text_miss": "url_recycled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "consumerelectronicsnet.com",
+      "title": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023 &#x2013; Consumer Electronics Net",
+      "snippet": "Nordson's Semiconductor Advanced Packaging Solutions Will Be Demonstrated at SEMICON Taiwan 2023 &#x2013; Consumer Electronics Net",
+      "url": "https://www.consumerelectronicsnet.com/nordsons-semiconductor-advanced-packaging-solutions-will-be-demonstrated-at-semicon-taiwan-2023/",
+      "language": "English",
+      "tone": 5.38,
+      "queries": [
+        "artificial intelligence semiconductor stocks",
+        "technology stocks"
+      ],
+      "orgs": [
+        "Nordson Electronics Solutions",
+        "See The Nordson Electronics Solutions"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "consumerelectronicsnet.com"
+      ],
+      "text_miss": "url_recycled",
+      "queries_raw": [
+        "technology stocks",
+        "artificial intelligence semiconductor stocks"
+      ],
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "pr-inside.com",
+      "title": "Calling all Investors in UP Fintech Holding Limited (TIGR): Contact ...",
+      "snippet": "Calling all Investors in UP Fintech Holding Limited (TIGR): Contact ...",
+      "url": "https://www.pr-inside.com/calling-all-investors-in-up-fintech-holding-limited-tigr-contact-r4933730.htm",
+      "language": "English",
+      "tone": -4.68,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Gewirtz Grossman",
+        "Fintech Holding Limited Up Fintech"
+      ],
+      "syndication": 4,
+      "syndicated_sources": [
+        "pr-inside.com"
+      ],
+      "text_miss": "removed",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "hawaiitelegraph.com",
+      "title": "Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars of the Emerging Immersive Industry On Twitter Spaces, hosted by WOLF Financial (Monday, August 14, 2023 at 12:30pm EST)",
+      "snippet": "NEW YORK, NY / ACCESSWIRE / August 11, 2023 / The Glimpse Group, Inc. ('Glimpse') (NASDAQ:VRAR), (FSE:9DR), a diversified Virtual Reality ('VR') and Augmented Reality...",
+      "url": "https://www.hawaiitelegraph.com/news/273928793/glimpse-to-discuss-spatial-computing-ai-and-blockchain---key-pillars-of-the-emerging-immersive-industry-on-twitter-spaces-hosted-by-wolf-financial-monday-august-14-2023-at-1230pm-est",
+      "language": "English",
+      "tone": 0.46,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Glimpse"
+      ],
+      "syndication": 16,
+      "syndicated_sources": [
+        "hawaiitelegraph.com",
+        "californiatelegraph.com",
+        "dallassun.com",
+        "theusnews.com",
+        "stlouisstar.com",
+        "newjerseytelegraph.com",
+        "memphissun.com",
+        "tennesseedaily.com",
+        "clevelandstar.com",
+        "albuquerqueexpress.com",
+        "pittsburghstar.com",
+        "bostonstar.com",
+        "nashvilleherald.com",
+        "saltlakecitysun.com",
+        "baltimorestar.com",
+        "phoenixherald.com"
+      ],
+      "lede_live": "NEW YORK, NY / ACCESSWIRE / August 11, 2023 / The Glimpse Group, Inc. ('Glimpse') (NASDAQ:VRAR), (FSE:9DR), a diversified Virtual Reality ('VR') and Augmented Reality...",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "hawaiitelegraph.com",
+      "title": "Goldman Small Cap Research Publishes New Research Report on NeurAxis, Inc.",
+      "snippet": "BALTIMORE, MD / ACCESSWIRE / August 11, 2023 / Goldman Small Cap Research, a stock market research firm specializing in the small cap and microcap sectors, announced...",
+      "url": "https://www.hawaiitelegraph.com/news/273928847/goldman-small-cap-research-publishes-new-research-report-on-neuraxis-inc",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "little-known small cap stock catalyst"
+      ],
+      "orgs": [
+        "Goldman Small Cap Research"
+      ],
+      "syndication": 17,
+      "syndicated_sources": [
+        "hawaiitelegraph.com",
+        "theusnews.com",
+        "californiatelegraph.com",
+        "dallassun.com",
+        "stlouisstar.com",
+        "memphissun.com",
+        "newjerseytelegraph.com",
+        "tennesseedaily.com",
+        "clevelandstar.com",
+        "albuquerqueexpress.com",
+        "pittsburghstar.com",
+        "bostonstar.com",
+        "baltimorestar.com",
+        "saltlakecitysun.com",
+        "nashvilleherald.com",
+        "finanznachrichten.de",
+        "phoenixherald.com"
+      ],
+      "lede_live": "BALTIMORE, MD / ACCESSWIRE / August 11, 2023 / Goldman Small Cap Research, a stock market research firm specializing in the small cap and microcap sectors, announced...",
+      "lede_source": "live",
+      "queries_raw": [
+        "under the radar small cap stock"
+      ],
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kelo.com",
+      "title": "Trucking firm Yellow extends bankruptcy loan negotiations until next week",
+      "snippet": "NEW YORK (Reuters) - Trucking firm Yellow Corp will extend negotiations on a bankruptcy loan until next week, seeking to explore at least two alternat...",
+      "url": "https://kelo.com/2023/08/11/trucking-firm-yellow-extends-bankruptcy-loan-negotiations-until-next-week/",
+      "language": "English",
+      "tone": -2.15,
+      "queries": [
+        "freight trucking rail air cargo logistics stocks"
+      ],
+      "orgs": [
+        "Yellow"
+      ],
+      "syndication": 7,
+      "syndicated_sources": [
+        "kelo.com",
+        "oann.com",
+        "usnews.com",
+        "streetinsider.com",
+        "marketscreener.com",
+        "yahoo.com",
+        "wsau.com"
+      ],
+      "lede_live": "NEW YORK (Reuters) - Trucking firm Yellow Corp will extend negotiations on a bankruptcy loan until next week, seeking to explore at least two alternat...",
+      "author": "Syndicated Content",
+      "author_source": "live",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "marketscreener.com",
+      "title": "Sigma Lithium Corporation Appoints Caio Araujo as Chief Financial Officer",
+      "snippet": "Sigma Lithium Corporation Appoints Caio Araujo as Chief Financial Officer",
+      "url": "https://www.marketscreener.com/quote/stock/SIGMA-LITHIUM-CORPORATION-120797077/news/Sigma-Lithium-Corporation-Appoints-Caio-Araujo-as-Chief-Financial-Officer-44595219/",
+      "language": "English",
+      "tone": 3.2,
+      "queries": [
+        "steel copper lithium aluminum titanium coal mining stocks"
+      ],
+      "orgs": [
+        "Sigma Lithium",
+        "United States"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "marketscreener.com"
+      ],
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "coinspeaker.com",
+      "title": "Bank of America: Paypal Stablecoin (PYUSD) Immediate Adoption Might Be Subdued",
+      "snippet": "Top analysts at Bank of America believe the immediate adoption of the PYUSD stablecoin by PayPal might be below par.",
+      "url": "https://www.coinspeaker.com/paypal-stablecoin-pyusd-bank-of-america/",
+      "language": "English",
+      "tone": 0.88,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Paypal Holdings"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "coinspeaker.com"
+      ],
+      "lede": "Top analysts at Bank of America believe the immediate adoption of the PYUSD stablecoin by PayPal might be below par.",
+      "lede_source": "wayback",
+      "lede_live": "Top analysts at Bank of America believe the immediate adoption of the PYUSD stablecoin by PayPal might be below par.",
+      "author": "Godfrey Benjamin",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "equitybulls.com",
+      "title": "Fermenta Biotech Ltd posts Rs. 1.83 crore PAT in Q1FY24",
+      "snippet": "The Board of Directors of Fermenta Biotech Limited, at its meeting held today have approved the financial results of the company for the period ended June 30, 2023 - Q1 FY2023-24.",
+      "url": "https://www.equitybulls.com/category.php?id=336794",
+      "language": "English",
+      "tone": -2.79,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Fermenta Biotech"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "equitybulls.com"
+      ],
+      "lede_live": "The Board of Directors of Fermenta Biotech Limited, at its meeting held today have approved the financial results of the company for the period ended June 30, 2023 - Q1 FY2023-24.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "tmcnet.com",
+      "title": "Benitec Biopharma Inc. Announces Closing of $30 Million Underwritten Public Offering",
+      "snippet": "Benitec Biopharma Inc. Announces Closing of $30 Million Underwritten Public Offering",
+      "url": "https://www.tmcnet.com/usubmit/2023/08/11/9863435.htm",
+      "language": "English",
+      "tone": -0.11,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Benitec Biopharma"
+      ],
+      "syndication": 3,
+      "syndicated_sources": [
+        "tmcnet.com",
+        "businessinsider.com",
+        "itbusinessnet.com"
+      ],
+      "lede_live": "Benitec Biopharma Inc. Announces Closing of $30 Million Underwritten Public Offering",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "investorideas.com",
+      "title": "Med Tech Firm's Q2/23 Revenue Beats Target",
+      "snippet": "Med Tech Firm's Q2/23 Revenue Beats Target",
+      "url": "https://www.investorideas.com/news/2023/biotech/08111Med-Tech-Q2.asp",
+      "language": "English",
+      "tone": -0.13,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Iradimed"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "investorideas.com"
+      ],
+      "lede": "Med Tech Firm's Q2/23 Revenue Beats Target",
+      "lede_source": "wayback",
+      "lede_live": "Med Tech Firm's Q2/23 Revenue Beats Target",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "investorideas.com",
+      "title": "Cryptocurrency Stock News - HIVE Digital (TSX.V: HIVE) (Nasdaq: HIVE) Announces Quarterly Revenue of $23.6 Million, Gross Operating Margin of $8.0 Million and Achieves Adjusted EBITDA of $5.3 Million for the Quarter and the Purchase of 2,000 Bitmain S19 XP ASIC Miners for Immediate Deployment",
+      "snippet": "Cryptocurrency Stock News - HIVE Digital (TSX.V: HIVE) (Nasdaq: HIVE) Announces Quarterly Revenue of $23.6 Million, Gross Operating Margin of $8.0 Million and Achieves Adjusted EBITDA of $5.3 Million for the Quarter and the Purchase of 2,000 Bitmain S19 XP ASIC Miners for Immedia",
+      "url": "https://www.investorideas.com/news/2023/cryptocurrency/08111TSXV-HIVE.asp",
+      "language": "English",
+      "tone": -0.11,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Digital Technologies"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "investorideas.com"
+      ],
+      "lede": "Cryptocurrency Stock News - HIVE Digital (TSX.V: HIVE) (Nasdaq: HIVE) Announces Quarterly Revenue of $23.6 Million, Gross Operating Margin of $8.0 Million and Achieves Adjusted EBITDA of $5.3 Million for the Quarter and the Purchase of 2,000 Bitmain S19 XP ASIC Miners for Immedia",
+      "lede_source": "wayback",
+      "lede_live": "Cryptocurrency Stock News - HIVE Digital (TSX.V: HIVE) (Nasdaq: HIVE) Announces Quarterly Revenue of $23.6 Million, Gross Operating Margin of $8.0 Million and Achieves Adjusted EBITDA of $5.3 Million for the Quarter and the Purchase of 2,000 Bitmain S19 XP ASIC Miners for Immedia",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "openpr.com",
+      "title": "Global Liquid Lithium Salt Market Research Report 2023",
+      "snippet": "Global Liquid Lithium Salt Market The global Liquid Lithium Salt market was valued at US million in 2022 and is anticipated to reach US million by 2029 witnessing a CAGR of during the forecast period 2023 2029 The influence of ...",
+      "url": "https://www.openpr.com/news/3163325/global-liquid-lithium-salt-market-research-report-2023",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "steel copper lithium aluminum titanium coal mining stocks"
+      ],
+      "orgs": [
+        "Tessenderlo",
+        "Agrium"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "openpr.com"
+      ],
+      "lede_live": "Global Liquid Lithium Salt Market The global Liquid Lithium Salt market was valued at US million in 2022 and is anticipated to reach US million by 2029 witnessing a CAGR of during the forecast period 2023 2029 The influence of ...",
+      "author": "Valuates Reports",
+      "author_source": "live",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "saltwire.com",
+      "title": "Trucking firm Yellow extends bankruptcy loan talks until next week",
+      "snippet": "Trucking firm Yellow extends bankruptcy loan talks until next week",
+      "url": "https://www.saltwire.com/prince-edward-island/business/reuters/trucking-firm-yellow-extends-bankruptcy-loan-talks-until-next-week-100882172/",
+      "language": "English",
+      "tone": -2.73,
+      "queries": [
+        "freight trucking rail air cargo logistics stocks"
+      ],
+      "orgs": [
+        "Yellow"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "saltwire.com",
+        "kitco.com"
+      ],
+      "text_miss": "removed",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Natural Gas Services Gr Stock (NYSE:NGS), Quotes and News Summary",
+      "snippet": "Get real-time Natural Gas Services Gr (NGS) stock price, charts, news, and analyst ratings on Benzinga. Access forecasts, historical data, and expert insights to inform your investment decisions.",
+      "url": "https://www.benzinga.com/quote/ngs",
+      "language": "English",
+      "tone": 3.7,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Natural Gas Services Gr"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede_live": "Get real-time Natural Gas Services Gr (NGS) stock price, charts, news, and analyst ratings on Benzinga. Access forecasts, historical data, and expert insights to inform your investment decisions.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "A Preview Of Natural Gas Services Gr's Earnings - Natural Gas Services Gr (NYSE:NGS)",
+      "snippet": "Analysts estimate that Natural Gas Services Gr will report an earnings per share (EPS) of $-0.02.",
+      "url": "https://www.benzinga.com/news/earnings/23/08/33757853/a-preview-of-natural-gas-services-grs-earnings",
+      "language": "English",
+      "tone": 4.74,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Natural Gas Services Gr"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Analysts estimate that Natural Gas Services Gr will report an earnings per share (EPS) of $-0.02.",
+      "lede_source": "wayback",
+      "lede_live": "Analysts estimate that Natural Gas Services Gr will report an earnings per share (EPS) of $-0.02.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Where Sutro Biopharma Stands With Analysts - Sutro Biopharma (NASDAQ:STRO)",
+      "snippet": "According to 6 analyst offering 12-month price targets in the last 3 months, Sutro Biopharma has an average price target of $15.83 with a high of $17.00 and a low of $12.00.",
+      "url": "https://www.benzinga.com/analyst-ratings/23/08/33757843/where-sutro-biopharma-stands-with-analysts",
+      "language": "English",
+      "tone": 0.35,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede_live": "According to 6 analyst offering 12-month price targets in the last 3 months, Sutro Biopharma has an average price target of $15.83 with a high of $17.00 and a low of $12.00.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "mercopress.com",
+      "title": "China's largest property developers on thin ice: 'Country Garden' admits losses of US$ 7,6bn in six months",
+      "snippet": "One of China's biggest property developers, Country Garden has warned that it could see a loss for the first six months of the year of up to US$7.6bn., the latest sign of the major issues faced by the world's second-largest economy.",
+      "url": "https://en.mercopress.com/2023/08/11/china-s-largest-property-developers-on-thin-ice-country-garden-admits-losses-of-us-7-6bn-in-six-months",
+      "language": "English",
+      "tone": -5.04,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Country Garden"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "mercopress.com"
+      ],
+      "lede": "One of China's biggest property developers, Country Garden has warned that it could see a loss for the first six months of the year of up to US$7.6bn., the latest sign of the major issues faced by the world's second-largest economy.",
+      "lede_source": "wayback",
+      "lede_live": "One of China's biggest property developers, Country Garden has warned that it could see a loss for the first six months of the year of up to US$7.6bn., the latest sign of the major issues faced by the world's second-largest economy.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Shares of semiconductor and chip stocks are trading lower amid overall market weakness following July PPI data, which showed greater-than-expected inflation. Weakness may also be due to a pullback following this year's AI-driven momentum. - KLA (NASDAQ:KLAC), Teradyne (NASDAQ:TER), Entegris (NASDAQ:ENTG), Marvell Tech (NASDAQ:MRVL), ON Semiconductor (NASDAQ:ON), Taiwan Semiconductor (NYSE:TSM)",
+      "snippet": "This headline only article is a sample of real-time intelligence\n          Benzinga Pro traders use to win in the markets everyday.",
+      "url": "https://www.benzinga.com/wiim/23/08/33758120/shares-of-semiconductor-and-chip-stocks-are-trading-lower-amid-overall-market-weakness-following-jul",
+      "language": "English",
+      "tone": 5.08,
+      "queries": [
+        "technology stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "This headline only article is a sample of real-time intelligence\n          Benzinga Pro traders use to win in the markets everyday.",
+      "lede_source": "wayback",
+      "lede_live": "This headline only article is a sample of real-time intelligence\n          Benzinga Pro traders use to win in the markets everyday.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Nvidia Is Down, But AI Chip Juggernaut Not Down For The Count - NVIDIA (NASDAQ:NVDA)",
+      "snippet": "Nvidia Corp. (NASDAQ: NVDA) skidded 4.72% in heavy turnover on August 9, ending the session below its 50-day moving average for the first time since early January. Shares were essentially flat in after-hours trading.&nbsp;",
+      "url": "https://www.benzinga.com/news/earnings/23/08/33747953/nvidia-is-down-but-ai-chip-juggernaut-not-down-for-the-count",
+      "language": "English",
+      "tone": 2.35,
+      "queries": [
+        "artificial intelligence semiconductor stocks"
+      ],
+      "orgs": [
+        "Nvidia"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Nvidia Corp. (NASDAQ: NVDA) skidded 4.72% in heavy turnover on August 9, ending the session below its 50-day moving average for the first time since early January. Shares were essentially flat in after-hours trading.&nbsp;",
+      "lede_source": "wayback",
+      "lede_live": "Nvidia Corp. (NASDAQ: NVDA) skidded 4.72% in heavy turnover on August 9, ending the session below its 50-day moving average for the first time since early January. Shares were essentially flat in after-hours trading.&nbsp;",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kopsource.com",
+      "title": "1ST Source Bank Makes New Investment in Vanguard Small-Cap Growth ETF (NYSEARCA:VBK)",
+      "snippet": "1ST Source Bank Makes New Investment in Vanguard Small-Cap Growth ETF (NYSEARCA:VBK)",
+      "url": "https://www.kopsource.com/2023/08/11/1st-source-bank-makes-new-investment-in-vanguard-small-cap-growth-etf-nysearcavbk.html",
+      "language": "English",
+      "tone": 1.77,
+      "queries": [
+        "little-known small cap stock catalyst"
+      ],
+      "orgs": [
+        "Baldwin Brothers"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "kopsource.com"
+      ],
+      "text_miss": "removed",
+      "queries_raw": [
+        "under the radar small cap stock"
+      ],
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "menafn.com",
+      "title": "Valmet Chosen By Lotte E&C To Deliver Automation To Gwangyang Biomass Plant In Korea",
+      "snippet": "(MENAFN- Industrial News Service)     /ins. Valmet will supply a Valmet DNA distributed control system (DCS) to Gwangyang Green Energy Corporation's biomass power plant under construction in Southwest Province in South Korea. The order was placed by Lotte Engineering and Construc",
+      "url": "https://menafn.com/1106838357/Valmet-Chosen-By-Lotte-EC-To-Deliver-Automation-To-Gwangyang-Biomass-Plant-In-Korea",
+      "language": "English",
+      "tone": 2.45,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Menafn- Industrial News Service",
+        "Valmet"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "menafn.com"
+      ],
+      "lede": "(MENAFN- Industrial News Service)     /ins. Valmet will supply a Valmet DNA distributed control system (DCS) to Gwangyang Green Energy Corporation's biomass power plant under construction in Southwest Province in South Korea. The order was placed by Lotte Engineering and Construc",
+      "lede_source": "wayback",
+      "text_miss": "url_recycled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Crude Oil Rises; Evolv Technologies Shares Spike Higher - Cano Health (NYSE:CANO), Evolv Technologies (NASDAQ:EVLV)",
+      "snippet": "U.S. stocks traded mixed toward the end of trading, with the Nasdaq Composite falling around 65 points on Friday. The Dow traded up 0.32% to 35,289.89 while the NASDAQ fell 0.48% to 13,672.26. The S&amp;P 500, also fell, dropping, 0.02% to 4,467.80.",
+      "url": "https://www.benzinga.com/news/earnings/23/08/33758428/crude-oil-moves-higher-evolv-technologies-shares-spike-higher",
+      "language": "English",
+      "tone": -1.23,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "U.S. stocks traded mixed toward the end of trading, with the Nasdaq Composite falling around 65 points on Friday. The Dow traded up 0.32% to 35,289.89 while the NASDAQ fell 0.48% to 13,672.26. The S&amp;P 500, also fell, dropping, 0.02% to 4,467.80.",
+      "lede_source": "wayback",
+      "lede_live": "U.S. stocks traded mixed toward the end of trading, with the Nasdaq Composite falling around 65 points on Friday. The Dow traded up 0.32% to 35,289.89 while the NASDAQ fell 0.48% to 13,672.26. The S&amp;P 500, also fell, dropping, 0.02% to 4,467.80.",
+      "author": "Lisa Levin",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "investing.com",
+      "title": "Trucking firm Yellow extends bankruptcy loan talks until next week By Reuters",
+      "snippet": "Trucking firm Yellow extends bankruptcy loan talks until next week",
+      "url": "https://www.investing.com/news/stock-market-news/trucking-firm-yellow-extends-bankruptcy-loan-negotiations-until-next-week-3152753",
+      "language": "English",
+      "tone": -2.84,
+      "queries": [
+        "freight trucking rail air cargo logistics stocks"
+      ],
+      "orgs": [
+        "Yellow"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "investing.com"
+      ],
+      "lede": "Trucking firm Yellow extends bankruptcy loan talks until next week",
+      "lede_source": "wayback",
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "indiatimes.com",
+      "title": "Nexus Select Trust REIT: Nexus Select Trust posts net profit of Rs 93.87 crore in Q1 FY24, ET RealEstate",
+      "snippet": "Nexus Select Trust REIT: Nexus Select Trust achieved net operating income of Rs 389.70 crore and raised Rs 2,250 crore during the quarter at an average interest cost of 8.2% (vs 8.5% in projections) achieved interest savings of ~50 bps / ~Rs 11 crore per annum.",
+      "url": "https://realty.economictimes.indiatimes.com/news/retail/nexus-select-trust-posts-net-profit-of-rs-93-87-crore-in-q1-fy24/102654063",
+      "language": "English",
+      "tone": 3.34,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Nexus Select"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "indiatimes.com"
+      ],
+      "lede_live": "Nexus Select Trust REIT: Nexus Select Trust achieved net operating income of Rs 389.70 crore and raised Rs 2,250 crore during the quarter at an average interest cost of 8.2% (vs 8.5% in projections) achieved interest savings of ~50 bps / ~Rs 11 crore per annum.",
+      "author": "Ankit Sharma",
+      "author_source": "live",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "marketwatch.com",
+      "title": "These home-improvement retailers are seeing better foot traffic, research says",
+      "snippet": "Sales of new single-family homes have helped drive visits to home-improvement retailers, according to analytics company Placer.ai.",
+      "url": "https://www.marketwatch.com/story/these-home-improvement-retailers-are-seeing-better-foot-traffic-research-says-91446bd",
+      "language": "English",
+      "tone": 0.65,
+      "queries": [
+        "consumer stocks"
+      ],
+      "orgs": [
+        "Home Depot"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "marketwatch.com"
+      ],
+      "lede": "Sales of new single-family homes have helped drive visits to home-improvement retailers, according to analytics company Placer.ai.",
+      "lede_source": "wayback",
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "insidebitcoins.com",
+      "title": "Canada's RCMP Calls for Cryptocurrency and NFT Storage Solution",
+      "snippet": "The Royal Canadian Mounted Police (RCMP) is looking for a digital asset solution developer to facilitate the seizure and storage of cryptocurrency and",
+      "url": "https://insidebitcoins.com/news/canadas-rcmp-calls-for-cryptocurrency-and-nft-storage-solution",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Royal Canadian Mounted Police"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "insidebitcoins.com"
+      ],
+      "lede": "The Royal Canadian Mounted Police (RCMP) is looking for a digital asset solution developer to facilitate the seizure and storage of cryptocurrency and",
+      "lede_source": "wayback",
+      "text_miss": "http_500",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "streetinsider.com",
+      "title": "ReWalk Robotics Announces Closing of Acquisition of AlterG",
+      "snippet": "ReWalk Robotics Announces Closing of Acquisition of AlterG",
+      "url": "https://www.streetinsider.com/Globe+Newswire/ReWalk+Robotics+Announces+Closing+of+Acquisition+of+AlterG/22034569.html",
+      "language": "English",
+      "tone": 2.12,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Rewalk Robotics"
+      ],
+      "syndication": 3,
+      "syndicated_sources": [
+        "streetinsider.com",
+        "marketscreener.com",
+        "businessinsider.com"
+      ],
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kopsource.com",
+      "title": "Direxion Daily Semiconductors Bear 3x Shares (NYSEARCA:SOXS) Trading Up 5.2%",
+      "snippet": "Direxion Daily Semiconductors Bear 3x Shares (NYSEARCA:SOXS) Trading Up 5.2%",
+      "url": "https://www.kopsource.com/2023/08/11/direxion-daily-semiconductors-bear-3x-shares-nysearcasoxs-trading-up-5-2.html",
+      "language": "English",
+      "tone": 1.82,
+      "queries": [
+        "technology stocks"
+      ],
+      "orgs": [
+        "Direxion Daily Semiconductors Bear"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "kopsource.com"
+      ],
+      "text_miss": "removed",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "cointelegraph.com",
+      "title": "US gov't debt downgraded &#x2014; Huge news for Bitcoin?",
+      "snippet": "Cointelegraph Macro Markets Episode 23: Marcel Pechman explains why the U.S. government debt getting downgraded will have a negative impact on the price of Bitcoin.",
+      "url": "https://cointelegraph.com/news/us-govt-debt-downgraded-huge-news-for-bitcoin",
+      "language": "English",
+      "tone": -3.63,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Fitch Ratings",
+        "United States"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "cointelegraph.com"
+      ],
+      "lede": "Cointelegraph Macro Markets Episode 23: Marcel Pechman explains why the U.S. government debt getting downgraded will have a negative impact on the price of Bitcoin.",
+      "lede_source": "wayback",
+      "text_miss": "removed",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "marketscreener.com",
+      "title": "LITHIUM AMERICAS : CONSOLIDATED STATEMENTS OF FINANCIAL POSITION",
+      "snippet": "LITHIUM AMERICAS : CONSOLIDATED STATEMENTS OF FINANCIAL POSITION",
+      "url": "https://www.marketscreener.com/quote/stock/LITHIUM-AMERICAS-CORP-42378637/news/LITHIUM-AMERICAS-CONSOLIDATED-STATEMENTS-OF-FINANCIAL-POSITION-Form-6-K-44596087/",
+      "language": "English",
+      "tone": 0.04,
+      "queries": [
+        "steel copper lithium aluminum titanium coal mining stocks"
+      ],
+      "orgs": [
+        "Lithium Americas"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "marketscreener.com"
+      ],
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "bnnbloomberg.ca",
+      "title": "Top Indian Oil Producer's Profit Falls on Lower Prices, Output",
+      "snippet": "Lower crude prices and aging oil fields dragged down quarterly earnings for India\u2019s state-controlled driller.",
+      "url": "https://www.bnnbloomberg.ca/top-indian-oil-producer-s-profit-falls-on-lower-prices-output-1.1957988",
+      "language": "English",
+      "tone": -0.4,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Oil Natural Gas"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "bnnbloomberg.ca"
+      ],
+      "lede": "Lower crude prices and aging oil fields dragged down quarterly earnings for India\u2019s state-controlled driller.",
+      "lede_source": "wayback",
+      "lede_live": "Get the latest Canadian business news, including TSX updates, changes to oil and energy prices, and Bank of Canada coverage. Explore stock market investing and get expert financial insights on investment portfolio strategies.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "ReWalk Robotics Announces Closing of Acquisition of AlterG - ReWalk Robotics (NASDAQ:RWLK)",
+      "snippet": "Combined Company Expected to Expand Access for Patients to Innovative Rehabilitation Technologies for Use in Clinics and the Home Charles Remsberg Appointed Chief Sales Officer at ReWalk Robotics MARLBOROUGH, Mass. and",
+      "url": "https://www.benzinga.com/pressreleases/23/08/g33761323/rewalk-robotics-announces-closing-of-acquisition-of-alterg",
+      "language": "English",
+      "tone": 2.13,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Rewalk Robotics"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Combined Company Expected to Expand Access for Patients to Innovative Rehabilitation Technologies for Use in Clinics and the Home Charles Remsberg Appointed Chief Sales Officer at ReWalk Robotics MARLBOROUGH, Mass. and",
+      "lede_source": "wayback",
+      "text_miss": "no_text_on_page",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "investmentnews.com",
+      "title": "SEC delays decision on ARK bitcoin ETF filing",
+      "snippet": "As the SEC puts off deciding on spot bitcoin ETF, 21Shares and ARK file for a fund that would invest in bitcoin futures.",
+      "url": "https://www.investmentnews.com/sec-delays-decision-on-ark-bitcoin-etf-filing-240974",
+      "language": "English",
+      "tone": 0.22,
+      "queries": [
+        "crypto blockchain ETF surging",
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Blackrock"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "investmentnews.com"
+      ],
+      "lede_live": "As the SEC puts off deciding on spot bitcoin ETF, 21Shares and ARK file for a fund that would invest in bitcoin futures.",
+      "lede_source": "live",
+      "queries_raw": [
+        "cryptocurrency stocks",
+        "crypto blockchain ETF surging"
+      ],
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "wccftech.com",
+      "title": "NASA's Mars Lander Will Launch A Rocket & It's Being Tested Right Now",
+      "snippet": "NASA is busy testing the legs of its Mars lander that is designed to launch a rocket from Mars in the next decade.",
+      "url": "https://wccftech.com/nasas-mars-lander-will-launch-a-rocket-its-being-tested-right-now/",
+      "language": "English",
+      "tone": 0.93,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Space Administration",
+        "National Aeronautics"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "wccftech.com"
+      ],
+      "lede": "NASA is busy testing the legs of its Mars lander that is designed to launch a rocket from Mars in the next decade.",
+      "lede_source": "wayback",
+      "lede_live": "NASA is busy testing the legs of its Mars lander that is designed to launch a rocket from Mars in the next decade.",
+      "author": "Ramish Zafar",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "qz.com",
+      "title": "Serve Robotics goes public, but the robot delivery industry has a ways to go",
+      "snippet": "Serve Robotics needs to raise a lot of capital to fulfill deploying 2,000 robots with Uber Eats",
+      "url": "https://qz.com/an-uber-backed-robot-delivery-company-is-going-public-b-1850729598",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Patricia Acquisition",
+        "Nvidia"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "qz.com"
+      ],
+      "lede": "Serve Robotics needs to raise a lot of capital to fulfill deploying 2,000 robots with Uber Eats",
+      "lede_source": "wayback",
+      "lede_live": "Serve Robotics needs to raise a lot of capital to fulfill deploying 2,000 robots with Uber Eats",
+      "author": "Michelle Cheng",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "thehindubusinessline.com",
+      "title": "TVS Supply Chain Solutions, Concord Biotech and more: As the IPO market heats up, do you know how to analyse the prospectus?",
+      "snippet": "IPOs can be a good source of listing gains, but for long-term investors, fundamentals matter most. To assess an IPO, review the RHP document, industry & business sections, financials & corporate governance. Stress-test the info & use key words to search for relevant info.",
+      "url": "https://www.thehindubusinessline.com/portfolio/personal-finance/tvs-supply-chain-solutions-concord-biotech-and-more-as-the-ipo-market-heats-up-do-you-know-how-to-analyse-the-prospectus/article67158785.ece",
+      "language": "English",
+      "tone": 0.23,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Chain Solutions"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "thehindubusinessline.com"
+      ],
+      "lede": "IPOs can be a good source of listing gains, but for long-term investors, fundamentals matter most. To assess an IPO, review the RHP document, industry & business sections, financials & corporate governance. Stress-test the info & use key words to search for relevant info.",
+      "lede_source": "wayback",
+      "lede_live": "IPOs can be a good source of listing gains, but for long-term investors, fundamentals matter most. To assess an IPO, review the RHP document, industry & business sections, financials & corporate governance. Stress-test the info & use key words to search for relevant info.",
+      "author": "Hari Viswanath & BL Research Bureau",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Cathie Wood Continues To Cash Out Of Nvidia: Here's Another Large-Cap AI-Levered Stock Ark Sold Thursday - ARK Space Exploration & Innovation ETF (BATS:ARKX), Alphabet (NASDAQ:GOOG), Alphabet (NASDAQ:GOOGL), NVIDIA (NASDAQ:NVDA), ARK Genomic Revolution ETF (BATS:ARKG), ARK Autonomous Technology & Robotics ETF (BATS:ARKQ), ARK Innovation ETF (ARCA:ARKK)",
+      "snippet": "Cathie Wood's Ark Invest sold more Nvidia shares of Nvidia as the fund manager harps on the stock's stretched valuation.",
+      "url": "https://www.benzinga.com/markets/equities/23/08/33737762/cathie-wood-continues-to-cash-out-of-nvidia-heres-another-large-cap-ai-levered-stock-ark-sold-th",
+      "language": "English",
+      "tone": 2.97,
+      "queries": [
+        "robotics automation ETF surging",
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Nvidia"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Cathie Wood's Ark Invest sold more Nvidia shares of Nvidia as the fund manager harps on the stock's stretched valuation.",
+      "lede_source": "wayback",
+      "lede_live": "Cathie Wood's Ark Invest sold more Nvidia shares of Nvidia as the fund manager harps on the stock's stretched valuation.",
+      "author": "Shanthi Rexaline",
+      "author_source": "live",
+      "queries_raw": [
+        "robotics stocks",
+        "robotics automation ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "moneycontrol.com",
+      "title": "Concord Biotech to finalise IPO share allotment today: Here's how to check status online",
+      "snippet": "Concord Biotech IPO | The much-awaited event, the listing of equity shares will take place on the BSE and NSE on August 18.",
+      "url": "https://www.moneycontrol.com/news/business/ipo/concord-biotech-to-finalise-ipo-share-allotment-today-heres-how-to-check-status-online-11156391.html",
+      "language": "English",
+      "tone": 1.54,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Concord Biotech"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "moneycontrol.com"
+      ],
+      "lede": "Concord Biotech IPO | The much-awaited event, the listing of equity shares will take place on the BSE and NSE on August 18.",
+      "lede_source": "wayback",
+      "lede_live": "Concord Biotech IPO | The much-awaited event, the listing of equity shares will take place on the BSE and NSE on August 18.",
+      "author": "Sunil Shankar Matkar",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Fear & Greed Index Remains In 'Greed' Zone Following Inflation Data - Walt Disney (NYSE:DIS), EA Series Trust Strive U.S. Semiconductor ETF (ARCA:SHOC)",
+      "snippet": "The CNN Money Fear and Greed index remained in the &quot;Greed&quot; zone on Thursday. U.S. stocks closed slightly higher on Thursday following the release of inflation data. All three major indexes climbed over 1% earlier in the session, but pared gains later on Thursday.",
+      "url": "https://www.benzinga.com/news/earnings/23/08/33737861/fear-greed-index-remains-in-greed-zone-following-inflation-data",
+      "language": "English",
+      "tone": -0.64,
+      "queries": [
+        "semiconductor memory chip ETF surging",
+        "technology stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "The CNN Money Fear and Greed index remained in the &quot;Greed&quot; zone on Thursday. U.S. stocks closed slightly higher on Thursday following the release of inflation data. All three major indexes climbed over 1% earlier in the session, but pared gains later on Thursday.",
+      "lede_source": "wayback",
+      "lede_live": "The CNN Money Fear and Greed index remained in the &quot;Greed&quot; zone on Thursday. U.S. stocks closed slightly higher on Thursday following the release of inflation data. All three major indexes climbed over 1% earlier in the session, but pared gains later on Thursday.",
+      "author": "Lisa Levin",
+      "author_source": "live",
+      "queries_raw": [
+        "technology stocks",
+        "semiconductor memory chip ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "ibtimes.com.au",
+      "title": "Study by Hong Kong PolyU Reveals U.S. Manufacturers' Operations Suffered in U.S.-China Trade War",
+      "snippet": "HONG KONG--(BUSINESS WIRE)--The Hong Kong Polytechnic University (PolyU) has conducted a collaborative study exploring the intricate effects of the U.S.-China trade war on U.S. firms. Scholars from Hong Kong, Australia, and the USA examined the complexities of outsourcing and sup",
+      "url": "https://www.ibtimes.com.au/press-release/20230811/study-by-hong-kong-polyu-reveals-u-s-manufacturers-operations-suffered-in-u-s-china-trade-war",
+      "language": "English",
+      "tone": -3.47,
+      "queries": [
+        "export ban tariff sanctions stock beneficiary"
+      ],
+      "orgs": [
+        "United States"
+      ],
+      "syndication": 5,
+      "syndicated_sources": [
+        "ibtimes.com.au",
+        "tmcnet.com",
+        "streetinsider.com",
+        "joplinglobe.com",
+        "valdostadailytimes.com"
+      ],
+      "lede": "HONG KONG--(BUSINESS WIRE)--The Hong Kong Polytechnic University (PolyU) has conducted a collaborative study exploring the intricate effects of the U.S.-China trade war on U.S. firms. Scholars from Hong Kong, Australia, and the USA examined the complexities of outsourcing and sup",
+      "lede_source": "wayback",
+      "lede_live": "HONG KONG--(BUSINESS WIRE)--The Hong Kong Polytechnic University (PolyU) has conducted a collaborative study exploring the intricate effects of the U.S.-China trade war on U.S. firms. Scholars from Hong Kong, Australia, and the USA examined the complexities of outsourcing and sup",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Flowers Foods, Spectrum Brands And 3 Stocks To Watch Heading Into Friday - Flowers Foods (NYSE:FLO), EA Series Trust Strive U.S. Semiconductor ETF (ARCA:SHOC)",
+      "snippet": "With U.S. stock futures trading higher this morning on Friday, some of the stocks that may grab investor focus today are as follows:",
+      "url": "https://www.benzinga.com/news/earnings/23/08/33739882/flowers-foods-spectrum-brands-and-3-stocks-to-watch-heading-into-friday",
+      "language": "English",
+      "tone": 2.27,
+      "queries": [
+        "semiconductor memory chip ETF surging",
+        "technology stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "With U.S. stock futures trading higher this morning on Friday, some of the stocks that may grab investor focus today are as follows:",
+      "lede_source": "wayback",
+      "lede_live": "With U.S. stock futures trading higher this morning on Friday, some of the stocks that may grab investor focus today are as follows:",
+      "author": "Lisa Levin",
+      "author_source": "live",
+      "queries_raw": [
+        "technology stocks",
+        "semiconductor memory chip ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "standard.co.uk",
+      "title": "Retailers urged to set science-based climate targets as Tesco goal approved",
+      "snippet": "Tesco has become one of the first firms globally to set a validated science-based target for slashing emissions from forests, land and agriculture.",
+      "url": "https://www.standard.co.uk/business/business-news/retailers-urged-to-set-sciencebased-climate-targets-as-tesco-goal-approved-b1100066.html",
+      "language": "English",
+      "tone": 3.1,
+      "queries": [
+        "consumer stocks"
+      ],
+      "orgs": [
+        "Tesco"
+      ],
+      "syndication": 5,
+      "syndicated_sources": [
+        "standard.co.uk",
+        "aol.co.uk",
+        "jerseyeveningpost.com",
+        "thecourier.co.uk"
+      ],
+      "lede": "Tesco has become one of the first firms globally to set a validated science-based target for slashing emissions from forests, land and agriculture.",
+      "lede_source": "wayback",
+      "lede_live": "Tesco has become one of the first firms globally to set a validated science-based target for slashing emissions from forests, land and agriculture.",
+      "author": "Rebecca Speare-Cole",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "nuclear-news.net",
+      "title": "Should You Sell Nuscale Power Corp (SMR) Stock Wednesday Morning?",
+      "snippet": "Wednesday, August 09, 2023 08:08 AM | InvestorsObserver Analysts Nuscale Power Corp (SMR) is up Wednesday morning, with the stock increasing 1.45% in pre-market trading to 7.01. SMR\u2019s short-t\u2026",
+      "url": "https://nuclear-news.net/2023/08/11/2-should-you-sell-nuscale-power-corp-smr-stock-wednesday-morning/",
+      "language": "English",
+      "tone": 1.65,
+      "queries": [
+        "nuclear stocks"
+      ],
+      "orgs": [
+        "Nuscale Power",
+        "You Sell Nuscale Power"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "nuclear-news.net"
+      ],
+      "lede": "Wednesday, August 09, 2023 08:08 AM | InvestorsObserver Analysts Nuscale Power Corp (SMR) is up Wednesday morning, with the stock increasing 1.45% in pre-market trading to 7.01. SMR\u2019s short-t\u2026",
+      "lede_source": "wayback",
+      "lede_live": "Wednesday, August 09, 2023 08:08 AM | InvestorsObserver Analysts Nuscale Power Corp (SMR) is up Wednesday morning, with the stock increasing 1.45% in pre-market trading to 7.01. SMR\u2019s short-t\u2026",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "indiatoday.in",
+      "title": "Gujarat's GIFT City | India's big fintech bet",
+      "snippet": "GIFT City in Gujarat, one of PM Modi's dream projects, is eliciting interest from industry giants. But can it emerge as an alternative to global financial hubs?",
+      "url": "https://www.indiatoday.in/magazine/business/story/20230821-gujarats-gift-city-indias-big-fintech-bet-2419105-2023-08-11",
+      "language": "English",
+      "tone": 6.52,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "City Club",
+        "National Stock Exchange"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "indiatoday.in"
+      ],
+      "lede": "GIFT City in Gujarat, one of PM Modi's dream projects, is eliciting interest from industry giants. But can it emerge as an alternative to global financial hubs?",
+      "lede_source": "wayback",
+      "lede_live": "GIFT City in Gujarat, one of PM Modi's dream projects, is eliciting interest from industry giants. But can it emerge as an alternative to global financial hubs?",
+      "author": "Jumana Shah",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "pr-inside.com",
+      "title": "Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars ...",
+      "snippet": "Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars ...",
+      "url": "https://www.pr-inside.com/glimpse-to-discuss-spatial-computing-ai-and-blockchain-key-pillars-r4933697.htm",
+      "language": "English",
+      "tone": 0.43,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Glimpse"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "pr-inside.com"
+      ],
+      "text_miss": "removed",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "kentuckytoday.com",
+      "title": "ReWalk Robotics Reports Second Quarter 2023 Financial Results",
+      "snippet": "ReWalk Robotics Reports Second Quarter 2023 Financial Results",
+      "url": "https://www.kentuckytoday.com/news/business/rewalk-robotics-reports-second-quarter-2023-financial-results/article_d585da0c-be83-52ca-83a9-8f1e05dea18d.html",
+      "language": "English",
+      "tone": -1.54,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Rewalk Robotics"
+      ],
+      "syndication": 4,
+      "syndicated_sources": [
+        "kentuckytoday.com",
+        "yahoo.com",
+        "marketscreener.com",
+        "businessinsider.com"
+      ],
+      "text_miss": "removed",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "NNN REIT Stock (NYSE:NNN), Quotes and News Summary",
+      "snippet": "National Retail Props Stock (NYSE: NNN) stock price, news, charts, stock research, profile.",
+      "url": "https://www.benzinga.com/quote/nnn",
+      "language": "English",
+      "tone": 1.96,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "National Retail Props Stock (NYSE: NNN) stock price, news, charts, stock research, profile.",
+      "lede_source": "wayback",
+      "lede_live": "Get real-time NNN REIT (NNN) stock price, charts, news, and analyst ratings on Benzinga. Access forecasts, historical data, and expert insights to inform your investment decisions.",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Bristol-Myers Squibb, Toast And A Major REIT Stock: CNBC's 'Final Trades' - Bristol-Myers Squibb (NYSE:BMY), NNN REIT (NYSE:NNN)",
+      "snippet": "On CNBC&rsquo;s &quot;Halftime Report Final Trades,&quot; Jim Lebenthal of Cerity Partners named Bristol-Myers Squibb Company (NYSE: BMY), which announced $4 billion aggregate accelerated",
+      "url": "https://www.benzinga.com/trading-ideas/long-ideas/23/08/33741874/bristol-myers-squibb-toast-and-a-major-reit-stock-cnbcs-final-trades",
+      "language": "English",
+      "tone": 0.89,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Bristol Myers Squibb"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "On CNBC&rsquo;s &quot;Halftime Report Final Trades,&quot; Jim Lebenthal of Cerity Partners named Bristol-Myers Squibb Company (NYSE: BMY), which announced $4 billion aggregate accelerated",
+      "lede_source": "wayback",
+      "lede_live": "On CNBC&rsquo;s &quot;Halftime Report Final Trades,&quot; Jim Lebenthal of Cerity Partners named Bristol-Myers Squibb Company (NYSE: BMY), which announced $4 billion aggregate accelerated",
+      "author": "Priya Nigam",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "nbcphiladelphia.com",
+      "title": "Telesat stock surges after satellite internet company swaps suppliers to save $2 billion",
+      "snippet": "Telesat stock surges after satellite internet company swaps suppliers to save $2 billion",
+      "url": "https://www.nbcphiladelphia.com/news/business/money-report/telesat-stock-surges-after-satellite-internet-company-swaps-suppliers-to-save-2-billion/3623152/",
+      "language": "English",
+      "tone": 0.91,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Thales"
+      ],
+      "syndication": 3,
+      "syndicated_sources": [
+        "nbcphiladelphia.com",
+        "nbcnewyork.com",
+        "nbcsandiego.com"
+      ],
+      "text_miss": "no_text_on_page",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "etftrends.com",
+      "title": "Gold ETFs Outflows Didn't Hurt Prices in July",
+      "snippet": "The S&P 500 was up 3.11% in July, bringing its YTD return to 19.52%. This could have spurred outflows in gold ETFs.",
+      "url": "https://www.etftrends.com/leveraged-inverse-channel/outflows-from-gold-etfs-didnt-hurt-prices-july/",
+      "language": "English",
+      "tone": 5.02,
+      "queries": [
+        "gold silver miners ETF surging record high"
+      ],
+      "orgs": [
+        "World Gold Council"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "etftrends.com"
+      ],
+      "lede_live": "The S&P 500 was up 3.11% in July, bringing its YTD return to 19.52%. This could have spurred outflows in gold ETFs.",
+      "author": "Ben Hernandez",
+      "author_source": "live",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "itnewsonline.com",
+      "title": "IT News Online - Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars of the Emerging Immersive Industry On Twitter Spaces, hosted by WOLF Financial (Monday, August 14, 2023 at 12:30pm EST)",
+      "snippet": "Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars of the Emerging Immersive Industry On Twitter Spaces, hosted by WOLF Financial  (Monday, August 14, 2023 at 12:30pm EST)",
+      "url": "http://www.itnewsonline.com/news/Glimpse-to-Discuss-Spatial-Computing-AI-and-Blockchain---Key-Pillars-of-the-Emerging-Immersive-Industry-On-Twitter-Spaces-hosted-by-WOLF-Financial--Monday-August-14-2023-at-1230pm-EST/17214",
+      "language": "English",
+      "tone": 0.42,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Glimpse"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "itnewsonline.com"
+      ],
+      "lede_live": "Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars of the Emerging Immersive Industry On Twitter Spaces, hosted by WOLF Financial  (Monday, August 14, 2023 at 12:30pm EST)",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "techstory.in",
+      "title": "SEC could approve a spot Bitcoin ETF in 6 months",
+      "snippet": "In four to six months, the SEC might approve a spot bitcoin exchange-traded fund (ETF) according to Galaxy Digital CEO Mike Novogratz.",
+      "url": "https://techstory.in/sec-could-approve-a-spot-bitcoin-etf-in-6-months/",
+      "language": "English",
+      "tone": 1.35,
+      "queries": [
+        "crypto blockchain ETF surging",
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Invesco",
+        "Blackrock"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "techstory.in"
+      ],
+      "lede_live": "In four to six months, the SEC might approve a spot bitcoin exchange-traded fund (ETF) according to Galaxy Digital CEO Mike Novogratz.",
+      "author": "Reshab Agarwal",
+      "author_source": "live",
+      "lede_source": "live",
+      "queries_raw": [
+        "cryptocurrency stocks",
+        "crypto blockchain ETF surging"
+      ],
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "finanznachrichten.de",
+      "title": "The Glimpse Group, Inc.: Glimpse to Discuss Spatial Computing, AI and Blockchain - Key Pillars of the Emerging Immersive Industry On Twitter Spaces, hosted by WOLF Financial",
+      "snippet": "NEW YORK, NY / ACCESSWIRE / August 11, 2023 / The Glimpse Group, Inc. (\"Glimpse\") (NASDAQ:VRAR), (FSE:9DR), a diversified Virtual Reality (\"VR\") and Augmented Reality (\"AR\") company providing enterprise",
+      "url": "https://www.finanznachrichten.de/nachrichten-2023-08/59830030-the-glimpse-group-inc-glimpse-to-discuss-spatial-computing-ai-and-blockchain-key-pillars-of-the-emerging-immersive-industry-on-twitter-spaces-h-200.htm",
+      "language": "English",
+      "tone": 0.4,
+      "queries": [
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Glimpse"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "finanznachrichten.de"
+      ],
+      "lede": "NEW YORK, NY / ACCESSWIRE / August 11, 2023 / The Glimpse Group, Inc. (\"Glimpse\") (NASDAQ:VRAR), (FSE:9DR), a diversified Virtual Reality (\"VR\") and Augmented Reality (\"AR\") company providing enterprise",
+      "lede_source": "wayback",
+      "lede_live": "NEW YORK, NY / ACCESSWIRE / August 11, 2023 / The Glimpse Group, Inc. (\"Glimpse\") (NASDAQ:VRAR), (FSE:9DR), a diversified Virtual Reality (\"VR\") and Augmented Reality (\"AR\") company providing enterprise",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "reuters.com",
+      "title": "OPEC's oil sweet spot may not last long",
+      "snippet": "Prince Abdulaziz bin Salman must be feeling vindicated. The Saudi energy minister in June corralled the Organization of the Petroleum Exporting Countries and its allies including Russia to extend their existing production cuts, with his own country even taking an extra million ba",
+      "url": "https://www.reuters.com/breakingviews/opecs-oil-sweet-spot-may-not-last-long-2023-08-11/",
+      "language": "English",
+      "tone": -0.25,
+      "queries": [
+        "energy stocks"
+      ],
+      "orgs": [
+        "Organization Of The Petroleum Exporting Countries"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "reuters.com"
+      ],
+      "lede": "Prince Abdulaziz bin Salman must be feeling vindicated. The Saudi energy minister in June corralled the Organization of the Petroleum Exporting Countries and its allies including Russia to extend their existing production cuts, with his own country even taking an extra million ba",
+      "lede_source": "wayback",
+      "text_miss": "blocked_or_paywalled",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "finanznachrichten.de",
+      "title": "The Biotech Growth Trust Plc - Director/PDMR Shareholding",
+      "snippet": "The Biotech Growth Trust Plc - Director/PDMR Shareholding PR Newswire LONDON, United Kingdom, August 11 Notification and public disclosure of transactions by persons discharging",
+      "url": "https://www.finanznachrichten.de/nachrichten-2023-08/59828973-the-biotech-growth-trust-plc-director-pdmr-shareholding-008.htm",
+      "language": "English",
+      "tone": 1.3,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Biotech Growth Trust"
+      ],
+      "syndication": 4,
+      "syndicated_sources": [
+        "finanznachrichten.de"
+      ],
+      "lede": "The Biotech Growth Trust Plc - Director/PDMR Shareholding PR Newswire LONDON, United Kingdom, August 11 Notification and public disclosure of transactions by persons discharging",
+      "lede_source": "wayback",
+      "lede_live": "Finsbury Growth & Income Trust PLC - Director/PDMR Shareholding PR Newswire LONDON, United Kingdom, February 03 03 February 2026",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "arstechnica.com",
+      "title": "Rocket Report: Astra layoffs; next SLS core stage needs repairs",
+      "snippet": "What are Blue Origin's 11,000 employees doing?",
+      "url": "https://arstechnica.com/space/2023/08/rocket-report-more-headwinds-for-astra-next-sls-core-stage-needs-repairs/",
+      "language": "English",
+      "tone": -0.17,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Spacex"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "arstechnica.com"
+      ],
+      "lede": "What are Blue Origin's 11,000 employees doing?",
+      "lede_source": "wayback",
+      "lede_live": "What are Blue Origin's 11,000 employees doing?",
+      "author": "Stephen Clark",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "cointelegraph.com",
+      "title": "Bitcoin ETF momentum runs out as crypto market enters summer slump: Report",
+      "snippet": "DeFi and NFTs remain deep in the bear market while crypto stocks see an upside.",
+      "url": "https://cointelegraph.com/news/bitcoin-etf-momentum-crypto-market-summer-decline",
+      "language": "English",
+      "tone": -0.49,
+      "queries": [
+        "crypto blockchain ETF surging",
+        "cryptocurrency stocks"
+      ],
+      "orgs": [
+        "Blackrock",
+        "Ripple Lab"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "cointelegraph.com"
+      ],
+      "lede": "DeFi and NFTs remain deep in the bear market while crypto stocks see an upside.",
+      "lede_source": "wayback",
+      "lede_live": "DeFi and NFTs remain deep in the bear market while crypto stocks see an upside.",
+      "author": "Nick M",
+      "author_source": "live",
+      "queries_raw": [
+        "cryptocurrency stocks",
+        "crypto blockchain ETF surging"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "streetinsider.com",
+      "title": "IO Biotech (IOBT) Appoints Heidi Hunter to its Board",
+      "snippet": "IO Biotech (Nasdaq: IOBT), a clinical-stage biopharmaceutical company developing novel, immune-modulating cancer vaccines based on its T-win&Acirc;&reg; technology platform, announced the appointment of Heidi Hunter to its board of...",
+      "url": "https://www.streetinsider.com/Board+Changes/IO+Biotech+(IOBT)+Appoints+Heidi+Hunter+to+its+Board/22031487.html",
+      "language": "English",
+      "tone": 3.57,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Audit Committee"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "streetinsider.com"
+      ],
+      "lede_live": "IO Biotech (Nasdaq: IOBT), a clinical-stage biopharmaceutical company developing novel, immune-modulating cancer vaccines based on its T-win&Acirc;&reg; technology platform, announced the appointment of Heidi Hunter to its board of...",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "brecorder.com",
+      "title": "RMS Limited intends to acquire Escorts Investment Bank - Business & Finance",
+      "snippet": "RMS (Private) Limited, a construction company, has expressed its intention to acquire the majority stake of Escorts...",
+      "url": "https://www.brecorder.com/news/40257484/rms-limited-intends-to-acquire-escorts-investment-bank",
+      "language": "English",
+      "tone": 0.0,
+      "queries": [
+        "financial stocks"
+      ],
+      "orgs": [
+        "Rms Private",
+        "Investment Bank Limited The Target",
+        "Investment Bank",
+        "Pakistan Stock Exchange",
+        "Arif Habib"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "brecorder.com"
+      ],
+      "lede": "RMS (Private) Limited, a construction company, has expressed its intention to acquire the majority stake of Escorts...",
+      "lede_source": "wayback",
+      "lede_live": "RMS (Private) Limited, a construction company, has expressed its intention to acquire the majority stake of Escorts...",
+      "author": "BR Web Desk",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Rocket Pharmaceuticals Stock (NASDAQ:RCKT), Quotes and News Summary",
+      "snippet": "Rocket Pharmaceuticals Stock (NASDAQ: RCKT) stock price, news, charts, stock research, profile.",
+      "url": "https://www.benzinga.com/quote/rckt",
+      "language": "English",
+      "tone": 1.92,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Rocket Pharmaceuticals"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "Rocket Pharmaceuticals Stock (NASDAQ: RCKT) stock price, news, charts, stock research, profile.",
+      "lede_source": "wayback",
+      "text_miss": "no_text_on_page",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "What 5 Analyst Ratings Have To Say About Rocket Pharmaceuticals - Rocket Pharmaceuticals (NASDAQ:RCKT)",
+      "snippet": "What 5 Analyst Ratings Have To Say About Rocket Pharmaceuticals - Rocket Pharmaceuticals (NASDAQ:RCKT)",
+      "url": "https://www.benzinga.com/analyst-ratings/23/08/33750225/what-5-analyst-ratings-have-to-say-about-rocket-pharmaceuticals",
+      "language": "English",
+      "tone": 1.2,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Rocket Pharmaceuticals"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "text_miss": "no_text_on_page",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "theglobeandmail.com",
+      "title": "Telesat deal with MDA puts Lightspeed satellite network back on track",
+      "snippet": "Move will shave US$2-billion from planned capital expenditures, company says; stock soars",
+      "url": "https://www.theglobeandmail.com/business/article-telesat-mda-deal-lightspeed-satellite/",
+      "language": "English",
+      "tone": 0.75,
+      "queries": [
+        "space stocks"
+      ],
+      "orgs": [
+        "Telesat"
+      ],
+      "syndication": 2,
+      "syndicated_sources": [
+        "theglobeandmail.com",
+        "biztoc.com"
+      ],
+      "lede": "Move will shave US$2-billion from planned capital expenditures, company says; stock soars",
+      "lede_source": "wayback",
+      "lede_live": "Move will shave US$2-billion from planned capital expenditures, company says; stock soars",
+      "author": "Alexandra Posadzki",
+      "author_source": "live",
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "cnbc.com",
+      "title": "As obesity drug stocks soared, these stocks fell too far, analysts say",
+      "snippet": "While Novo Nordisk's Select study stoked confidence in the weight loss drug market, it spooked holders of medtech and liver disease stocks seen losing out.",
+      "url": "https://www.cnbc.com/2023/08/11/as-obesity-drug-stocks-soared-these-stocks-fell-too-far-analysts-say.html",
+      "language": "English",
+      "tone": -2.08,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Novo Nordisk"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "cnbc.com"
+      ],
+      "lede_live": "While Novo Nordisk's Select study stoked confidence in the weight loss drug market, it spooked holders of medtech and liver disease stocks seen losing out.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Benzinga's Top Ratings Upgrades, Downgrades For August 11, 2023 - Cano Health (NYSE:CANO), Olaplex Hldgs (NASDAQ:OLPX), Kezar Life Sciences (NASDAQ:KZR), Western Midstream (NYSE:WES), Expeditors Intl (NASDAQ:EXPD), CymaBay Therapeutics (NASDAQ:CBAY), Rivian Automotive (NASDAQ:RIVN), Rigetti Computing (NASDAQ:RGTI), Himax Techs (NASDAQ:HIMX), Marinus Pharma (NASDAQ:MRNS), Medical Properties Trust (NYSE:MPW), Ventas (NYSE:VTR), DigitalOcean Holdings (NYSE:DOCN), PROCEPT BioRobotics (NASDAQ:PRCT), Pinnacle West Capital (NYSE:PNW), Sabra Health Care REIT (NASDAQ:SBRA), Alibaba Gr Holding (NYSE:BABA), Madison Square Garden (NYSE:MSGE), Hippo Holdings (NYSE:HIPO), Twilio (NYSE:TWLO), Forward Air (NASDAQ:FWRD), Cogent Comms Hldgs (NASDAQ:CCOI), Stanley Black & Decker (NYSE:SWK), Jasper Therapeutics (NASDAQ:JSPR), One Stop Systems (NASDAQ:OSS), HCI Group (NYSE:HCI), Hubbell (NYSE:HUBB), Origin Mat (NASDAQ:ORGN), Lucid Gr (NASDAQ:LCID), Sealed Air (NYSE:SEE), Telesis Bio (NASDAQ:TBIO), Heritage Commerce (NASDAQ:HTBK), eMagin (AMEX:EMAN), Towne Bank (NASDAQ:TOWN), Wolverine World Wide (NYSE:WWW), Atreca (NASDAQ:BCEL), Joint (NASDAQ:JYNT), Triumph Group (NYSE:TGI), Kura Oncology (NASDAQ:KURA), Capri Holdings (NYSE:CPRI)",
+      "snippet": "According to Wolfe Research, the prior rating for Hubbell Inc (NYSE:HUBB) was changed from Underperform to Peer Perform. For the second quarter, Hubbell had an EPS of $4.07, compared to year-ago quarter EPS of $2.81. The stock has a 52-week-high of $340.06 and a 52-week-low of $2",
+      "url": "https://www.benzinga.com/analyst-ratings/upgrades/23/08/33752344/benzingas-top-ratings-upgrades-downgrades-for-august-11-2023",
+      "language": "English",
+      "tone": 0.49,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Credit Suisse",
+        "Dz Bank",
+        "Alibaba Gr"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede_live": "According to Wolfe Research, the prior rating for Hubbell Inc (NYSE:HUBB) was changed from Underperform to Peer Perform. For the second quarter, Hubbell had an EPS of $4.07, compared to year-ago quarter EPS of $2.81. The stock has a 52-week-high of $340.06 and a 52-week-low of $2",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Sabra Health Care REIT Stock (NASDAQ:SBRA), Quotes and News Summary",
+      "snippet": "Get real-time Sabra Health Care REIT (SBRA) stock price, charts, news, and analyst ratings on Benzinga. Access forecasts, historical data, and expert insights to inform your investment decisions.",
+      "url": "https://www.benzinga.com/quote/sbra",
+      "language": "English",
+      "tone": 3.57,
+      "queries": [
+        "real estate stocks"
+      ],
+      "orgs": [
+        "Sabra Health Care"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede_live": "Get real-time Sabra Health Care REIT (SBRA) stock price, charts, news, and analyst ratings on Benzinga. Access forecasts, historical data, and expert insights to inform your investment decisions.",
+      "lede_source": "live",
+      "snippet_source": "live",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "benzinga.com",
+      "title": "Meet Eris, The COVID Variant Behind A Summer Resurgence In Cases: 3 Drugmakers Prep Fall Booster Shots - Novavax (NASDAQ:NVAX), Moderna (NASDAQ:MRNA), Pfizer (NYSE:PFE), BioNTech (NASDAQ:BNTX)",
+      "snippet": "What Happened: New data from the Centers for Disease Control and Prevention (CDC) showed hospitalizations shot up by 12.5% between July 23 and July 29.",
+      "url": "https://www.benzinga.com/general/biotech/23/08/33755215/meet-eris-the-covid-variant-behind-a-summer-resurgence-in-cases-3-drugmakers-prep-fall-booster-sh",
+      "language": "English",
+      "tone": -3.23,
+      "queries": [
+        "biotech pharma stocks",
+        "healthcare stocks"
+      ],
+      "orgs": [
+        "Centers For Disease"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "benzinga.com"
+      ],
+      "lede": "What Happened: New data from the Centers for Disease Control and Prevention (CDC) showed hospitalizations shot up by 12.5% between July 23 and July 29.",
+      "lede_source": "wayback",
+      "lede_live": "What Happened: New data from the Centers for Disease Control and Prevention (CDC) showed hospitalizations shot up by 12.5% between July 23 and July 29.",
+      "author": "AJ Fabino",
+      "author_source": "live",
+      "queries_raw": [
+        "healthcare stocks",
+        "biotech pharma stocks"
+      ],
+      "snippet_source": "wayback",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "globenewswire.com",
+      "title": "ReWalk Robotics Reports Second Quarter 2023 Financial",
+      "snippet": "ReWalk Robotics Reports Second Quarter 2023 Financial",
+      "url": "https://www.globenewswire.com/news-release/2023/08/11/2723512/0/en/ReWalk-Robotics-Reports-Second-Quarter-2023-Financial-Results.html",
+      "language": "English",
+      "tone": -1.53,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Rewalk Robotics"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "globenewswire.com"
+      ],
+      "text_miss": "unreachable",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "wallstreet-online.de",
+      "title": "IO Biotech Appoints Heidi Hunter to its Board of Directors",
+      "snippet": "IO Biotech Appoints Heidi Hunter to its Board of Directors",
+      "url": "https://www.wallstreet-online.de/nachricht/17234877-io-biotech-appoints-heidi-hunter-to-its-board-of-directors",
+      "language": "English",
+      "tone": 3.79,
+      "queries": [
+        "biotech pharma stocks"
+      ],
+      "orgs": [
+        "Audit Committee"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "wallstreet-online.de"
+      ],
+      "text_miss": "url_recycled",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    },
+    {
+      "published_date": "2023-08-11",
+      "source": "wallstreet-online.de",
+      "title": "Nauticus Robotics Reports Second Quarter 2023 Results and Provides Business Update",
+      "snippet": "Nauticus Robotics Reports Second Quarter 2023 Results and Provides Business Update",
+      "url": "https://www.wallstreet-online.de/nachricht/17235054-nauticus-robotics-reports-second-quarter-2023-results-and-provides-business-update",
+      "language": "English",
+      "tone": -1.75,
+      "queries": [
+        "robotics stocks"
+      ],
+      "orgs": [
+        "Petrobras",
+        "Shell"
+      ],
+      "syndication": 1,
+      "syndicated_sources": [
+        "wallstreet-online.de"
+      ],
+      "text_miss": "url_recycled",
+      "snippet_source": "headline",
+      "engine": "gdelt"
+    }
+  ],
+  "queries": [],
+  "raw_results": [],
+  "config": {
+    "event_agent_model": "grok4",
+    "scout_model": "llama4",
+    "concentration_cap": 0.25,
+    "risk_aversion": 12.0,
+    "lookback_period_days": 30,
+    "max_agents": 7,
+    "max_watchlist": 24,
+    "always_include": [
+      "SPY",
+      "BIL"
+    ],
+    "starter_watchlist": [
+      "AAPL",
+      "GOOGL",
+      "AMZN"
+    ],
+    "spy_agent_conviction": null,
+    "defensive_agent_conviction": null,
+    "defensive_ticker": "GLD",
+    "rebalance_days": null,
+    "rebalance_period": "monthly",
+    "event_news_cap": 20,
+    "relevance_keep": 0,
+    "relevance_filter": false,
+    "max_event_scans": 12,
+    "max_silent_scans": 5,
+    "retrieval_engine": "gkg",
+    "news_cap": 0
+  }
+}

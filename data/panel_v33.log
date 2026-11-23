@@ -1,0 +1,10 @@
+  fetching one frozen panel: 340 tickers 2023-03-14..2026-08-16
+$KOL: possibly delisted; no price data found  (1d 2023-03-14 -> 2026-08-16)
+$CPN: possibly delisted; no price data found  (1d 2023-03-14 -> 2026-08-16)
+$MCX: possibly delisted; no price data found  (1d 2023-03-14 -> 2026-08-16)
+
+3 Failed downloads:
+['KOL', 'CPN', 'MCX']: possibly delisted; no price data found  (1d 2023-03-14 -> 2026-08-16)
+  panel: froze 340 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v33_guard/panel.csv (re-read for exactness)
+  pre-cull pc (all thesis_live, constant across the grid): median 0.8%  mean 3.12%  sd 23.64%  n=2229
+  --panel-only: stopping before the grid.

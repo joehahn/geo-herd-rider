@@ -1,0 +1,19 @@
+  note: 2 knob(s) recorded by data/cbs_v13 are no longer profile knobs (mill_block, specialty_allow) -- relocated, not drifted.
+  bootstrap: org-tagger cache filled `orgs` on 3,695 articles (grok4)
+  bootstrap: org-tagger — 550 articles tagged 'no subject company' (correct for macro/policy/roundup stories)
+  bootstrap: 14 of 4,039 articles (0.3%) the tagger has never seen — run scripts/backfill_org_tags.py --corpus bootstrap --post-handoff-only
+  CBS book seeded from CBT 2026-04-27: 61 tickers carried into 2026-04-27
+  panel: no frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v13/panel.csv; fetching live -- this build is NOT reproducible
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  CBS opens with CBT's allocation at 2026-04-27 (replayed from data/cbt_3yr_v37_nocull): UCO 22.7%, USO 21.5%, AR 18.2%, OXY 17.9%, DINO 9.9%, CF 9.8%
+  panel: froze 119 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v13/panel.csv
+  volume: froze 119 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v13/volume.csv
+  corp actions: froze 119 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v13/corpactions.json
+  panel: loaded the freshly frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v13/panel.csv (119 tickers)
+  watchlist momentum: 96 days, lookback 30d, median n=76
+  slate-momentum scatter: 4 rebalance periods
+  px: LIVE fetch, 42 tickers from 2024-09-11 -- the frozen panel does not cover it, so this part of the page is not bit-reproducible
+  px: frozen panel covers 63 tickers from 2026-04-29 (no live fetch)
+  reports: 5 written to docs/reports
+  event audit: cbs-event-audit.txt (145 KB)
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs/cbs.html  (575 KB, 5 weeks, 629 events)

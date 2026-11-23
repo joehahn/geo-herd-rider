@@ -1,0 +1,28 @@
+  note: 2 knob(s) recorded by data/cbs_v12 are no longer profile knobs (mill_block, specialty_allow) -- relocated, not drifted.
+  !! data/cbs_v12 was CURATED under different settings than investor_profile.forward.md now has.
+       max_silent_scans: curated under 8, profile now says 5
+       picker_model: curated under None, profile now says 'grok4'
+     These are CURATION knobs: the page's parameter table will describe a curation that could not have produced this journal. RE-CURATE to make them agree.
+  bootstrap: org-tagger cache filled `orgs` on 3,554 articles (grok4)
+  bootstrap: org-tagger — 529 articles tagged 'no subject company' (correct for macro/policy/roundup stories)
+  CBS book seeded from CBT 2026-04-27: 61 tickers carried into 2026-04-27
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbs_v12/panel.csv (224 tickers)
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  CBS opens with CBT's allocation at 2026-04-27 (replayed from data/cbt_3yr_v37_nocull): UCO 22.7%, USO 21.5%, AR 18.2%, OXY 17.9%, DINO 9.9%, CF 9.8%
+  dropped 20 unpriced/invalid tickers: ['AGNC', 'ALB', 'ARKX', 'ET', 'HP', 'KBR', 'KNTNF', 'LSCC', 'NDAQ', 'OII', 'OIL', 'OXY', 'PGEN', 'QURE', 'RGNX', 'RKT', 'SLB', 'SONM', 'SRXH', 'TWO']
+  seed: 1 of 6 seeded tickers had no price on 2026-04-29 and were dropped
+  2026-07-28: refusing ['NAKA'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  dropped 20 unpriced/invalid tickers: ['AGNC', 'ALB', 'ARKX', 'ET', 'HP', 'KBR', 'KNTNF', 'LSCC', 'NDAQ', 'OII', 'OIL', 'OXY', 'PGEN', 'QURE', 'RGNX', 'RKT', 'SLB', 'SONM', 'SRXH', 'TWO']
+  seed: 1 of 6 seeded tickers had no price on 2026-04-29 and were dropped
+  2026-06-30: refusing ['NAKA'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2026-07-28: refusing ['NAKA'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  watchlist momentum: 92 days, lookback 30d, median n=174
+  slate-momentum scatter: 4 rebalance periods
+  px: LIVE fetch, 27 tickers from 2024-09-04 -- the frozen panel does not cover it, so this part of the page is not bit-reproducible
+  px: frozen panel covers 73 tickers from 2026-04-29 (no live fetch)
+  reports: 5 written to docs/reports
+  event audit: cbs-event-audit.txt (220 KB)
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs/cbs.html  (569 KB, 5 weeks, 567 events)
+real 23.99
+user 22.36
+sys 0.59

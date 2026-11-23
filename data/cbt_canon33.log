@@ -1,0 +1,13 @@
+  dropped 3 unpriced/invalid tickers: ['CPN', 'KOL', 'MCX']
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v33_guard/panel.csv (340 tickers)
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-02: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  dropped 3 unpriced/invalid tickers: ['CPN', 'KOL', 'MCX']
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-02: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  watchlist momentum: 755 days, lookback 30d, median n=63
+  slate-momentum scatter: 35 rebalance periods
+  px: frozen panel covers 198 tickers from 2023-08-15 (no live fetch)
+  px: frozen panel covers 122 tickers from 2023-08-15 (no live fetch)
+  reports: 37 written to docs/reports
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs/cbt.html  (4157 KB, 37 weeks, 590 events)

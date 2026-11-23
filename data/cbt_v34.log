@@ -1,0 +1,14 @@
+  !! CBT: NOT the canonical book --
+     - curation is data/cbt_3yr_v34_procedural, canonical is data/cbt_3yr_v33_guard -- a candidate is not the published book until provenance.py says it is
+     Writing to docs_preview/cbt_v34.html anyway (not a published page).
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v34_procedural/panel.csv (270 tickers)
+  volume: froze 270 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v34_procedural/volume.csv
+  corp actions: froze 270 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v34_procedural/corpactions.json
+  score-vs-gain: 76 funded events with a score
+  watchlist momentum: 755 days, lookback 30d, median n=47
+  slate-momentum scatter: 35 rebalance periods
+  px: frozen panel covers 165 tickers from 2023-08-15 (no live fetch)
+  px: frozen panel covers 105 tickers from 2023-08-15 (no live fetch)
+  reports: 6 written to docs_preview/reports
+  event audit: cbt-event-audit.txt (585 KB)
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs_preview/cbt_v34.html  (3772 KB, 37 weeks, 578 events)

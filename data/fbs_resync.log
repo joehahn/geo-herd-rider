@@ -1,0 +1,7 @@
+  bootstrap: org-tagger cache filled `orgs` on 3,554 articles (grok4)
+  bootstrap: org-tagger — 529 articles tagged 'no subject company' (correct for macro/policy/roundup stories)
+  bootstrap corpus 2026-03-28 .. 2026-09-10 (scans from 2026-04-27) · handoff 2026-07-28 · GKG 11,923 + websearch 3,878 = 15,801 articles
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs/fbs.html  (88 KB, 15,801 articles)
+real 6.03
+user 5.67
+sys 0.14

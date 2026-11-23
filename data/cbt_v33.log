@@ -1,0 +1,27 @@
+  !! CBT: NOT the canonical book --
+     - curation is data/cbt_3yr_v33_guard, canonical is data/cbt_3yr_v31_exposure -- a candidate is not the published book until provenance.py says it is
+     Writing to docs_preview/cbt_v33.html anyway (not a published page).
+$CPN: possibly delisted; no price data found  (1d 2023-03-14 00:00:00 -> 2026-08-14 00:00:00)
+$KOL: possibly delisted; no price data found  (1d 2023-03-14 00:00:00 -> 2026-08-14 00:00:00)
+$MCX: possibly delisted; no price data found  (1d 2023-03-14 00:00:00 -> 2026-08-14 00:00:00)
+
+3 Failed downloads:
+['CPN', 'KOL', 'MCX']: possibly delisted; no price data found  (1d 2023-03-14 00:00:00 -> 2026-08-14 00:00:00)
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v33_guard/panel.csv (340 tickers)
+  volume: froze 340 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v33_guard/volume.csv
+$ALK: possibly delisted; no price data found  (1d 1927-10-03 -> 2026-09-08)
+SSNLF: auto_adjust failed with unsupported operand type(s) for /: 'str' and 'float'
+SSNLF: auto_adjust failed with unsupported operand type(s) for /: 'str' and 'float'
+  corp actions: froze 340 tickers -> /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v33_guard/corpactions.json
+  dropped 3 unpriced/invalid tickers: ['CPN', 'KOL', 'MCX']
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-02: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  dropped 3 unpriced/invalid tickers: ['CPN', 'KOL', 'MCX']
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-02: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  watchlist momentum: 755 days, lookback 30d, median n=63
+  slate-momentum scatter: 35 rebalance periods
+  px: frozen panel covers 198 tickers from 2023-08-15 (no live fetch)
+  px: frozen panel covers 122 tickers from 2023-08-15 (no live fetch)
+  reports: 37 written to docs_preview/reports
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs_preview/cbt_v33.html  (4157 KB, 37 weeks, 590 events)

@@ -1,0 +1,4 @@
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v34_procedural/panel.csv (270 tickers)
+  pre-cull pc (all thesis_live, constant across the grid): median 1.0%  mean 2.62%  sd 22.12%  n=1632
+  5880 cells over ['max_watchlist', 'concentration_cap', 'lookback_period_days', 'drop_unfunded_weeks', 'risk_aversion']
+    250/5880 cells · 0.6 min · ~12.4 min left

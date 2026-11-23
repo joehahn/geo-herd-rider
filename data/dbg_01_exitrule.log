@@ -1,0 +1,187 @@
+  DECISION LOG ON -> data/dbg_01_exitrule/decisions.jsonl
+  profile: investor_profile.backtest.md
+  min_bundle_articles=1 · max_article_chars=800 · scout_articles_per_call=30 · group_by_ticker=True
+  12 scans every 30d, reading 31d of news (OVERLAP 1d)  2023-08-11 .. 2024-07-06
+  CORPUS data/backtest_3yr_v5: 99,117 articles (74,455 archived · 14,760 live · 9,902 headline-only); enrichment skipped
+  event-ranker ON: cap 24 via grok4 (openrouter) evrank
+  scout=meta-llama/llama-4-maverick (openrouter) · event_agent=x-ai/grok-4.3 (openrouter) · news_cap=uncapped · event_news_cap=20
+  ARM: event_agent=x-ai/grok-4.3 @ effort=low
+    ledes[fuller]: 78.9% covered (54 clean, 21 live, 0 search, 20 headline-only)
+  discovery gate: 2 of 95 articles carry the gem tell
+  scout: ticker map learned 0 symbol(s) from the pool
+  scout: 2 ticker-groups from 2 gated articles -> 1 call(s)
+  scout: 1 raw -> 1 unique
+  2023-08-11 (1/12):  95 arts -> none
+    ledes[fuller]: 78.8% covered (1626 clean, 514 live, 0 search, 576 headline-only)
+  discovery gate: 95 of 2716 articles carry the gem tell
+  scout: ticker map learned 7 symbol(s) from the pool
+  scout: 94 ticker-groups from 95 gated articles -> 24 call(s)
+  scout: 21 raw -> 20 unique
+  resolver: 'Radian Group Inc' -> RDN (2023-09-10)
+  scout: dropped 1 already-resolved candidate(s) (TIGR) (2023-09-10)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: NVRE"}}}
+$NVRE: possibly delisted; no timezone found
+    exposure gate (2023-09-10) 8 peer(s) gave no real link, clause blanked: COIN, CVS, DHI, EQNR, ETHE, GBTC, NVR, PBR
+    ticker guard (2023-09-10) resolved 1: 'CVS HEALTH CORP' -> CVS
+    !! ticker guard (2023-09-10) rejected 13: 'AIRC' -> no price history on yfinance (AIRC); 'BTM' -> no price history on yfinance (BTM); 'CALT' -> no price history on yfinance (CALT); 'CYBN' -> no price history on yfinance (CYBN); 'DMT' -> no price history on yfinance (DMT); 'DMTTF' -> no price history on yfinance (DMTTF) (+7 more)
+  scout: dropped 1 peer(s) whose own clause says the catalyst works AGAINST them (CVS) (2023-09-10)
+  2023-09-10 (2/12): 2716 arts -> ['IREN', 'BLK', 'GBTC', 'COIN', 'GBTC', 'MARA', 'RIOT', 'CVS', 'SMH', 'TSM', 'CME', 'RKLB']
+    ledes[fuller]: 69.7% covered (1217 clean, 708 live, 0 search, 835 headline-only)
+  discovery gate: 99 of 2760 articles carry the gem tell
+  scout: ticker map learned 13 symbol(s) from the pool
+  scout: 98 ticker-groups from 99 gated articles -> 29 call(s)
+  scout: 32 raw -> 30 unique
+  scout: dropped 1 candidate(s) whose pending_next is a trend, a price move or an opinion (CIFR) (2023-10-10)
+  scout: 2 held-ticker candidate(s) sent to the matcher as a possible SECOND event (MARA->ev4, COIN->ev4) (2023-10-10)
+    exposure gate (2023-10-10) 15 peer(s) gave no real link, clause blanked: AMD, AN, ARM, AVGO, BA, CAPR, CARG, COIN
+    ticker guard (2023-10-10) resolved 1: 'OTHER BIOTECH COMPANIES WORKING ON SIMILAR TREATMENTS' -> CAPR
+    !! ticker guard (2023-10-10) rejected 15: 'BHL' -> no price history on yfinance (BHL); 'BITF' -> no price history on yfinance (BITF); 'BXRX' -> no price history on yfinance (BXRX); 'CFRX' -> no price history on yfinance (CFRX); 'CRUZ' -> not listed until 2025-04-28, after as-of 2023-10-10 (look-ahead); 'EIGR' -> no price history on yfinance (EIGR) (+9 more)
+  2023-10-10 (3/12): 2760 arts -> ['IREN', 'BLK', 'GBTC', 'COIN', 'GBTC', 'MARA', 'RIOT', 'CVS', 'SMH', 'TSM', 'RKLB', 'BA', 'GD', 'LMT', 'ARBK', 'COIN', 'MARA', 'LLY', 'EVAX', 'ALB', 'LIT', 'INTC', 'AN', 'CARG', 'CVNA', 'KMX', 'CRNX', 'SCLX']
+    ledes[fuller]: 77.6% covered (1522 clean, 608 live, 0 search, 615 headline-only)
+  discovery gate: 119 of 2745 articles carry the gem tell
+  scout: ticker map learned 18 symbol(s) from the pool
+  scout: 103 ticker-groups from 119 gated articles -> 25 call(s)
+  scout: 28 raw -> 24 unique
+  scout: dropped 1 already-resolved candidate(s) (WDC) (2023-11-09)
+  scout: dropped 2 candidate(s) whose pending_next is a trend, a price move or an opinion (NEM, RIOT) (2023-11-09)
+  scout: 3 held-ticker candidate(s) sent to the matcher as a possible SECOND event (COIN->ev17, INTC->ev25, MARA->ev17) (2023-11-09)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: CRR"}}}
+$CRR: possibly delisted; no timezone found
+$SIENF: possibly delisted; no timezone found
+    exposure gate (2023-11-09) 6 peer(s) gave no real link, clause blanked: AMD, GBTC, LAC, LLY, MSTR, RIOT
+    !! ticker guard (2023-11-09) rejected 17: 'ALTM' -> no price history on yfinance (ALTM); 'ALVR' -> no price history on yfinance (ALVR); 'AMLI' -> no price history on yfinance (AMLI); 'ASTR' -> no price history on yfinance (ASTR); 'BTC' -> not listed until 2024-07-31, after as-of 2023-11-09 (look-ahead); 'BTCO' -> not listed until 2024-01-11, after as-of 2023-11-09 (look-ahead) (+11 more)
+  scout: dropped 4 peer(s) whose own clause says the catalyst works AGAINST them (AMD, AMZN, GOOGL, NVDA) (2023-11-09)
+  ev2: dropped ['AMD', 'NVDA'] -- its own clause says the catalyst works AGAINST them (2023-11-09)
+  2023-11-09 (4/12): 2745 arts -> ['NVDA', 'AMD', 'BTDR', 'COIN', 'GBTC', 'MARA', 'MSTR', 'RIOT', 'SMH', 'TSM', 'RKLB', 'BA', 'GD', 'LMT', 'EVAX', 'INTC', 'AN', 'CARG', 'CVNA', 'KMX', 'CRNX', 'SCLX', 'MSFT', 'GLD', 'IAU', 'SLV', 'CRSP', 'NTLA', 'NVO', 'TPST', 'NVLHF', 'SNDX']
+    ledes[fuller]: 71.3% covered (1430 clean, 584 live, 0 search, 811 headline-only)
+  discovery gate: 100 of 2825 articles carry the gem tell
+  scout: ticker map learned 20 symbol(s) from the pool
+  scout: 93 ticker-groups from 100 gated articles -> 29 call(s)
+  scout: 30 raw -> 25 unique
+  resolver: 'Valneva SE' -> VALN (2023-12-09)
+  scope: dropped unresolved foreign ticker CGPOWER.NS (2023-12-09)
+  scout: dropped 1 already-resolved candidate(s) (RDHL) (2023-12-09)
+  scout: dropped 4 candidate(s) whose pending_next is a trend, a price move or an opinion (AMD, BTBT, GLBE, MSTR) (2023-12-09)
+  scout: 3 held-ticker candidate(s) sent to the matcher as a possible SECOND event (NVDA->ev2, GBTC->ev4, INTC->ev25) (2023-12-09)
+$VLS: possibly delisted; no price data found  (1d 1927-10-03 -> 2026-09-08)
+    exposure gate (2023-12-09) 18 peer(s) gave no real link, clause blanked: ALB, ARBK, ARR, ASTS, BITO, CCJ, HIVE, LAC
+    !! ticker guard (2023-12-09) rejected 5: 'BLUE' -> no price history on yfinance (BLUE); 'BTCO' -> not listed until 2024-01-11, after as-of 2023-12-09 (look-ahead); 'CGPOWER' -> not a US-symbol shape ('CGPOWER'); 'ETH' -> not listed until 2024-07-23, after as-of 2023-12-09 (look-ahead); 'VLS' -> no price history on yfinance (VLS)
+  event-cull [evrank]: 28 live -> kept 24 (cap 24)
+  ev2: dropped ['AMD', 'NVDA'] -- its own clause says the catalyst works AGAINST them (2023-12-09)
+  2023-12-09 (5/12): 2825 arts -> ['BTDR', 'COIN', 'GBTC', 'MARA', 'MSTR', 'RIOT', 'SMH', 'TSM', 'RKLB', 'EVAX', 'INTC', 'SCLX', 'MSFT', 'GLD', 'IAU', 'SLV', 'NVO', 'TPST', 'NVLHF', 'SNDX', 'BLK', 'KRYS', 'EU', 'NXE', 'U', 'URNJ', 'CCJ', 'NXE', 'U', 'UEC', 'NILIF', 'CCJ', 'NXE', 'UUUU']
+    ledes[fuller]: 86.9% covered (1909 clean, 147 live, 0 search, 310 headline-only)
+  discovery gate: 99 of 2366 articles carry the gem tell
+  scout: ticker map learned 21 symbol(s) from the pool
+  scout: 92 ticker-groups from 99 gated articles -> 32 call(s)
+  scout chunk failed (JSONDecodeError) scout-2024-01-08-g29
+  scout: 35 raw -> 33 unique
+  scout: dropped 1 candidate(s) whose pending_next is a trend, a price move or an opinion (AEHR) (2024-01-08)
+  scout: 8 held-ticker candidate(s) sent to the matcher as a possible SECOND event (BLK->ev41, INTC->ev25, MSTR->ev4, COIN->ev4, MARA->ev4, RKLB->ev13) (2024-01-08)
+$CANR: possibly delisted; no timezone found
+    exposure gate (2024-01-08) 21 peer(s) gave no real link, clause blanked: AMD, AMKBY, APLE, AVGO, BITI, BITO, COIN, CRSP
+    ticker guard (2024-01-08) resolved 1: 'MAERSK' -> AMKBY
+    !! ticker guard (2024-01-08) rejected 12: 'AMAM' -> no price history on yfinance (AMAM); 'AMLI' -> no price history on yfinance (AMLI); 'BTM' -> no price history on yfinance (BTM); 'CANR' -> no price history on yfinance (CANR); 'CCLP' -> no price history on yfinance (CCLP); 'KRTX' -> no price history on yfinance (KRTX) (+6 more)
+  scout: dropped 2 peer(s) whose own clause says the catalyst works AGAINST them (BG, GILD) (2024-01-08)
+  event-cull [evrank]: 37 live -> kept 24 (cap 24)
+  consolidated 1 duplicate-catalyst event(s) (2024-01-08)
+  2024-01-08 (6/12): 2366 arts -> ['BTDR', 'COIN', 'GBTC', 'MARA', 'MSTR', 'RIOT', 'INTC', 'NVO', 'BLK', 'KRYS', 'CCJ', 'NXE', 'U', 'UEC', 'UUUU', 'NILIF', 'CADL', 'APLE', 'NNN', 'PMT', 'MARA', 'RIOT', 'WMB', 'AMKBY', 'ZIM', 'JNJ']
+    ledes[fuller]: 97.4% covered (2890 clean, 146 live, 0 search, 80 headline-only)
+  discovery gate: 110 of 3116 articles carry the gem tell
+  scout: ticker map learned 33 symbol(s) from the pool
+  scout: 112 ticker-groups from 110 gated articles -> 34 call(s)
+  scout: 35 raw -> 35 unique
+  resolver: '2seventy bio Inc' -> TSVT (2024-02-07)
+  resolver: 'Bristol-Myers Squibb Company' -> BMY (2024-02-07)
+  scout: dropped 3 already-resolved candidate(s) (BLK, MSTR, REGN) (2024-02-07)
+  scout: dropped 4 candidate(s) whose pending_next is a trend, a price move or an opinion (GRDI, FCX, FBTC, VRTX) (2024-02-07)
+  scout: 5 held-ticker candidate(s) sent to the matcher as a possible SECOND event (GBTC->ev4, INTC->ev25, COIN->ev4, JNJ->ev65, NVO->ev36) (2024-02-07)
+$AMRHW: possibly delisted; no timezone found
+    exposure gate (2024-02-07) 15 peer(s) gave no real link, clause blanked: ALK, AMD, AMZN, AVGO, BITO, BITX, BTAI, COIN
+    !! ticker guard (2024-02-07) rejected 16: '2seventy bio' -> looks like a company name, not a ticker ('2SEVENTY BIO'); 'AMAM' -> no price history on yfinance (AMAM); 'AMRHW' -> no price history on yfinance (AMRHW); 'AMRK' -> no price history on yfinance (AMRK); 'BTCM' -> no price history on yfinance (BTCM); 'BTM' -> no price history on yfinance (BTM) (+10 more)
+  ev77: dropped ['BA'] -- its own clause says the catalyst works AGAINST them (2024-02-07)
+  2024-02-07 (7/12): 3116 arts -> ['INTC', 'NVO', 'BLK', 'IVZ', 'KRYS', 'CCJ', 'NXE', 'U', 'UEC', 'UUUU', 'NILIF', 'CADL', 'MARA', 'RIOT', 'WMB', 'AMKBY', 'ZIM', 'JNJ', 'NVDA', 'AMD', 'AVGO', 'SMH', 'XLK', 'AVGO', 'ON', 'SMH', 'TSM', 'XLK', 'INTC', 'SMH', 'SOXX', 'XLK', 'XSD', 'ARVN', 'CIRC', 'COIN', 'HOOD', 'AMZN', 'GOOGL', 'MSFT', 'BA', 'BMY']
+    ledes[fuller]: 95.4% covered (2937 clean, 126 live, 0 search, 148 headline-only)
+  discovery gate: 150 of 3211 articles carry the gem tell
+  scout: ticker map learned 39 symbol(s) from the pool
+  scout: 101 ticker-groups from 150 gated articles -> 39 call(s)
+  scout: 41 raw -> 38 unique
+  scout: dropped 2 retired ticker(s) restating a resolved catalyst (INTC, LLY) (2024-03-08)
+  scout: dropped 2 already-resolved candidate(s) (PLYM, VZIO) (2024-03-08)
+  scout: dropped 3 candidate(s) whose pending_next is a trend, a price move or an opinion (EQT, IE, WGMI) (2024-03-08)
+  scout: 7 held-ticker candidate(s) sent to the matcher as a possible SECOND event (NVDA->ev71, TSM->ev72, KRYS->ev42, MSFT->ev76, MARA->ev62, NVO->ev36) (2024-03-08)
+$SRD: possibly delisted; no price data found  (1d 1927-10-03 -> 2026-09-08)
+    exposure gate (2024-03-08) 22 peer(s) gave no real link, clause blanked: ACHR, AMZN, APGE, BITC, CADL, CLSK, COIN, CORZ
+    ticker guard (2024-03-08) resolved 2: 'AMERICAN HEALTHCARE REIT' -> AHR; 'PROLOGIS' -> PLD
+    !! ticker guard (2024-03-08) rejected 15: 'ALTM' -> no price history on yfinance (ALTM); 'CHK' -> no price history on yfinance (CHK); 'CURY' -> no price history on yfinance (CURY); 'Elliott Advisors' -> looks like a company name, not a ticker ('ELLIOTT ADVISORS'); 'GMRE' -> no price history on yfinance (GMRE); 'KYRN' -> no price history on yfinance (KYRN) (+9 more)
+  scout: dropped 2 peer(s) whose own clause says the catalyst works AGAINST them (LLY, NVDA) (2024-03-08)
+  quiet 5 scans (no sources or no new milestone): Intel to spin off Programmable Chip Unit into standalone
+  event-cull [evrank]: 34 live -> kept 24 (cap 24)
+  2024-03-08 (8/12): 3211 arts -> ['BLK', 'COIN', 'HOOD', 'IVZ', 'KRYS', 'CCJ', 'NXE', 'U', 'UEC', 'UUUU', 'NILIF', 'AMKBY', 'ZIM', 'JNJ', 'NVDA', 'AMD', 'AVGO', 'SMH', 'XLK', 'AVGO', 'ON', 'SMH', 'TSM', 'XLK', 'INTC', 'SMH', 'SOXX', 'XLK', 'XSD', 'ARVN', 'CIRC', 'COIN', 'HOOD', 'AMZN', 'GOOGL', 'MSFT', 'BA', 'BMY', 'MTNB', 'INTC', 'MSFT', 'CME', 'LMT']
+    ledes[fuller]: 94.8% covered (2586 clean, 126 live, 0 search, 149 headline-only)
+  discovery gate: 132 of 2861 articles carry the gem tell
+  scout: ticker map learned 44 symbol(s) from the pool
+  scout: 116 ticker-groups from 132 gated articles -> 38 call(s)
+  scout: 42 raw -> 38 unique
+  resolver: 'Tarsus Pharmaceuticals' -> TARS (2024-04-07)
+  scout: dropped 2 retired ticker(s) restating a resolved catalyst (COIN, CLSK) (2024-04-07)
+  scout: dropped 8 already-resolved candidate(s) (FDX, PPSI, WSR, SMCP, ATLX, TTE) (2024-04-07)
+  scout: dropped 3 candidate(s) whose pending_next is a trend, a price move or an opinion (MSTR, CNX, DEFI) (2024-04-07)
+  scout: 5 held-ticker candidate(s) sent to the matcher as a possible SECOND event (NVDA->ev71, BLK->ev41, TSM->ev72, CCJ->ev49, MSFT->ev86) (2024-04-07)
+$ALTA: possibly delisted; no timezone found
+$OCX: possibly delisted; no timezone found
+    exposure gate (2024-04-07) 28 peer(s) gave no real link, clause blanked: ALB, AMD, ASML, ATI, ATLX, BTBT, CLF, CMC
+    ticker guard (2024-04-07) resolved 1: "MACY'S" -> M
+    !! ticker guard (2024-04-07) rejected 10: 'ABIO' -> no price history on yfinance (ABIO); 'ALTA' -> no price history on yfinance (ALTA); 'BTM' -> no price history on yfinance (BTM); 'CIO' -> no price history on yfinance (CIO); 'JWN' -> no price history on yfinance (JWN); 'LABP' -> no price history on yfinance (LABP) (+4 more)
+  scout: dropped 2 peer(s) whose own clause says the catalyst works AGAINST them (MSTR, NVO) (2024-04-07)
+  event-cull [evrank]: 33 live -> kept 24 (cap 24)
+  2024-04-07 (9/12): 2861 arts -> ['BLK', 'COIN', 'HOOD', 'IVZ', 'KRYS', 'AMKBY', 'ZIM', 'JNJ', 'ARVN', 'CIRC', 'COIN', 'HOOD', 'BA', 'BMY', 'MTNB', 'INTC', 'MSFT', 'LMT', 'BLK', 'COIN', 'MSTR', 'BTBT', 'COIN', 'HUT', 'MARA', 'MSTR', 'WGMI', 'GBTC', 'GCTS', 'MSFT', 'QTUM', 'ASML', 'SMCI', 'GERN']
+    ledes[fuller]: 97.3% covered (2340 clean, 118 live, 0 search, 67 headline-only)
+  discovery gate: 111 of 2525 articles carry the gem tell
+  scout: ticker map learned 47 symbol(s) from the pool
+  scout: 111 ticker-groups from 111 gated articles -> 32 call(s)
+  scout chunk failed (JSONDecodeError) scout-2024-05-07-g5
+  scout: 32 raw -> 26 unique
+  scout: dropped 4 already-resolved candidate(s) (HONG KONG STOCK EXCHANGE, OLED, NXPI, MELI) (2024-05-07)
+  scout: dropped 3 candidate(s) whose pending_next is a trend, a price move or an opinion (LITHVAX:, KMI, SMSNN) (2024-05-07)
+  scout: 4 held-ticker candidate(s) sent to the matcher as a possible SECOND event (MSTR->ev98, MSFT->ev101, GBTC->ev99, MARA->ev98) (2024-05-07)
+    exposure gate (2024-05-07) 19 peer(s) gave no real link, clause blanked: AGEN, ARKB, CEG, CLSK, COIN, FBTC, IBIT, LGVN
+    !! ticker guard (2024-05-07) rejected 8: 'ALCC' -> no price history on yfinance (ALCC); 'ALTM' -> no price history on yfinance (ALTM); 'LISDF' -> no price history on yfinance (LISDF); 'LLAP' -> no price history on yfinance (LLAP); 'PLL' -> no price history on yfinance (PLL); 'SMSN' -> no price history on yfinance (SMSN) (+2 more)
+  scout: dropped 1 peer(s) whose own clause says the catalyst works AGAINST them (AMZN) (2024-05-07)
+  event-cull [evrank]: 30 live -> kept 24 (cap 24)
+  ev77: dropped ['BA'] -- its own clause says the catalyst works AGAINST them (2024-05-07)
+  2024-05-07 (10/12): 2525 arts -> ['BLK', 'COIN', 'HOOD', 'IVZ', 'AMKBY', 'ZIM', 'JNJ', 'ARVN', 'CIRC', 'COIN', 'HOOD', 'BA', 'BMY', 'MTNB', 'LMT', 'BLK', 'COIN', 'MSTR', 'BTBT', 'COIN', 'HUT', 'MARA', 'MSTR', 'WGMI', 'GBTC', 'GCTS', 'MSFT', 'QTUM', 'ASML', 'SMCI', 'GERN', 'TSM', 'AVGO', 'INTC', 'NVDA', 'ON', 'SMH', 'SOXX', 'MARA', 'LHX', 'MRCY', 'QCOM', 'SMH', 'SOXX', 'AMZN', 'ORCL']
+    ledes[fuller]: 95.9% covered (2523 clean, 97 live, 0 search, 113 headline-only)
+  discovery gate: 116 of 2733 articles carry the gem tell
+  scout: ticker map learned 48 symbol(s) from the pool
+  scout: 95 ticker-groups from 116 gated articles -> 28 call(s)
+  scout: 30 raw -> 28 unique
+  resolver: 'TeraWulf Inc' -> WULF (2024-06-06)
+  scout: dropped 1 retired ticker(s) restating a resolved catalyst (MARA) (2024-06-06)
+  scout: dropped 2 already-resolved candidate(s) (NU, NOVONIX) (2024-06-06)
+  scout: dropped 4 candidate(s) whose pending_next is a trend, a price move or an opinion (AVGO, COPX, DJT, LITH) (2024-06-06)
+  scout: 4 held-ticker candidate(s) sent to the matcher as a possible SECOND event (NVDA->ev112, TSM->ev112, MSTR->ev98, SMH->ev121) (2024-06-06)
+    exposure gate (2024-06-06) 24 peer(s) gave no real link, clause blanked: AMC, AMD, ANAB, ARQT, ASML, AVGO, CLSK, COIN
+    ticker guard (2024-06-06) resolved 1: 'CORE SCIENTIFIC' -> CORZ
+    !! ticker guard (2024-06-06) rejected 2: 'ONCYF' -> no price history on yfinance (ONCYF); 'SGEN' -> no price history on yfinance (SGEN)
+  scout: dropped 4 peer(s) whose own clause says the catalyst works AGAINST them (COHR, CRSP, GOOGL, MRK) (2024-06-06)
+  event-cull [evrank]: 40 live -> kept 24 (cap 24)
+  ev124: dropped ['AMD', 'NVDA'] -- its own clause says the catalyst works AGAINST them (2024-06-06)
+  2024-06-06 (11/12): 2733 arts -> ['BLK', 'COIN', 'HOOD', 'IVZ', 'AMKBY', 'ZIM', 'JNJ', 'BMY', 'LMT', 'BLK', 'COIN', 'MSTR', 'GBTC', 'ASML', 'SMCI', 'GERN', 'TSM', 'AVGO', 'INTC', 'NVDA', 'ON', 'SMH', 'SOXX', 'MARA', 'LHX', 'MRCY', 'AMZN', 'ORCL', 'NVDA', 'AMD', 'COIN', 'USDC', 'MSTR', 'CCJ', 'NXE', 'UEC', 'UUUU']
+    ledes[fuller]: 96.9% covered (2123 clean, 67 live, 0 search, 70 headline-only)
+  discovery gate: 123 of 2260 articles carry the gem tell
+  scout: ticker map learned 53 symbol(s) from the pool
+  scout: 109 ticker-groups from 123 gated articles -> 29 call(s)
+  scout chunk failed (JSONDecodeError) scout-2024-07-06-g21
+  scout chunk failed (JSONDecodeError) scout-2024-07-06-g9
+  scout: 21 raw -> 17 unique
+  scope: dropped unresolved foreign ticker BRK.B (2024-07-06)
+  scout: dropped 2 already-resolved candidate(s) (SRPT, SMLR) (2024-07-06)
+  scout: dropped 1 candidate(s) whose pending_next is a trend, a price move or an opinion (TSM) (2024-07-06)
+  scout: 3 held-ticker candidate(s) sent to the matcher as a possible SECOND event (NVDA->ev124, AVGO->ev112, MSTR->ev128) (2024-07-06)
+    exposure gate (2024-07-06) 14 peer(s) gave no real link, clause blanked: AMAT, CLSK, CVX, HUT, MARA, NXPI, RIOT, SMCI
+    ticker guard (2024-07-06) resolved 1: 'OTHER LEASE-TO-OWN RETAILERS' -> PRG
+    !! ticker guard (2024-07-06) rejected 8: 'AAN' -> no price history on yfinance (AAN); 'ALTM' -> no price history on yfinance (ALTM); 'ENVOY' -> no price history on yfinance (ENVOY); 'ETCD' -> no price history on yfinance (ETCD); 'FREY' -> no price history on yfinance (FREY); 'NLTR' -> no price history on yfinance (NLTR) (+2 more)
+  quiet 5 scans (no sources or no new milestone): J&J to acquire Ambrx Biopharma for $2 billion, deal pend
+  ev124: dropped ['AMD', 'NVDA'] -- its own clause says the catalyst works AGAINST them (2024-07-06)
+  2024-07-06 (12/12): 2260 arts -> ['BLK', 'COIN', 'HOOD', 'IVZ', 'AMKBY', 'ZIM', 'BMY', 'LMT', 'BLK', 'COIN', 'MSTR', 'GBTC', 'ASML', 'SMCI', 'TSM', 'AVGO', 'INTC', 'NVDA', 'ON', 'SMH', 'SOXX', 'MARA', 'LHX', 'MRCY', 'AMZN', 'ORCL', 'NVDA', 'AMD', 'COIN', 'USDC', 'MSTR', 'CCJ', 'NXE', 'UEC', 'UUUU', 'NVDA', 'SMCI', 'SOXX', 'XLK', 'AVGO', 'TSM', 'BRLT']
+  DONE. events: [('ev1', 'exited', ['LLY', 'NVO']), ('ev2', 'exited', ['AMD', 'NVDA']), ('ev3', 'exited', ['BLK', 'GBTC', 'MSTR']), ('ev4', 'exited', ['GBTC']), ('ev5', 'exited', ['CVS']), ('ev6', 'exited', ['AVGO', 'ON', 'SMH', 'TSM', 'XLK']), ('ev7', 'exited', ['COIN', 'MARA', 'RIOT']), ('ev8', 'exited', ['CME']), ('ev9', 'exited', ['ARBK', 'CLSK', 'COIN', 'HOOD']), ('ev10', 'exited', ['LLY', 'NVO']), ('ev11', 'exited', ['DHI', 'LEN', 'NVR']), ('ev12', 'exited', ['CVX']), ('ev13', 'exited', ['GD', 'LMT', 'RKLB']), ('ev14', 'exited', ['CVX', 'EOG', 'NOG', 'XOM']), ('ev15', 'exited', ['EQNR']), ('ev16', 'exited', ['BA', 'GD', 'LMT']), ('ev17', 'exited', ['ARBK']), ('ev18', 'exited', ['LLY']), ('ev19', 'exited', ['EVAX']), ('ev20', 'exited', ['KRYS']), ('ev21', 'exited', ['IMMX']), ('ev22', 'exited', ['SMR']), ('ev23', 'exited', ['COIN']), ('ev24', 'exited', ['ALB']), ('ev25', 'exited', ['INTC']), ('ev26', 'exited', ['AN', 'CARG', 'CVNA', 'KMX']), ('ev27', 'exited', ['RCKT']), ('ev28', 'exited', ['LOMEF']), ('ev29', 'exited', ['HIVE']), ('ev30', 'exited', ['CRNX']), ('ev31', 'exited', ['SCLX']), ('ev32', 'exited', ['MSFT']), ('ev33', 'exited', ['GLD', 'IAU', 'SLV']), ('ev34', 'exited', ['INM']), ('ev35', 'exited', ['CRSP', 'NTLA']), ('ev36', 'exited', ['NVO']), ('ev37', 'exited', ['SPCE']), ('ev38', 'exited', ['TPST']), ('ev39', 'exited', ['NVLHF']), ('ev40', 'exited', ['SNDX']), ('ev41', 'live', ['BLK', 'COIN', 'HOOD', 'IVZ']), ('ev42', 'exited', ['KRYS']), ('ev43', 'exited', ['VALN']), ('ev44', 'exited', ['XOM']), ('ev45', 'exited', ['ARR', 'BXP', 'WHLR', 'WPC']), ('ev46', 'exited', ['EU', 'NXE', 'U', 'URNJ']), ('ev47', 'exited', ['AMZN']), ('ev48', 'exited', ['CRSP', 'VRTX']), ('ev49', 'exited', ['CCJ', 'NXE', 'U', 'UEC', 'UUUU']), ('ev50', 'exited', ['NILIF']), ('ev51', 'exited', ['CCJ', 'NXE', 'UUUU']), ('ev52', 'exited', ['AMD', 'NVDA']), ('ev53', 'exited', ['AMD', 'ASML', 'INTC', 'NVDA']), ('ev54', 'exited', ['COIN', 'HOOD']), ('ev55', 'exited', ['CADL']), ('ev56', 'exited', ['CNTB']), ('ev57', 'exited', ['CING']), ('ev58', 'exited', ['CB', 'MET', 'VOYA']), ('ev59', 'exited', ['CLSK']), ('ev60', 'exited', ['APLE', 'NNN', 'PMT']), ('ev61', 'exited', ['KSCP']), ('ev62', 'exited', ['CLSK', 'MARA', 'RIOT']), ('ev63', 'exited', ['WMB']), ('ev64', 'live', ['AMKBY', 'ZIM']), ('ev65', 'exited', ['JNJ']), ('ev66', 'exited', ['NVS', 'VYGR']), ('ev67', 'exited', ['CRSP', 'NTLA', 'VRTX']), ('ev68', 'merged', ['CRSP', 'NTLA', 'VRTX']), ('ev69', 'exited', ['BMY']), ('ev70', 'exited', ['CGEN', 'GILD']), ('ev71', 'exited', ['AMD', 'AVGO', 'NVDA', 'SMH', 'TSM', 'XLK']), ('ev72', 'exited', ['AVGO', 'ON', 'SMH', 'SSNLF', 'TSM', 'XLK']), ('ev73', 'exited', ['INTC', 'SMH', 'SOXX', 'XLK', 'XSD']), ('ev74', 'exited', ['ARVN']), ('ev75', 'exited', ['CIRC', 'CLSK', 'COIN', 'HOOD', 'MARA', 'RIOT']), ('ev76', 'exited', ['AMZN', 'GOOGL', 'MSFT']), ('ev77', 'exited', ['BA']), ('ev78', 'exited', ['AHRT']), ('ev79', 'exited', ['BTAI']), ('ev80', 'live', ['BMY']), ('ev81', 'exited', ['NVDA', 'SMCI', 'SOXX', 'TSM']), ('ev82', 'exited', ['CADL', 'EWTX', 'KRYS']), ('ev83', 'exited', ['MTNB']), ('ev84', 'exited', ['MSTR']), ('ev85', 'exited', ['AR', 'USO']), ('ev86', 'exited', ['INTC', 'MSFT']), ('ev87', 'exited', ['CME']), ('ev88', 'exited', ['HUT']), ('ev89', 'exited', ['GLD', 'IAU', 'SLV']), ('ev90', 'exited', ['APGE']), ('ev91', 'exited', ['APGE', 'RGNX']), ('ev92', 'live', ['LMT']), ('ev93', 'exited', ['ACHR', 'PL', 'SIDU']), ('ev94', 'exited', ['CVX', 'OXY']), ('ev95', 'exited', ['TARS']), ('ev96', 'exited', ['AMZN', 'EBAY', 'GCT']), ('ev97', 'live', ['BLK', 'COIN', 'MSTR']), ('ev98', 'exited', ['BTBT', 'COIN', 'HUT', 'MARA', 'MSTR', 'WGMI']), ('ev99', 'live', ['GBTC']), ('ev100', 'exited', ['GCTS']), ('ev101', 'exited', ['MSFT', 'QTUM']), ('ev102', 'exited', ['GDX', 'GDXJ', 'GOLD']), ('ev103', 'exited', ['DHI']), ('ev104', 'exited', ['MDGL']), ('ev105', 'exited', ['FCX', 'IE', 'RIO']), ('ev106', 'exited', ['ARR', 'SACH']), ('ev107', 'live', ['ASML', 'SMCI']), ('ev108', 'exited', ['GERN']), ('ev109', 'exited', ['GLD', 'SGML']), ('ev110', 'exited', ['AVTX']), ('ev111', 'exited', ['TARS']), ('ev112', 'live', ['AVGO', 'INTC', 'NVDA', 'ON', 'SMH', 'SOXX', 'TSM']), ('ev113', 'exited', ['CCJ', 'CEG', 'NXE', 'U', 'UEC', 'URA', 'UUUU']), ('ev114', 'exited', ['ADIL', 'PXMD']), ('ev115', 'exited', ['AVBP', 'NKGN', 'OCGN']), ('ev116', 'exited', ['MSFT', 'XLK']), ('ev117', 'live', ['MARA']), ('ev118', 'live', ['LHX', 'MRCY']), ('ev119', 'exited', ['AGEN', 'INAB', 'LGVN', 'NKGN']), ('ev120', 'exited', ['FTC']), ('ev121', 'exited', ['QCOM', 'SMH', 'SOXX']), ('ev122', 'live', ['AMZN', 'ORCL']), ('ev123', 'exited', ['LGVN']), ('ev124', 'live', ['AMD', 'NVDA']), ('ev125', 'exited', ['AMD', 'NVDA', 'TSM']), ('ev126', 'exited', ['AMC']), ('ev127', 'live', ['COIN', 'USDC']), ('ev128', 'live', ['MSTR']), ('ev129', 'exited', ['SMH', 'SOXX', 'TSM']), ('ev130', 'exited', ['GOOGL', 'WMT']), ('ev131', 'exited', ['ANAB', 'ARQT', 'STRO', 'VXRT']), ('ev132', 'exited', ['INSM']), ('ev133', 'exited', ['SMMT']), ('ev134', 'exited', ['NTLA']), ('ev135', 'exited', ['CTRE', 'STAG', 'TRNO']), ('ev136', 'exited', ['CRNX', 'ONCY', 'TPST']), ('ev137', 'exited', ['COHR', 'LSCC']), ('ev138', 'exited', ['CCJ', 'NXE', 'UEC', 'UUUU']), ('ev139', 'live', ['CCJ', 'NXE', 'UEC', 'UUUU']), ('ev140', 'exited', ['CLSK', 'EXOD', 'MARA', 'RIOT']), ('ev141', 'exited', ['CORZ', 'WULF']), ('ev142', 'exited', ['NVOS']), ('ev143', 'live', ['NVDA', 'SMCI', 'SOXX', 'XLK']), ('ev144', 'live', ['AVGO', 'TSM']), ('ev145', 'exited', ['MSTR']), ('ev146', 'exited', ['HUT']), ('ev147', 'live', ['BRLT']), ('ev148', 'exited', ['SMH', 'SMSMY', 'SOXX']), ('ev149', 'exited', ['CVX'])]

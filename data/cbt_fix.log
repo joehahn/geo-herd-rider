@@ -1,0 +1,22 @@
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v37_nocull/panel.csv (399 tickers)
+  2024-05-09: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2024-08-07: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2024-05-09: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2024-06-10: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2024-07-09: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2024-08-07: refusing ['PXMD'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-10-31: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-02: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2025-12-30: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  2026-01-29: refusing ['BURU'] -- listed <3y with a reverse split <=1-for-10 (death-spiral financing)
+  watchlist momentum: 739 days, lookback 30d, median n=69
+  slate-momentum scatter: 35 rebalance periods
+  px: frozen panel covers 186 tickers from 2023-08-15 (no live fetch)
+  px: frozen panel covers 103 tickers from 2023-08-15 (no live fetch)
+  reports: 6 written to docs/reports
+  event audit: cbt-event-audit.txt (609 KB)
+wrote /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/docs/cbt.html  (3489 KB, 37 weeks, 601 events)
+real 50.12
+user 49.19
+sys 0.47

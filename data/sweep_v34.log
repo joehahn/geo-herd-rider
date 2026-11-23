@@ -1,0 +1,28 @@
+  panel: reusing frozen /Users/joehahn/Library/CloudStorage/Dropbox/prog/claude/geo-herd-rider/data/cbt_3yr_v34_procedural/panel.csv (270 tickers)
+  pre-cull pc (all thesis_live, constant across the grid): median 1.0%  mean 2.62%  sd 22.12%  n=1632
+  5040 cells over ['max_watchlist', 'concentration_cap', 'lookback_period_days', 'drop_unfunded_weeks', 'risk_aversion']
+    250/5040 cells · 0.6 min · ~10.6 min left
+    500/5040 cells · 1.2 min · ~10.5 min left
+    750/5040 cells · 1.8 min · ~10.1 min left
+    1000/5040 cells · 2.6 min · ~10.5 min left
+    1250/5040 cells · 3.7 min · ~11.2 min left
+    1500/5040 cells · 5.0 min · ~11.8 min left
+    1750/5040 cells · 6.4 min · ~12.0 min left
+    2000/5040 cells · 8.1 min · ~12.2 min left
+    2250/5040 cells · 10.3 min · ~12.8 min left
+    2500/5040 cells · 12.7 min · ~12.9 min left
+    2750/5040 cells · 15.7 min · ~13.1 min left
+    3000/5040 cells · 19.0 min · ~12.9 min left
+    3250/5040 cells · 22.7 min · ~12.5 min left
+    3500/5040 cells · 27.1 min · ~11.9 min left
+    3750/5040 cells · 31.6 min · ~10.9 min left
+    4000/5040 cells · 35.8 min · ~9.3 min left
+    4250/5040 cells · 40.9 min · ~7.6 min left
+    4500/5040 cells · 45.9 min · ~5.5 min left
+    4750/5040 cells · 51.9 min · ~3.2 min left
+    5000/5040 cells · 57.1 min · ~0.5 min left
+    5040/5040 cells · 57.4 min · ~0.0 min left
+
+  wrote data/sweep_cbt_3yr_v34_procedural.json: 5040 cells
+  LOWEST cancellation : 12.7%  [6, 0.4, 30, 4, 8.0]  $511,489
+  HIGHEST final       : $1,144,780  [6, 1.0, 45, 2, 4.0]  27.2% cancelled

@@ -1,0 +1,35 @@
+  cbt_3yr_v32_evrank: coverage on 36 scans, median 34 tickers/scan · max_watchlist 24
+
+    null seed  0: $230,876
+    null seed  1: $155,070
+    null seed  2: $177,868
+    null seed  3: $157,328
+    null seed  4: $193,695
+    null seed  5: $205,485
+    null seed  6: $170,858
+    null seed  7: $130,407
+    null seed  8: $181,468
+    null seed  9: $163,101
+    null seed 10: $119,059
+    null seed 11: $289,436
+    null seed 12: $222,863
+    null seed 13: $241,348
+    null seed 14: $138,055
+    null seed 15: $141,423
+    null seed 16: $170,813
+    null seed 17: $164,564
+    null seed 18: $153,170
+    null seed 19: $175,571
+    null seed 20: $210,111
+    null seed 21: $96,354
+    null seed 22: $232,687
+    null seed 23: $175,396
+
+  arm                                final    vs random null   turnover
+    TREND (current)                205,888             75th       4.81
+    COVERAGE (curator)             162,371             33th       4.53
+    random null                    173,127    50th (by defn)
+      null spread: $96,354 .. $289,436 (median $173,127, n=24)
+
+  READ IT AS A PERCENTILE, NOT A DOLLAR DIFFERENCE (CLAUDE.md #6): these are paired
+  replays of ONE curation, so a lucky book lifts every arm at once.
